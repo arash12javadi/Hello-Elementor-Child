@@ -1,0 +1,240 @@
+/* 
+Theme Name:   AJDWP_child_theme
+Theme URI:    arashjavadi.com
+Description:  Child Theme for AJDWP
+Author:       a4mm4a
+Author URI:   http://arashjavadi.com
+Template:     hello-elementor
+Version:      1.0
+
+/* == Add your own styles below this line ==
+--------------------------------------------*/
+
+
+/* 
+___________________________________________________________________________________
+___________________________________________________________________________________
+
+                                ADDONS
+___________________________________________________________________________________
+___________________________________________________________________________________ 
+
+*/
+
+
+@import url(./theme_addons/navbar/navbar.css);
+@import url(./theme_addons/woo/woo.css);
+
+@import url(./theme_addons/user_profile/user_profile.css);
+
+@font-face {
+    font-family: 'AJWP_fonts_Saira';
+    src: url('./theme_addons/web_fonts/Saira-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* 
+___________________________________________________________________________________
+___________________________________________________________________________________
+
+                                GENERAL
+___________________________________________________________________________________
+___________________________________________________________________________________ 
+
+*/
+
+.AJDWP-font-saira{
+    font-family: 'AJWP_fonts_Saira' !important;
+}
+
+
+body{
+    font-family: 'AJWP_fonts_Saira' !important;
+}
+
+a{
+    text-decoration: none !important;
+    /* color: #560CA5 !important;
+    font-weight: bold; */
+}
+
+
+
+.AJDWP_page_title {
+    color: #333 !important;
+    font-size: 2em !important;
+    font-weight: bold !important;
+    font-family: Helvetica !important;
+    /* text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15); */
+}
+
+
+
+
+/* 
+___________________________________________________________________________________
+___________________________________________________________________________________
+
+                                P O S T 
+___________________________________________________________________________________
+___________________________________________________________________________________ 
+
+*/
+
+
+
+.wp-post-image {
+    border-radius: 15px;
+    /* box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px; */
+}
+
+ul.wp-block-latest-posts__list.wp-block-latest-posts > li:nth-child(odd) {
+    background-color:#F7F7F7 !important;
+}
+ul.wp-block-latest-posts__list.wp-block-latest-posts > li {
+    padding: 1rem;
+    border-radius: 3px;
+}
+
+p.wp-block-tag-cloud > a{
+    padding: .5rem;
+    border-radius: 3px;
+}
+p.wp-block-tag-cloud > a:nth-child(odd) {
+    background-color:#F7F7F7 !important;
+}
+
+.like_follow_btns :hover {
+    background: none !important;
+}
+
+/* ----------------------------- Post Pagination --------------------------------- */
+
+
+
+
+nav.navigation > div.nav-links > a.page-numbers {
+    padding: 10px;
+    border: none;
+    text-decoration: none;
+    border-radius: 50px;
+    color: #333;
+}
+
+nav.navigation > div.nav-links > .current{
+    background-color: #C8C8C9;
+    -webkit-text-stroke: thick #fff;
+    border: 1px solid #9B9D9E;
+    border-radius: 50px;
+    padding: 10px;
+}
+
+
+
+
+
+/* ----------------------------- REPLY FORM --------------------------------- */
+
+
+div.comment-respond{
+    padding: 3rem;
+    background-color: #333;
+    justify-content: center;
+    display: grid;
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+    border-radius: 10px;
+    color: #fff;
+    max-width: 600px;
+}
+
+div.comment-respond > form.comment-form > p{
+    display: grid;
+    width: auto;
+}
+div.comment-respond > form.comment-form > p > input {
+    height: 40px;
+    /* border-radius: 5px; */
+}
+div.comment-respond > form.comment-form > p > input#wp-comment-cookies-consent {
+    height: auto;
+}
+div.comment-respond > form.comment-form > p > textarea#comment{
+    width: auto;
+    height: 132px;
+    overflow: auto;
+    resize: vertical;
+    max-height: 100%;
+    /* border-radius: 5px; */
+}
+
+div.comment-respond > form.comment-form > p.comment-form-cookies-consent {
+    display: flex !important;
+}
+div.comment-respond > form.comment-form > p.comment-form-cookies-consent > label {
+    margin-left: 10px;
+    
+}
+
+div.comment-respond > form.comment-form > p.form-submit {
+    display: flex;
+
+}
+div.comment-respond > form.comment-form > p.form-submit > input.submit {
+    padding-right: 20px;
+    padding-left: 20px;
+    height: 50px;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    font-weight: bolder;
+
+}
+
+
+/* ----------------------------- COMMENT FORM --------------------------------- */
+
+
+ol.commentlist{
+    color: #333;
+    padding: 3rem;
+    border-radius: 10px;
+    background-color: #fff;
+    max-width: 600px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    border: none;
+    max-width: 600px;
+}
+
+ol.commentlist > li.comment{
+    border-top: 1px solid #333;
+    margin-top: 2rem;
+    padding-top: 2rem;
+}
+ol.commentlist > li.comment:first-child{
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* ----------------------------- SEARCH FORM --------------------------------- */
+
+form.search-form {
+    display: flex;
+}
+
+input.search-submit {
+    margin-left: 5px;
+}
+
+.modal-header.text-center > button.btn-close,
+.modal-header.text-center > button.btn-close:hover{
+    border: none !important;
+    background-color: #fff;
+    margin-right: 5px;
+}
+
+.modal-header.text-center {
+    height: 50px;
+}
