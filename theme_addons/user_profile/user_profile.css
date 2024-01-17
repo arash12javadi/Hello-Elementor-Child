@@ -1,0 +1,58 @@
+
+
+/* Add a green text color and a checkmark when the requirements are right */
+.reg_psw_valid {
+    color: green;
+}
+
+.reg_psw_valid:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.reg_psw_invalid {
+    color: #ff2819;
+}
+
+.reg_psw_invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+}
+
+/* ------------------------------------------------------------------------------ */
+.AJDWP_form, form.wc-forgot-pwd-form, form.change_password_css  {
+    max-width: 600px;
+}
+
+.alert.alert-danger, .alert.alert-success {
+    max-width: 600px;
+    margin-top: 15px;
+}
+/* ------------------------------------------------------------------------------ */
+
+.AJDWP_errors {
+    color: #ff2819;
+    padding: 1rem;
+}
+
+.reg_user_submit, .chg_psw_submit, .new_password_reset_submit{
+    cursor: not-allowed;
+}
+
+/* The reg_psw_message box is shown when the user clicks on the password field */
+#reg_psw_message, #chg_psw_message, #rpf_psw_message {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+#reg_psw_message p, #chg_psw_message p, #rpf_psw_message p {
+    padding: 10px 35px;
+    font-size: 18px;
+}
