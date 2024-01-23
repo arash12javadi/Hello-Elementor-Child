@@ -22,7 +22,7 @@ add_action('wp_enqueue_scripts', 'your_theme_enqueue_styles');
 
     
 //__________________________________________________________________________//
-//							ADD JAVASCRIPTS AND CSS
+//			    ADD JAVASCRIPTS AND CSS
 //__________________________________________________________________________//
     
     
