@@ -24,6 +24,10 @@ add_action('wp_enqueue_scripts', 'your_theme_enqueue_styles');
 //			Theme Update From Github Repo
 //__________________________________________________________________________//
 
+//__________________________________________________________________________//
+//			            Theme Update From Github Repo
+//__________________________________________________________________________//
+
 // Automatic theme updates from the GitHub repository
 add_filter('pre_set_site_transient_update_themes', 'automatic_GitHub_updates', 100, 1);
 function automatic_GitHub_updates($data) {
@@ -37,17 +41,16 @@ function automatic_GitHub_updates($data) {
     // Only return a response if the new version number is higher than the current version
     if (version_compare($update, $current, '>')){
         $data->response[$theme] = array(
-            'theme'       => $theme,
-            'new_version' => $update,
-            'url'         => 'https://github.com/'.$user.'/'.$repo,
-            // 'package'     => $file->assets[0]->browser_download_url,
-            // 'package'     => $file->zipball_url,
-	    'package'     => 'https://codeload.github.com/arash12javadi/AJDWP-Child-Theme/zip/refs/heads/AJDWP',
+	'theme'       => $theme,
+	'new_version' => $update,
+	'url'         => 'https://github.com/'.$user.'/'.$repo,
+	// 'package'     => $file->assets[0]->browser_download_url,
+	// 'package'     => $file->zipball_url,
+	'package'     => 'https://codeload.github.com/arash12javadi/AJDWP-Child-Theme/zip/refs/heads/AJDWP',
         );
     }
     return $data;
 }
-
     
 //__________________________________________________________________________//
 //			    ADD JAVASCRIPTS AND CSS
