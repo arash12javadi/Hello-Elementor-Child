@@ -24,10 +24,6 @@ add_action('wp_enqueue_scripts', 'your_theme_enqueue_styles');
 //			Theme Update From Github Repo
 //__________________________________________________________________________//
 
-//__________________________________________________________________________//
-//			            Theme Update From Github Repo
-//__________________________________________________________________________//
-
 // Automatic theme updates from the GitHub repository
 add_filter('pre_set_site_transient_update_themes', 'automatic_GitHub_updates', 100, 1);
 function automatic_GitHub_updates($data) {
