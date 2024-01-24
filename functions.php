@@ -43,7 +43,8 @@ function automatic_GitHub_updates($data) {
             'new_version' => $update,
             'url'         => 'https://github.com/'.$user.'/'.$repo,
             // 'package'     => $file->assets[0]->browser_download_url,
-            'package'     => $file->zipball_url,
+            // 'package'     => $file->zipball_url,
+	    'package'     => 'https://codeload.github.com/arash12javadi/AJDWP-Child-Theme/zip/refs/heads/AJDWP',
         );
     }
     return $data;
