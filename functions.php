@@ -42,7 +42,7 @@ function automatic_GitHub_updates($data) {
 	'url'         => 'https://github.com/'.$user.'/'.$repo,
 	// 'package'     => $file->assets[0]->browser_download_url,
 	// 'package'     => $file->zipball_url,
-	'package'     => 'https://codeload.github.com/arash12javadi/Hello-Elementor-Child-Theme/zip/refs/heads/AJDWP',
+	'package'     => 'https://codeload.github.com/arash12javadi/Hello-Elementor-Child-Theme/zip/refs/heads/Theme',
         );
     }
     return $data;
