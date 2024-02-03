@@ -99,7 +99,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 <?php wp_footer(); ?>
-        <script src="<?php echo get_home_url();?>/wp-content/themes/AJDWP_child_theme/theme_addons/Like_follow/Like_Follow_Ajax.js"></script>
+        <script src="<?php echo get_home_url();?>/wp-content/themes/Hello-Elementor-Child-Theme/theme_addons/Like_follow/Like_Follow_Ajax.js"></script>
 <!--         <script src="<?php //echo get_home_url();?>/wp-content/themes/AJDWP_child_theme/js/shop_page.js"></script> -->
 </body>
 </html>
