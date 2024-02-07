@@ -26,7 +26,7 @@ function custom_user_login() {
 		'remember' => true,
 	);
 
-	$user = wp_signon($creds, false);
+	$user = wp_signon($creds, true);
 
 	if (!is_wp_error($user)) {
 		// Get the user object
