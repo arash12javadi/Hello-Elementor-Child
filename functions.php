@@ -56,6 +56,7 @@ function automatic_GitHub_updates($data) {
 function load_css_js(){
 
     wp_enqueue_style('AJDWP_css_1', get_stylesheet_directory_uri() .'/style.css', '', 1, 'all');
+    wp_enqueue_style('AJDWP_woo_css', get_stylesheet_directory_uri() .'/theme_addons/woo/woo.css', '', 1, 'all');
     wp_enqueue_style( 'AJDWP_bootstrap_css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css' );    
     wp_enqueue_script( 'AJDWP_bootstrap_js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js' );    
     wp_enqueue_script( 'jquery');
