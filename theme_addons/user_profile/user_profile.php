@@ -60,6 +60,12 @@ function AJDWP_registration_form() {
             <div class="tab-pane fade active show" id="user_login" role="tabpanel" aria-labelledby="user_login-tab">
 
                 <?php echo $user_login_data; ?>
+
+                <style>
+                    button.open-button {
+                        display: none !important;
+                    }
+                </style>
             
             </div>
 
