@@ -8,18 +8,19 @@ if (!defined('ABSPATH')) {
 
 <h5 class="AJDWP_header mt-4 m-2 fw-bold"><?php _e('Access Your Account'); ?></h5>
 <fieldset>
-	<div class="form-popup AJDWP_form" id="myForm">
-		<div class="form-container" id="form-container">
-			<div class="" id="ql_err_msg"></div>
+	<div class="theme_form-popup theme_AJDWP_form" id="theme_myForm">
+		<div class="theme_form-container" id="theme_form-container">
+			<div class="" id="theme_ql_err_msg"></div>
 			<?php 
 				wp_nonce_field('custom_user_login_nonce', 'user_quick_login_field');
 				// Display the login form
 				echo wp_login_form(array(
-							'id_username' => 'ql_username',
-							'id_password' => 'ql_password',
+							'id_username' => 'theme_ql_username',
+							'id_password' => 'theme_ql_password',
 							'label_log_in' => 'SIGN IN',
-							'id_submit' => 'ql_form_submit',
+							'id_submit' => 'theme_ql_form_submit',
 							'remember' => false,
+							'form_id' => 'theme-loginform'
 						));
 			?>
 
@@ -30,10 +31,10 @@ if (!defined('ABSPATH')) {
 
 	jQuery(document).ready(function($) {
 		// Attach a click event to your login button
-		$('#ql_form_submit').on('click', function() {
+		$('#theme_ql_form_submit').on('click', function() {
 			// Get the values from the login form
-			var username = $('#ql_username').val();
-			var password = $('#ql_password').val();
+			var username = $('#theme_ql_username').val();
+			var password = $('#theme_ql_password').val();
 			var nonce = $('#user_quick_login_field').val();
 			event.preventDefault();
 			// console.log('11111'+username+' // '+password);
@@ -53,9 +54,9 @@ if (!defined('ABSPATH')) {
 					var jsonResponse = JSON.parse(response);
 
 					if (jsonResponse.status == 'error') {
-						$('#ql_err_msg').html(jsonResponse.message).addClass('alert alert-danger');   
+						$('#theme_ql_err_msg').html(jsonResponse.message).addClass('alert alert-danger');   
 					} else {
-						$('#ql_err_msg').html(jsonResponse.message).addClass('alert alert-success');
+						$('#theme_ql_err_msg').html(jsonResponse.message).addClass('alert alert-success');
 
 						// Check if the user ID is available in the response
 						var redirect_url = jsonResponse.redirect_url;
