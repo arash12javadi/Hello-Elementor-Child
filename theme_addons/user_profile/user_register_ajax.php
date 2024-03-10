@@ -12,20 +12,20 @@ if ( ! defined( 'ABSPATH' ) ) {
     <form id="AJDWP_registration_form" class="AJDWP_form" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="POST">
     
         <p>
-            <label for="AJDWP_user_Login"><?php _e('Username'); ?></label>
-            <input name="AJDWP_user_login" id="AJDWP_user_login" class="AJDWP_user_login" type="text"/>
+            <label for="reg_AJDWP_user_Login"><?php _e('Username'); ?></label>
+            <input name="AJDWP_user_login" id="reg_AJDWP_user_Login" class="AJDWP_user_login" type="text"/>
         </p>
         <p>
-            <label for="AJDWP_user_email"><?php _e('Email'); ?></label>
-            <input name="AJDWP_user_email" id="AJDWP_user_email" class="AJDWP_user_email" type="email"/>
+            <label for="reg_AJDWP_user_email"><?php _e('Email'); ?></label>
+            <input name="AJDWP_user_email" id="reg_AJDWP_user_email" class="AJDWP_user_email" type="email"/>
         </p>
         <p>
-            <label for="AJDWP_user_first"><?php _e('First Name'); ?></label>
-            <input name="AJDWP_user_first" id="AJDWP_user_first" type="text" class="AJDWP_user_first" />
+            <label for="reg_AJDWP_user_first"><?php _e('First Name'); ?></label>
+            <input name="AJDWP_user_first" id="reg_AJDWP_user_first" type="text" class="AJDWP_user_first" />
         </p>
         <p>
-            <label for="AJDWP_user_last"><?php _e('Last Name'); ?></label>
-            <input name="AJDWP_user_last" id="AJDWP_user_last" type="text" class="AJDWP_user_last"/>
+            <label for="reg_AJDWP_user_last"><?php _e('Last Name'); ?></label>
+            <input name="AJDWP_user_last" id="reg_AJDWP_user_last" type="text" class="AJDWP_user_last"/>
         </p>
         <p>
             <label for="register_psw"><?php _e('Password'); ?></label>
@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <input type="radio" id="author_role" name="user_role" value="author" checked> Author
             </label>
             </br>
-            <label for="author_role">
+            <label for="subsciber_role">
                 <input type="radio" id="subsciber_role" name="user_role" value="subscriber"> Subscriber
             </label>
             </br>
@@ -70,10 +70,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 var data = {
                     action: 'user_register_ajax',
-                    AJDWP_user_login: $('#AJDWP_user_login').val(),
-                    AJDWP_user_email: $('#AJDWP_user_email').val(),
-                    AJDWP_user_first: $('#AJDWP_user_first').val(),
-                    AJDWP_user_last: $('#AJDWP_user_last').val(),
+                    AJDWP_user_login: $('#reg_AJDWP_user_Login').val(),
+                    AJDWP_user_email: $('#reg_AJDWP_user_email').val(),
+                    AJDWP_user_first: $('#reg_AJDWP_user_first').val(),
+                    AJDWP_user_last: $('#reg_AJDWP_user_last').val(),
                     AJDWP_user_pass: $('#register_psw').val(),
                     AJDWP_user_pass_confirm: $('#password_again').val(),
                     AJDWP_user_role : $('input[name="user_role"]:checked').val(),
@@ -107,4 +107,3 @@ if ( ! defined( 'ABSPATH' ) ) {
     </script>
 
 </fieldset>
-
