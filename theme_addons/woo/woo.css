@@ -1,0 +1,319 @@
+/* ------------------------------------ M Y  A C C O U N T ------------------------------------- */
+
+/* General Styles for the My Account Navigation */
+.woocommerce-MyAccount-navigation {
+  background-color: #f9f9f9; /* Light grey background for the nav area */
+  padding: 15px;
+  border-radius: 5px; /* Rounded corners for the nav container */
+}
+
+.woocommerce-MyAccount-navigation ul {
+  list-style-type: none; /* Removes default list styling */
+  padding: 0;
+}
+
+.woocommerce-MyAccount-navigation li {
+  margin-bottom: 10px; /* Space between items */
+}
+
+.woocommerce-MyAccount-navigation a {
+  display: block; /* Make the links block to fill the area */
+  padding: 10px;
+  background-color: #ffffff; /* White background for links */
+  border: 1px solid #ddd; /* Border for the links */
+  border-radius: 3px; /* Rounded corners for links */
+  color: #333; /* Dark grey text color */
+  text-decoration: none; /* No underline */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.woocommerce-MyAccount-navigation a:hover {
+  background-color: #555; /* Change background on hover */
+  color: #ffffff; /* Change text color on hover */
+}
+
+/* Styling for the active navigation link */
+.woocommerce-MyAccount-navigation .is-active a {
+  background-color: #212529; /* Bright blue background for active link */
+  color: #ffffff; /* White text for active link */
+  font-weight: bold; /* Bold font for emphasis */
+}
+
+/* Styles for the My Account Content Area */
+.woocommerce-MyAccount-content {
+  padding: 20px;
+  background-color: #ffffff; /* White background for clarity */
+  border: 1px solid #ddd; /* Subtle border around the content */
+  border-radius: 5px; /* Rounded corners for the box */
+  margin-top: 20px; /* Space above the content area */
+}
+
+.woocommerce-notices-wrapper {
+  margin-bottom: 15px; /* Space below any notices */
+}
+
+/* ------------------------------------ M I N I  C A R T ------------------------------------- */
+/* Optional: Adjust offcanvas width on mobile/desktop */
+@media (max-width: 768px) {
+  .offcanvas.offcanvas-end {
+    width: 100vw;
+  }
+}
+@media (min-width: 769px) {
+  .offcanvas.offcanvas-end {
+    width: 320px;
+  }
+}
+
+.item-remove-btn {
+  width: 24px;
+  display: inline-block;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.item-remove-btn:hover {
+  transform: rotate(360deg) scale(1.05);
+  filter: drop-shadow(0px 0px 2px black);
+}
+
+.shopping-cart-icon {
+  font-size: 25px;
+}
+
+.count-minicart {
+  width: 20px;
+  padding: 3.5px !important;
+  top: -10px !important;
+  scale: 0.8;
+}
+
+.minicart-sidebar-close-btn {
+  height: 0 !important;
+}
+
+/* ------------------------------------ AJDWP_minicart icon on navbar */
+#AJDWP_minicart > button:hover,
+#AJDWP_minicart > button:focus {
+  background-color: transparent !important;
+  scale: 1.1;
+  color: #c36;
+  filter: invert(1);
+}
+
+/* ------------------------------------ S H O P - A R C I V E - P A G E ------------------------------------- */
+
+ul.products > li.product {
+  text-align: center;
+  border: 1px solid;
+  border-radius: 20px;
+  padding-bottom: 20px !important;
+}
+
+ul.products > li.product > a.added_to_cart {
+  display: block;
+}
+
+ul.products > li.product > a > img {
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.onsale {
+  padding: 0 !important;
+  border-radius: 100% !important;
+  border-bottom-left-radius: 5px !important;
+  background-color: #333 !important;
+}
+
+div.product > .onsale {
+  padding: 0 !important;
+  border-radius: 100% !important;
+  border-bottom-right-radius: 5px !important;
+  background-color: #333 !important;
+}
+
+/* ------------------------------------ W O O - P A G I N A T I O N ------------------------------------- */
+.woocommerce-pagination {
+  text-align: center;
+  padding: 20px 0;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.woocommerce nav.woocommerce-pagination ul.page-numbers {
+  border: 1px solid #333 !important;
+}
+
+.woocommerce nav.woocommerce-pagination ul li {
+  border-right: none !important;
+}
+
+/* Style for individual page numbers */
+.woocommerce-pagination .page-numbers {
+  margin: 5px !important;
+  background-color: transparent;
+  color: #333;
+  font-weight: 500;
+}
+
+.woocommerce-pagination .page-numbers.current {
+  background-color: #333 !important;
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+/* Style for 'dots' */
+.woocommerce-pagination .dots {
+  color: #6c757d;
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .woocommerce-pagination {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .woocommerce-pagination .page-numbers {
+    padding: 6px 12px !important;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .woocommerce-pagination .page-numbers {
+    padding: 5px 10px !important;
+    font-size: 12px;
+  }
+}
+
+/* 
+------------------------------------ S H O P - S I N G L E - P R O D U C T -------------------------------------
+*/
+
+.woocommerce div.product form.cart {
+  margin-bottom: 0;
+}
+.woocommerce div.product form.cart div.quantity {
+  width: 20%;
+  margin: 0;
+}
+.woocommerce div.product form.cart .button {
+  width: 80%;
+  height: 40px;
+  background-color: lightgray;
+  color: #333;
+  border-radius: 0;
+  border-top-right-radius: 2px;
+}
+
+.woocommerce .quantity .qty {
+  width: 100%;
+  height: 40px;
+  border-radius: 0;
+  border: 5px solid lightgray;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.product_meta {
+  margin-top: 2rem;
+}
+
+.woocommerce div.product div.images .flex-control-thumbs li img {
+  width: 85px;
+  border-radius: 100%;
+  border: 1px solid #333;
+}
+
+.woocommerce div.product div.images .flex-control-thumbs li {
+  width: 85px;
+  display: inline-flex;
+  padding: 10px;
+}
+
+.woocommerce div.product div.images .flex-control-thumbs li img.flex-active,
+.woocommerce div.product div.images .flex-control-thumbs li img:hover {
+  opacity: 1;
+  filter: drop-shadow(2px 4px 6px black);
+}
+
+.woocommerce div.product div.images .flex-control-thumbs {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* 
+------------------------------------ REVIEW - FORM -------------------------------------
+*/
+
+.woocommerce #review_form #respond {
+  background: #333333 none;
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+div#review_form_wrapper {
+  max-width: 600px;
+}
+
+.woocommerce #reviews #comments ol.commentlist {
+  background-color: #fff;
+  color: #333;
+  max-width: 600px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+    rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  border: none;
+}
+
+.woocommerce #reviews #comments ol.commentlist li img.avatar {
+  padding: 1px;
+  width: 44px;
+  height: auto;
+  background: #ebe9eb;
+  border: none;
+  border-radius: 100px;
+}
+
+.woocommerce #review_form #respond .form-submit input {
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+    rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  width: 200px;
+  border-radius: 100px;
+}
+
+/* 
+------------------------------------ Woo Rating Stars Style  
+*/
+
+.woocommerce #review_form #respond p {
+  margin-top: 10px;
+}
+
+.stars a {
+  text-decoration: none;
+  font-size: 24px;
+  color: #ffd700;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.stars a:hover,
+.stars a:hover ~ a {
+  color: #ffd700;
+}
+
+.stars a[aria-checked="true"],
+.stars a[aria-checked="true"] ~ a {
+  color: #ffd700;
+}
+
+.stars a:focus {
+  outline: none;
+  color: #ffd700;
+}

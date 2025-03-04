@@ -1,0 +1,81 @@
+.cookie-policy-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.cookie-policy-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #0073aa;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #0073aa;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+
+.AJDWP-Theme-Options-button {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 8px 0;
+    background-color: #0073aa; /* WordPress admin blue */
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #0073aa;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.AJDWP-Theme-Options-button:hover {
+    background-color: #005177; /* Darker shade of blue for hover */
+    border-color: #005177;
+    text-decoration: none;
+}
+
+.AJDWP-Theme-Options-button:active {
+    background-color: #003d4c; /* Even darker shade for active state */
+    border-color: #003d4c;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.AJDWP-Theme-Options-button:focus {
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 115, 170, 0.8); /* Slight glow effect */
+}
