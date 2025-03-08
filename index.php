@@ -9,7 +9,7 @@ get_header(); ?>
 		<button id="sidebarToggle" class="btn btn-primary d-lg-none">➡️</button>
 		<div id="sidebarOverlay" style="display: none;"></div>
 		<div class="row">
-			<div class="col-lg-3 AJDWP-sidebar AJDWP-index-sidebar rounded shadow pt-4 pb-4 mb-5 mb-lg-0 ">
+			<div class="col-lg-3 AJDWP-sidebar AJDWP-index-sidebar rounded shadow py-4 ">
 				<div class="sticky-top">
 					<span class="close-sidebar d-lg-none">❎</span>
 					<?php dynamic_sidebar('AJDWP-blog-Sidebar');; ?>

@@ -15,14 +15,7 @@ if (! defined('ABSPATH')) {
 		<div id="sidebarOverlay" style="display: none;"></div>
 		<div class="row woo-page-row">
 
-			<div class="col-xl-2 col-lg-3 AJDWP-sidebar AJDWP-woo-sidebar rounded shadow pt-4 pb-4 mb-5 mb-lg-0 woo-page-sidebar">
-				<div class="sticky-top">
-					<span class="close-sidebar d-lg-none">❎</span>
-					<?php dynamic_sidebar('AJDWP-Shop-sidebar');; ?>
-				</div>
-			</div>
-
-			<div class="col-xl-10 col-lg-9 woo-page-main-content">
+			<div class="col-xl-10 order-lg-2 col-lg-9 woo-page-main-content">
 				<section id="post-section" class="post-section">
 					<div class="container-fluid">
 						<div class="row">
@@ -30,6 +23,13 @@ if (! defined('ABSPATH')) {
 						</div>
 					</div>
 				</section>
+			</div>
+
+			<div class="col-xl-2 col-lg-3 order-lg-1 AJDWP-sidebar AJDWP-woo-sidebar rounded shadow py-4 woo-page-sidebar">
+				<div class="sticky-top">
+					<span class="close-sidebar d-lg-none">❎</span>
+					<?php dynamic_sidebar('AJDWP-Shop-sidebar');; ?>
+				</div>
 			</div>
 
 		</div>

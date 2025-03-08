@@ -32,7 +32,7 @@ get_header(); ?>
 					</div>
 				</section>
 			</div>
-			<div class="col-lg-3 AJDWP-sidebar AJDWP-page-sidebar rounded shadow py-4 mb-lg-0 order-lg-1">
+			<div class="col-lg-3 order-lg-1 AJDWP-sidebar AJDWP-page-sidebar rounded shadow py-4">
 				<div class="sticky-top">
 					<span class="close-sidebar d-lg-none">❎</span>
 					<?php dynamic_sidebar('AJDWP-page-sidebar'); ?>
