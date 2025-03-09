@@ -69,7 +69,7 @@ $options = get_option('AJDWP_theme_options');
                         $thumb_id = get_post_thumbnail_id();
                         if ($thumb_id) {
                             $alt_text = get_post_meta($thumb_id, '_wp_attachment_image_alt', true);
-                            if (!empty($alt_text) && is_archive()) {
+                            if (!empty($alt_text) && !is_single()) {
                                 echo '<p class="text-center mt-2 small">' . esc_html($alt_text) . '</p>';
                             }
                         }
