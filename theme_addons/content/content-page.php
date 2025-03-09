@@ -92,6 +92,7 @@ $options = get_option('AJDWP_theme_options');
                     <?php else : ?>
                         <div class="post-excerpt text-justify px-lg-4">
                             <?php the_excerpt(); ?>
+                            <p><a href="<?php the_permalink(); ?>" class="read-more">Read More &raquo;</a></p>
                         </div>
                     <?php endif; ?>
                 </div>
