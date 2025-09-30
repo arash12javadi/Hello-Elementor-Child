@@ -128,7 +128,10 @@ function display_cookie_popup()
                         <h5 class="modal-title" id="cookieModalLabel">Privacy Notice</h5>
                     </div>
                     <div class="modal-body">
-                        <?php echo esc_html($cookie_popup_text); ?> <a href="<?php echo esc_url($cookie_popup_link); ?>">Read more</a>.
+                        <?php echo esc_html($cookie_popup_text); ?>
+                        <a href="<?php echo esc_url($cookie_popup_link); ?>">
+                            <?php esc_html_e('Read more', 'hello-elementor-child'); ?>
+                        </a>.
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="acceptCookies">ACCEPT &nbsp; <i class="fas fa-cookie-bite"></i></button>

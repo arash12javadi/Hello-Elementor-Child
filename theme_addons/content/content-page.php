@@ -34,7 +34,7 @@ $options = get_option('AJDWP_theme_options');
             <?php else : ?>
                 <!-- If NOT single (e.g., on an archive), use an <h2> with link -->
                 <h2 class="text-uppercase h2 pt-2">
-                    <a aria-label="The post permalink" href="<?php echo esc_url(get_permalink()); ?>">
+                    <a aria-label="<?php esc_attr_e('The post permalink', 'hello-elementor-child'); ?>" href="<?php echo esc_url(get_permalink()); ?>">
                         <?php the_title(); ?>
                     </a>
                 </h2>
@@ -53,7 +53,7 @@ $options = get_option('AJDWP_theme_options');
                     <div class="post-thumbnail <?php echo (is_single() || is_page()) ? 'col-lg-12 py-3' : 'col-lg-3'; ?>">
                         <?php if (!is_page()) : ?>
                             <div class="featured-image d-flex align-items-center justify-content-center">
-                                <a aria-label="The post featured image link" href="<?php echo esc_url(get_permalink()); ?>" class="post-hover">
+                                <a aria-label="<?php esc_attr_e('The post featured image link', 'hello-elementor-child'); ?>" href="<?php echo esc_url(get_permalink()); ?>" class="post-hover">
                                     <?php the_post_thumbnail(is_single() ? 'medium_large' : 'thumbnail'); ?>
                                 </a>
                             </div>
@@ -92,7 +92,11 @@ $options = get_option('AJDWP_theme_options');
                     <?php else : ?>
                         <div class="post-excerpt text-justify px-lg-4">
                             <?php the_excerpt(); ?>
-                            <p><a href="<?php the_permalink(); ?>" class="read-more">Read More &raquo;</a></p>
+                            <p>
+                                <a href="<?php the_permalink(); ?>" class="read-more">
+                                    <?php esc_html_e('Read More', 'hello-elementor-child'); ?> &raquo;
+                                </a>
+                            </p>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -112,7 +116,12 @@ $options = get_option('AJDWP_theme_options');
                             <?php if (is_user_logged_in()) : ?>
                                 <?php do_action('AJDWP_like_follow_social'); ?>
                             <?php else : ?>
-                                <?php echo "Total likes: " . esc_html($totalLikes); ?>
+                                <?php
+                                printf(
+                                    esc_html__('Total likes: %d', 'hello-elementor-child'),
+                                    $totalLikes
+                                );
+                                ?>
                             <?php endif; ?>
                         </div>
                     <?php endif; ?>
@@ -120,13 +129,13 @@ $options = get_option('AJDWP_theme_options');
                     <!-- Author Avatar + Follow Info (Non-Page) -->
                     <?php if (!is_page()) : ?>
                         <div class="d-flex align-items-center p-1 mx-4 border border-1 rounded d-inline-flex position-relative <?php echo !empty($follow_exsists) ? 'border-primary' : ''; ?>" style="width:max-content;">
-                            <a aria-label="Link to this post authur page" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>">
+                            <a aria-label="<?php esc_attr_e('Link to this post author page', 'hello-elementor-child'); ?>" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>">
                                 <div class="g-0 d-flex justify-content-start align-items-center">
                                     <div class="">
                                         <?php
                                         $like_follow_custom_avatar_url = get_user_meta(get_the_author_meta('ID'), 'custom_avatar_url', true);
                                         if (!empty($like_follow_custom_avatar_url)) {
-                                            echo '<img src="' . esc_url($like_follow_custom_avatar_url) . '" alt="Avatar" class="img-fluid rounded" style="width:50px; height:50px;">';
+                                            echo '<img src="' . esc_url($like_follow_custom_avatar_url) . '" alt="' . esc_attr__('Avatar', 'hello-elementor-child') . '" class="img-fluid rounded" style="width:50px; height:50px;">';
                                         } else {
                                             echo get_avatar(get_the_author_meta('ID'), 50, null, null, ['class' => 'img-fluid rounded']);
                                         }
@@ -147,9 +156,9 @@ $options = get_option('AJDWP_theme_options');
                     <?php if (is_page() && !empty($options['page_publish_date'])) : ?>
                         <div class="col-8">
                             <div class="px-lg-4 post-date-author text-start text-uppercase">
-                                <span class="span-postdate">Created Date: </span>
+                                <span class="span-postdate"><?php esc_html_e('Created Date:', 'hello-elementor-child'); ?></span>
                                 <span class="post-date">
-                                    <a aria-label="Link to the same released date posts" href="<?php echo esc_url(get_month_link(get_post_time('Y'), get_post_time('m'))); ?>">
+                                    <a aria-label="<?php esc_attr_e('Link to the same released date posts', 'hello-elementor-child'); ?>" href="<?php echo esc_url(get_month_link(get_post_time('Y'), get_post_time('m'))); ?>">
                                         <span><?php echo esc_html(get_the_date('j ')); ?></span>
                                         <?php echo esc_html(get_the_date('M, Y')); ?>
                                     </a>
@@ -179,7 +188,7 @@ $options = get_option('AJDWP_theme_options');
             <div class="py-4 px-lg-4 border-bottom order-1">
                 <div class="post-date-author text-start text-uppercase">
                     <?php if (!empty($options['post_publish_date'])) : ?>
-                        <span class="span-postdate">Post Date: </span>
+                        <span class="span-postdate"><?php esc_html_e('Post Date:', 'hello-elementor-child'); ?></span>
                         <span class="post-date">
                             <a aria-label="Link to the same released date posts" href="<?php echo esc_url(get_month_link(get_post_time('Y'), get_post_time('m'))); ?>">
                                 <span><?php echo esc_html(get_the_date('j')); ?>/</span><?php echo esc_html(get_the_date("M/Y")); ?>
@@ -188,7 +197,7 @@ $options = get_option('AJDWP_theme_options');
                         &nbsp;&nbsp;||&nbsp;&nbsp;
                     <?php endif; ?>
 
-                    <span class="span-writtenby">Written By: </span>
+                    <span class="span-writtenby"><?php esc_html_e('Written By:', 'hello-elementor-child'); ?></span>
                     <span class="post-author">
                         <a aria-label="Link to this post authur page" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>">
                             <?php echo esc_html(get_the_author()); ?>
