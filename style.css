@@ -1,20 +1,22 @@
-/* 
+/*
 Theme Name:   Hello-Elementor-Child-Theme
 Theme URI:    https://github.com/arash12javadi/Hello-Elementor-Child
-Description:  A Child For Hello Elementor Theme By AJDWP
+Description:  A Child Theme for Hello Elementor Theme by AJDWP
 Author:       Arash Javadi
 Author URI:   https://arashjavadi.com
 Template:     hello-elementor
-Version:      250309
-/* 
-___________________________________________________________________________________
+Version:      250930
+Text Domain:  hello-elementor-child
+Domain Path:  /languages
+*/
+
+/* ___________________________________________________________________________
 ___________________________________________________________________________________
 
                                 ADDONS
 ___________________________________________________________________________________
 ___________________________________________________________________________________ 
-
-*/
+ */
 
 /* @import url(./theme_addons/navbar/navbar.css); */
 
@@ -23,6 +25,14 @@ ________________________________________________________________________________
 @font-face {
   font-family: "AJWP_fonts_Saira";
   src: url("./theme_addons/web_fonts/Saira-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Yekan";
+  src: url("./theme_addons/web_fonts/Yekan.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -44,6 +54,11 @@ ________________________________________________________________________________
 
 body {
   font-family: "AJWP_fonts_Saira" !important;
+}
+
+/* Persian */
+html[lang^="fa"] body {
+  font-family: "Yekan", Arial, sans-serif !important;
 }
 
 a {
@@ -218,7 +233,6 @@ input.search-submit {
 .page_404 {
   padding: 40px 0;
   background: #fff;
-  font-family: "saira";
 }
 
 .page_404 img {

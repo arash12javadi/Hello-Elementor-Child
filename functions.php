@@ -210,3 +210,15 @@ function AJDWP_Theme_init_func()
     submit_button();
     echo '</form>';
 }
+
+
+//--------------------------- Load translations ---------------------------
+
+add_action('after_setup_theme', 'AJDWP_load_theme_textdomain');
+function AJDWP_load_theme_textdomain()
+{
+    load_theme_textdomain(
+        'hello-elementor-child',
+        get_stylesheet_directory() . '/languages'
+    );
+}

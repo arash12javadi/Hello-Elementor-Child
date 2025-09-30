@@ -19,14 +19,22 @@ get_header(); ?>
 						<?php get_search_form(); ?>
 					</div>
 					<div class="four_zero_four_bg">
-						<h1 class="text-center ">404</h1>
+						<h1 class="text-center ">
+							<?php esc_html_e('404', 'hello-elementor-child'); ?>
+						</h1>
 					</div>
 					<div class="contant_box_404">
 						<h2 class="h2">
-							Look like you're lost
+							<?php esc_html_e("Looks like you're lost", 'hello-elementor-child'); ?>
 						</h2>
-						<p>the page you are looking for not availble!</p>
-						<a aria-label="Link to Homepage" href="<?php echo esc_url(home_url('/')); ?>" class="link_404">Go to Home</a>
+						<p>
+							<?php esc_html_e('The page you are looking for is not available!', 'hello-elementor-child'); ?>
+						</p>
+						<a aria-label="<?php esc_attr_e('Link to Homepage', 'hello-elementor-child'); ?>"
+							href="<?php echo esc_url(home_url('/')); ?>"
+							class="link_404">
+							<?php esc_html_e('Go to Home', 'hello-elementor-child'); ?>
+						</a>
 					</div>
 				</div>
 			</div>
