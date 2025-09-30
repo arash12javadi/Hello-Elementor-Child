@@ -1,19 +1,19 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 ?>
-<h5 class="AJDWP_up_header mt-4 m-2 fw-bold"><?php _e('Recover Your Password'); ?></h5>
+<p class="AJDWP_up_header mt-4 m-2 fw-bold"><?php esc_html_e('Recover Your Password', 'hello-elementor-child'); ?></p>
 <fieldset>
     <div id="reset-password-message"></div>
 
     <form id="forgot-password-form" method="post" action="<?php echo esc_url(site_url('wp-login.php?action=lostpassword', 'login_post')); ?>" class="AJDWP_form">
         <p>
-            <label for="user_login">Username or Email:</label>
+            <label for="user_login"><?php esc_html_e('Username or Email:', 'hello-elementor-child'); ?></label>
             <input type="text" name="user_login" id="user_login" required />
-        </p>    
+        </p>
         <p>
-            <input type="submit" id="forgot-password-form-submit" value="Reset Password" />
+            <input type="submit" id="forgot-password-form-submit" value="<?php esc_html_e('Reset Password', 'hello-elementor-child'); ?>" />
         </p>
         <?php wp_nonce_field('ajax-forgot-nonce', 'forgotsecurity'); ?>
     </form>

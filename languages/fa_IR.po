@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Hello-Elementor-Child-Theme\n"
-"POT-Creation-Date: 2025-09-30 22:54+0100\n"
-"PO-Revision-Date: 2025-09-30 23:24+0100\n"
+"POT-Creation-Date: 2025-10-01 00:26+0100\n"
+"PO-Revision-Date: 2025-10-01 00:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -16,8 +16,8 @@ msgstr ""
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -69,8 +69,7 @@ msgstr ""
 #, php-format
 msgid ""
 "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr ""
-"آماده ارسال اولین پست خود هستید؟ <a href=\"%1$s\">اینجا کلیک کنید</a>."
+msgstr "آماده ارسال اولین پست خود هستید؟ <a href=\"%1$s\">اینجا کلیک کنید</a>."
 
 #: theme_addons/content/content-none.php:26
 msgid ""
@@ -152,9 +151,33 @@ msgstr "حذف کاربر از سایت"
 msgid "Recover Your Password"
 msgstr "بازنشانی پسورد"
 
+#: theme_addons/user_profile/forgot_password_ajax.php:12
+msgid "Username or Email:"
+msgstr "نام کاربری یا آدرس ایمیل:"
+
+#: theme_addons/user_profile/forgot_password_ajax.php:16
+msgid "Reset Password"
+msgstr "انتخاب پسورد جدید"
+
 #: theme_addons/user_profile/user_login.php:9
 msgid "Access Your Account"
-msgstr "دسترسی به حساب کاربری"
+msgstr "ورود به حساب کاربری"
+
+#: theme_addons/user_profile/user_login.php:20
+msgid "SIGN IN"
+msgstr "ورود"
+
+#: theme_addons/user_profile/user_profile.php:47
+msgid "Login"
+msgstr "ورود به سایت"
+
+#: theme_addons/user_profile/user_profile.php:50
+msgid "Site Register"
+msgstr "ثبت نام در سایت"
+
+#: theme_addons/user_profile/user_profile.php:53
+msgid "Forgot Password"
+msgstr "بازنشانی پسورد"
 
 #: theme_addons/user_profile/user_profile_functions.php:40
 msgid "Username already taken"
@@ -229,13 +252,47 @@ msgstr "نام خانوادگی"
 msgid "Password"
 msgstr "پسورد"
 
+#: theme_addons/user_profile/user_register_ajax.php:36
+msgid "Password must contain the following:"
+msgstr "پسورد باید انگلیسی و دارای ویژگی های زیر باشد:"
+
+#: theme_addons/user_profile/user_register_ajax.php:38
+msgid "A Special Character"
+msgstr "یک از کاراکتر های خاص"
+
+#: theme_addons/user_profile/user_register_ajax.php:42
+msgid "A Capital Letter"
+msgstr "یک حرف بزرگ انگلیسی"
+
 #: theme_addons/user_profile/user_register_ajax.php:45
+msgid "A Number"
+msgstr "یک عدد"
+
+#: theme_addons/user_profile/user_register_ajax.php:48
+msgid "Minimum 8 Characters"
+msgstr "حداقل 8 کاراکتر"
+
+#: theme_addons/user_profile/user_register_ajax.php:53
 msgid "Password Again"
 msgstr "تکرار پسورد"
 
-#: theme_addons/user_profile/user_register_ajax.php:61
-msgid "Register Your Account"
-msgstr "ثبت حساب کاربری"
+#: theme_addons/user_profile/user_register_ajax.php:56
+msgid "Select Your Role:"
+msgstr "نوع کاربری:"
+
+#: theme_addons/user_profile/user_register_ajax.php:60
+msgid "Author"
+msgstr "نویسنده"
+
+#: theme_addons/user_profile/user_register_ajax.php:64
+msgid "Subscriber"
+msgstr "کاربر ساده"
+
+#: theme_addons/user_profile/user_register_ajax.php:70
+#, fuzzy
+#| msgid "Site Register"
+msgid "Register"
+msgstr "ثبت نام در سایت"
 
 #: theme_addons/woo/woo.php:31
 msgid "Your Cart"
@@ -280,3 +337,6 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://arashjavadi.com"
 msgstr ""
+
+#~ msgid "Register Your Account"
+#~ msgstr "ثبت حساب کاربری"

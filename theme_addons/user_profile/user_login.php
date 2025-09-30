@@ -1,34 +1,33 @@
 <?php
 
 if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 
 ?>
 
-<h5 class="AJDWP_header mt-4 m-2 fw-bold"><?php _e('Access Your Account'); ?></h5>
+<p class="AJDWP_header mt-4 m-2 fw-bold"><?php esc_html_e('Access Your Account', 'hello-elementor-child'); ?></p>
 <fieldset>
 	<div class="theme_form-popup theme_AJDWP_form" id="theme_myForm">
 		<div class="theme_form-container" id="theme_form-container">
 			<div class="" id="theme_ql_err_msg"></div>
-			<?php 
-				wp_nonce_field('custom_user_login_nonce', 'user_quick_login_field');
-				// Display the login form
-				echo wp_login_form(array(
-							'id_username' => 'theme_ql_username',
-							'id_password' => 'theme_ql_password',
-							'label_log_in' => 'SIGN IN',
-							'id_submit' => 'theme_ql_form_submit',
-							'remember' => false,
-							'form_id' => 'theme-loginform'
-						));
+			<?php
+			wp_nonce_field('custom_user_login_nonce', 'user_quick_login_field');
+			// Display the login form
+			echo wp_login_form(array(
+				'id_username' => 'theme_ql_username',
+				'id_password' => 'theme_ql_password',
+				'label_log_in' => esc_html__('SIGN IN', 'hello-elementor-child'),
+				'id_submit' => 'theme_ql_form_submit',
+				'remember' => false,
+				'form_id' => 'theme-loginform'
+			));
 			?>
 
 		</div>
 	</div>
 </fieldset>
 <script>
-
 	jQuery(document).ready(function($) {
 		// Attach a click event to your login button
 		$('#theme_ql_form_submit').on('click', function() {
@@ -54,7 +53,7 @@ if (!defined('ABSPATH')) {
 					var jsonResponse = JSON.parse(response);
 
 					if (jsonResponse.status == 'error') {
-						$('#theme_ql_err_msg').html(jsonResponse.message).addClass('alert alert-danger');   
+						$('#theme_ql_err_msg').html(jsonResponse.message).addClass('alert alert-danger');
 					} else {
 						$('#theme_ql_err_msg').html(jsonResponse.message).addClass('alert alert-success');
 
@@ -73,5 +72,4 @@ if (!defined('ABSPATH')) {
 			});
 		});
 	});
-
 </script>
