@@ -9,9 +9,9 @@ $options = get_option('AJDWP_theme_options');
 if (!empty($options['limit_uploads'])) {
 
     // === Restrict uploads ONLY for non-admins ===
-    $user_id = get_current_user_id();
-    $user    = get_userdata($user_id);
-    $is_admin = (is_super_admin($user->ID ?? 0) || user_can($user, 'manage_options'));
+    $user_id  = get_current_user_id();
+    $user     = $user_id ? get_userdata($user_id) : null;
+    $is_admin = $user && (is_super_admin($user->ID) || user_can($user, 'manage_options'));
 
     if (! $is_admin) {
 
@@ -106,11 +106,11 @@ if (!empty($options['limit_uploads'])) {
             return $file;
         });
 
-
         add_filter('upload_size_limit', function ($size) {
             $options = get_option('AJDWP_theme_options');
-            $max_upload_size = isset($options['max_upload_size']) ? (int) $options['max_upload_size'] : 500;
-            return $max_upload_size * 1024;
+            $kb      = isset($options['max_upload_size']) ? (int) $options['max_upload_size'] : 500;
+            $custom  = $kb * 1024;
+            return min($size, $custom); // never above server cap
         });
     }
 
@@ -155,11 +155,20 @@ if (!empty($options['limit_uploads'])) {
 
         $user      = get_userdata($user_id);
         $user_role = 'User';
-        if (user_can($user, 'administrator'))       $user_role = 'Admin (Unlimited)';
-        elseif (user_can($user, 'edit_others_posts')) $user_role = 'editor';
-        elseif (user_can($user, 'publish_posts'))     $user_role = 'author';
-        elseif (user_can($user, 'edit_posts'))        $user_role = 'contributor';
-        elseif (user_can($user, 'read'))              $user_role = 'subscriber';
+        if ($user && (is_super_admin($user->ID) || user_can($user, 'manage_options'))) {
+            $user_role = 'Admin (Unlimited)';
+        } elseif ($user && user_can($user, 'edit_others_posts')) {
+            $user_role = 'Editor';
+        } elseif ($user && user_can($user, 'publish_posts')) {
+            $user_role = 'Author';
+        } elseif ($user && user_can($user, 'edit_posts')) {
+            $user_role = 'Contributor';
+        } elseif ($user && user_can($user, 'read')) {
+            $user_role = 'Subscriber';
+        } else {
+            $user_role = 'Guest';
+        }
+
 ?>
         <script type="text/html" id="tmpl-disk-usage-message">
             <div class="row disk-usage-message">
@@ -220,13 +229,13 @@ function get_disk_usage_limit($user_id, $options)
 {
     $user = get_userdata($user_id);
 
+    if (!$user) {
+        return 10 * 1024 * 1024; // Default to 10MB if user does not exist
+    }
+
     // ✅ Admins / Super Admins: unlimited
     if (is_super_admin($user->ID) || user_can($user, 'manage_options')) {
         return PHP_INT_MAX;
-    }
-
-    if (!$user) {
-        return 10 * 1024 * 1024; // Default to 10MB if user does not exist
     }
 
     $user_email = $user->user_email;
@@ -242,7 +251,7 @@ function get_disk_usage_limit($user_id, $options)
         return (int) $amounts[$index] * 1024 * 1024; // Convert MB to bytes
     }
 
-    if ($user && !user_can($user, 'administrator')) {
+    if (! (is_super_admin($user->ID) || user_can($user, 'manage_options'))) {
         if (user_can($user, 'edit_others_posts')) {
             return isset($options['editor_disk_usage_limit']) ? (int) $options['editor_disk_usage_limit'] * 1024 * 1024 : 100 * 1024 * 1024;
         } elseif (user_can($user, 'publish_posts')) {
