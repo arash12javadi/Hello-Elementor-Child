@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Hello-Elementor-Child-Theme\n"
-"POT-Creation-Date: 2025-10-01 00:26+0100\n"
-"PO-Revision-Date: 2025-10-01 00:38+0100\n"
+"POT-Creation-Date: 2025-10-01 00:42+0100\n"
+"PO-Revision-Date: 2025-10-01 01:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -289,8 +289,6 @@ msgid "Subscriber"
 msgstr "کاربر ساده"
 
 #: theme_addons/user_profile/user_register_ajax.php:70
-#, fuzzy
-#| msgid "Site Register"
 msgid "Register"
 msgstr "ثبت نام در سایت"
 
