@@ -12,7 +12,11 @@ add_action('admin_init', 'AJDWP_Theme_settings_init');
 
 function AJDWP_Theme_settings_init()
 {
-    register_setting('AJDWP_theme_options_group', 'AJDWP_theme_options');
+    register_setting(
+        'AJDWP_theme_options_group',
+        'AJDWP_theme_options',
+        'AJDWP_theme_options_validate' // ← wire the sanitizer
+    );
 
     add_settings_section(
         'AJDWP_theme_settings_section',
@@ -37,8 +41,6 @@ function AJDWP_Theme_settings_init()
         'hide_all_admin_notices' => 'Hide All Admin Notices',
         'restrict_wp_admin_access' => 'Restrict Admin Access',
         'remove_admin_bar' => 'Hide Admin Bar',
-        'redirect_login_page' => 'Redirect Login Page',
-        'custom_excerpt_length' => 'Custom Excerpt Length',
         'set_author_archive_limit' => 'Set Author Archive Limit',
         'stop_image_sizes' => 'Stop Extra Image Sizes',
         'limit_post_access' => 'Users see only their own posts',
@@ -48,12 +50,10 @@ function AJDWP_Theme_settings_init()
         'contributor_can_post' => 'Contributor Post Capability',
         'subscriber_can_upload' => 'Subscriber Upload Capability',
         'subscriber_can_post' => 'Subscriber Post Capability',
-        'limit_uploads' => 'Limit File Uploads',
         'woocommerce_theme_support' => 'Woocommerce Theme Support',
         'woocommerce_mini_cart_on_navbar' => 'Woocommerce mini cart on Navbar',
         'add_meta_keywords' => 'Add Meta Keywords Field',
         'add_meta_descriptions' => 'Add Meta Descriptions Field',
-        'google_tag_manager' => 'Google Tag Manager',
     ];
 
     foreach ($functions as $key => $label) {
@@ -210,7 +210,9 @@ function AJDWP_Theme_function_checkbox($args)
         <div id="user_upload_settings">
             <br>
             <h6 id="roleDifference" style="color: #0073aa;cursor: pointer;">What is the difference between roles?</h6>
+
             <hr style="width:50%;text-align:left;margin-left:0">
+
             <div id="disk_usage_limit_field" style="display: <?php echo $checked ? 'block' : 'none'; ?>">
                 <label for="editor_disk_usage_limit"><i><b>Editors</b> Allocated Disk Space <strong>(MB)</strong>:</i></label>
                 <input type="number" id="editor_disk_usage_limit" name="AJDWP_theme_options[editor_disk_usage_limit]" value="<?php echo isset($options['editor_disk_usage_limit']) ? esc_attr($options['editor_disk_usage_limit']) : 100; ?>">
@@ -224,25 +226,40 @@ function AJDWP_Theme_function_checkbox($args)
                 <label for="subscriber_disk_usage_limit"><i><b>Subscribers</b> Allocated Disk Space <strong>(MB)</strong>:</i></label>
                 <input type="number" id="subscriber_disk_usage_limit" name="AJDWP_theme_options[subscriber_disk_usage_limit]" value="<?php echo isset($options['subscriber_disk_usage_limit']) ? esc_attr($options['subscriber_disk_usage_limit']) : 2; ?>">
             </div>
+
             <hr style="width:50%;text-align:left;margin-left:0">
+
             <div id="max_upload_size_field" style="display: <?php echo $checked ? 'block' : 'none'; ?>">
                 <label for="max_upload_size">Enter <strong>Max Upload Size (kb)</strong> :</label>
                 <input type="number" id="max_upload_size" name="AJDWP_theme_options[max_upload_size]" value="<?php echo isset($options['max_upload_size']) ? esc_attr($options['max_upload_size']) : 500; ?>">
             </div>
+
             <hr style="width:50%;text-align:left;margin-left:0">
+
             <div id="max_image_size_field" style="display: <?php echo $checked ? 'block' : 'none'; ?>">
                 <label for="max_image_width">Enter Max Image Size Allowed (px):</label><br>
-                <strong>Width : </strong><input type="number" id="max_image_width" name="AJDWP_theme_options[max_image_width]" value="<?php echo isset($options['max_image_width']) ? esc_attr($options['max_image_width']) : 1440; ?>">
+                <strong>Width : </strong>
+                <input type="number" id="max_image_width" name="AJDWP_theme_options[max_image_width]"
+                    value="<?php echo isset($options['max_image_width']) ? esc_attr($options['max_image_width']) : 1980; ?>">
                 <label for="max_image_height"></label>
-                <strong>Height : </strong><input type="number" id="max_image_height" name="AJDWP_theme_options[max_image_height]" value="<?php echo isset($options['max_image_height']) ? esc_attr($options['max_image_height']) : 1980; ?>">
+                <strong>Height : </strong>
+                <input type="number" id="max_image_height" name="AJDWP_theme_options[max_image_height]"
+                    value="<?php echo isset($options['max_image_height']) ? esc_attr($options['max_image_height']) : 1440; ?>">
             </div>
+
             <hr style="width:50%;text-align:left;margin-left:0">
+
             <div id="min_image_size_field" style="display: <?php echo $checked ? 'block' : 'none'; ?>">
-                <label for="min_image_width">Enter Max Image Size Allowed (px):</label><br>
-                <strong>Width : </strong><input type="number" id="min_image_width" name="AJDWP_theme_options[min_image_width]" value="<?php echo isset($options['min_image_width']) ? esc_attr($options['min_image_width']) : 1440; ?>">
+                <label for="min_image_width">Enter Min Image Size Allowed (px):</label><br>
+                <strong>Width : </strong>
+                <input type="number" id="min_image_width" name="AJDWP_theme_options[min_image_width]"
+                    value="<?php echo isset($options['min_image_width']) ? esc_attr($options['min_image_width']) : 300; ?>">
                 <label for="min_image_height"></label>
-                <strong>Height : </strong><input type="number" id="min_image_height" name="AJDWP_theme_options[min_image_height]" value="<?php echo isset($options['min_image_height']) ? esc_attr($options['min_image_height']) : 1980; ?>">
+                <strong>Height : </strong>
+                <input type="number" id="min_image_height" name="AJDWP_theme_options[min_image_height]"
+                    value="<?php echo isset($options['min_image_height']) ? esc_attr($options['min_image_height']) : 300; ?>">
             </div>
+
             <hr style="width:50%;text-align:left;margin-left:0">
 
             <h3>Allocate Disk Space to Users</h3>
@@ -320,27 +337,62 @@ add_action('admin_enqueue_scripts', 'enqueue_admin_scripts');
 
 function AJDWP_theme_options_validate($input)
 {
-    $emails = array_map('sanitize_email', $input['entered_email_for_disk_usage_limit']);
-    $disk_spaces = array_map('intval', $input['entered_amount_for_disk_usage_limit']);
-
-    // Remove duplicates
-    $unique_emails = array();
-    foreach ($emails as $index => $email) {
-        if (!in_array($email, $unique_emails)) {
-            $unique_emails[] = $email;
-        } else {
-            // Remove corresponding disk space entry
-            unset($disk_spaces[$index]);
-        }
+    // Normalise missing checkbox keys to 0
+    $checkbox_keys = [
+        'show_page_title',
+        'like_follow_system',
+        'post_views',
+        'post_publish_date',
+        'page_publish_date',
+        'secure_login',
+        'theme_sidebars',
+        'disable_yoast_metabox',
+        'remove_yoast_seo_columns',
+        'custom_menu_link',
+        'custom_avatar_url',
+        'enqueue_frontend_media_scripts',
+        'hide_all_admin_notices',
+        'restrict_wp_admin_access',
+        'remove_admin_bar',
+        'redirect_login_page',
+        'custom_excerpt_length',
+        'set_author_archive_limit',
+        'stop_image_sizes',
+        'limit_post_access',
+        'limit_media_library_access',
+        'limit_author_comments',
+        'contributor_can_upload',
+        'contributor_can_post',
+        'subscriber_can_upload',
+        'subscriber_can_post',
+        'limit_uploads',
+        'woocommerce_theme_support',
+        'woocommerce_mini_cart_on_navbar',
+        'add_meta_keywords',
+        'add_meta_descriptions',
+        'google_tag_manager'
+    ];
+    foreach ($checkbox_keys as $k) {
+        $input[$k] = !empty($input[$k]) ? 1 : 0;
     }
 
-    $input['entered_email_for_disk_usage_limit'] = $unique_emails;
-    $input['entered_amount_for_disk_usage_limit'] = array_values($disk_spaces);
+    // Arrays: dedupe/sanitise
+    $emails = array_map('sanitize_email', $input['entered_email_for_disk_usage_limit'] ?? []);
+    $emails = array_values(array_unique(array_filter($emails)));
+    $amounts = array_map('intval', $input['entered_amount_for_disk_usage_limit'] ?? []);
+    $input['entered_email_for_disk_usage_limit']  = $emails;
+    $input['entered_amount_for_disk_usage_limit'] = array_values($amounts);
 
+    // Integers
+    foreach (['editor_disk_usage_limit', 'author_disk_usage_limit', 'contributor_disk_usage_limit', 'subscriber_disk_usage_limit', 'max_upload_size', 'max_image_height', 'max_image_width', 'min_image_height', 'min_image_width'] as $k) {
+        if (isset($input[$k])) $input[$k] = (int) $input[$k];
+    }
+    // Scripts (GTM)
+    foreach (['gtm_header_script', 'gtm_body_script'] as $k) {
+        if (isset($input[$k])) $input[$k] = wp_kses_post($input[$k]);
+    }
     return $input;
 }
-
-
 
 function display_saved_disk_usage_limits()
 {
