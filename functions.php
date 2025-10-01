@@ -133,86 +133,9 @@ include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/View_counter.php
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/Yoast_seo_settings.php";
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/google_tag_manager.php";
 
-//__________________________________________________________________________//
-
-//                   Theme Settings Tab On Admin Side                   
-
-//__________________________________________________________________________//
-
-
-add_action('admin_menu', 'AJDWP_Theme_func');
-
-function AJDWP_Theme_func()
-{
-    add_menu_page(
-        'AJDWP_Theme_Options',
-        'AJDWP Theme Settings',
-        'manage_options',
-        'AJDWP_Theme_Options',
-        'AJDWP_Theme_init_func',
-    );
-}
-
-function AJDWP_Theme_init_func()
-{
-
-    echo '<h3>Create Necessary Pages: </h3>';
-    echo '</br>';
-    //---------------------------------Create User Profile Pages----------------------------------------//
-
-    $user_profile_page = get_page_by_path('user-profile');
-    $pass_reset_page = get_page_by_path('password-reset-page');
-
-    if ($user_profile_page && $pass_reset_page) {
-        echo '<p>All needed pages for <b>User profile</b> are created and ready to use :)</p>';
-    } else {
-        echo '<p>Create <b>User Profile</b> Pages for login, Register and Password Recovery: </p>';
-        echo '<a href="' . esc_url(admin_url('?user_profile_pages=true')) . '" class="AJDWP-Theme-Options-button">User Profile Pages</a>';
-        echo '</br>';
-    }
-
-    //---------------------------------Create User Dashboard Pages----------------------------------------//
-
-    $my_comments_page = get_page_by_path('my-comments');
-    $my_posts_page = get_page_by_path('my-posts');
-    $my_media_page = get_page_by_path('my-media');
-
-    if ($my_comments_page && $my_posts_page && $my_media_page) {
-        echo '<p>All needed pages for <b>User dashboard</b> are created and ready to use :)</p>';
-    } else {
-        echo '</br>';
-        echo '<p>Create <b>User Dashboard</b> Pages in frontend: <p>';
-        echo '<a href="' . esc_url(admin_url('?user_dash_pages=true')) . '" class="AJDWP-Theme-Options-button">User Dashboard Pages</a>';
-        echo '</br></br>';
-    }
-
-    echo '<h3>Privacy Policy and Cookies: </h3>';
-    echo '</br>';
-    //------------------  Add Policy and Cookies files ------------------
-    $privacy_notice_page = get_page_by_path('privacy-notice');
-
-    if ($privacy_notice_page) {
-        echo '<p>The page <b>Privacy Notice</b> is created and policy sample contents are added :)</p>';
-    } else {
-        echo '<p>Create <b>Privacy Notice</b> Page and add pre-written policies to it: </p>';
-        echo '<a href="' . esc_url(admin_url('?privacy_notice_page=true')) . '" class="AJDWP-Theme-Options-button">Privacy Notice Page</a>';
-        echo '</br>';
-        echo '</br>';
-    }
-
-    include get_stylesheet_directory() . "/theme_addons/cookie_policy/cookie_policy_settings.php";
-
-    //------------------  Display and handle the settings form ------------------ 
-
-    echo '<form id="theme-settings-form" method="post" action="options.php">';
-    settings_fields('AJDWP_theme_options_group');
-    do_settings_sections('AJDWP_Theme_Options');
-    submit_button();
-    echo '</form>';
-}
-
-
-//--------------------------- Load translations ---------------------------
+//--------------------------- 
+//--------- Load translations 
+//---------------------------  
 
 add_action('after_setup_theme', 'AJDWP_load_theme_textdomain');
 function AJDWP_load_theme_textdomain()

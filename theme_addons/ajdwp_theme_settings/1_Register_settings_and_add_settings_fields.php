@@ -4,113 +4,282 @@ if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
+//-------------------------------------------------------//
+//------------------------Theme Settings Tab On Admin Side                   
+//-------------------------------------------------------//
+
+
+// Register main AJDWP Theme Settings page + "Create Pages" submenu
+add_action('admin_menu', function () {
+    // Main tabbed settings page
+    add_menu_page(
+        'AJDWP Theme Options',             // Page title
+        'AJDWP Theme Settings',            // Menu title
+        'manage_options',                  // Capability
+        'AJDWP_Theme_Options',             // Menu slug
+        'AJDWP_render_theme_options_page', // Callback
+        'dashicons-admin-generic',         // Icon
+        9999999999                         // Position
+    );
+});
+
+
 //__________________________________________________________________________//
 // Register settings and add settings fields
 //__________________________________________________________________________//
+
+
+// The page renderer with core WP nav-tab markup and 4 tab panes
+function AJDWP_render_theme_options_page()
+{ ?>
+    <div class="wrap">
+        <h1>AJDWP Theme Settings</h1>
+
+        <h2 class="nav-tab-wrapper">
+            <a href="#general" class="nav-tab nav-tab-active">General</a>
+            <a href="#uploads" class="nav-tab">Uploads</a>
+            <a href="#seo" class="nav-tab">SEO</a>
+            <a href="#roles" class="nav-tab">Roles</a>
+            <a href="#pages" class="nav-tab">Pages</a>
+        </h2>
+
+        <?php settings_errors(); ?>
+
+        <form id="theme-settings-form" method="post" action="options.php">
+            <?php settings_fields('AJDWP_theme_options_group'); ?>
+
+            <div id="general" class="tab-content active">
+                <?php do_settings_sections('AJDWP_Theme_Options_general'); ?>
+                <?php submit_button('Save General Settings'); ?>
+            </div>
+
+            <div id="uploads" class="tab-content">
+                <?php do_settings_sections('AJDWP_Theme_Options_uploads'); ?>
+                <?php submit_button('Save Upload Settings'); ?>
+            </div>
+
+            <div id="seo" class="tab-content">
+                <?php do_settings_sections('AJDWP_Theme_Options_seo'); ?>
+                <?php submit_button('Save SEO Settings'); ?>
+            </div>
+
+            <div id="roles" class="tab-content">
+                <p id="roleDifference" style="color: #0073aa;cursor: pointer;">What is the difference between roles?</p>
+                <?php do_settings_sections('AJDWP_Theme_Options_roles'); ?>
+                <?php submit_button('Save Role Settings'); ?>
+            </div>
+        </form>
+
+        <div id="pages" class="tab-content">
+            <?php AJDWP_render_pages_tab(); ?>
+        </div>
+
+    </div>
+<?php }
+
+
+function AJDWP_render_pages_tab()
+{
+    echo '<h3>Create Necessary Pages</h3><br>';
+
+    // --- User Profile Pages ---
+    $user_profile_page = get_page_by_path('user-profile');
+    $pass_reset_page   = get_page_by_path('password-reset-page');
+
+    if ($user_profile_page && $pass_reset_page) {
+        echo '<p>All needed pages for <b>User profile</b> are created and ready to use :)</p>';
+    } else {
+        echo '<p>Create <b>User Profile</b> Pages for login, Register and Password Recovery: </p>';
+        echo '<a href="' . esc_url(admin_url('?user_profile_pages=true')) . '" class="button button-primary">Create User Profile Pages</a><br>';
+    }
+
+    // --- User Dashboard Pages ---
+    $my_comments_page = get_page_by_path('my-comments');
+    $my_posts_page    = get_page_by_path('my-posts');
+    $my_media_page    = get_page_by_path('my-media');
+
+    if ($my_comments_page && $my_posts_page && $my_media_page) {
+        echo '<p>All needed pages for <b>User dashboard</b> are created and ready to use :)</p>';
+    } else {
+        echo '<br><p>Create <b>User Dashboard</b> Pages in frontend:</p>';
+        echo '<a href="' . esc_url(admin_url('?user_dash_pages=true')) . '" class="button button-primary">Create Dashboard Pages</a><br><br>';
+    }
+
+    // --- Privacy Policy ---
+    echo '<h3>Privacy Policy and Cookies</h3><br>';
+
+    $privacy_notice_page = get_page_by_path('privacy-notice');
+    if ($privacy_notice_page) {
+        echo '<p>The page <b>Privacy Notice</b> is created and policy sample contents are added :)</p>';
+    } else {
+        echo '<p>Create <b>Privacy Notice</b> Page and add pre-written policies to it: </p>';
+        echo '<a href="' . esc_url(admin_url('?privacy_notice_page=true')) . '" class="button button-primary">Create Privacy Notice Page</a><br><br>';
+    }
+
+    // Load cookie settings UI
+    include get_stylesheet_directory() . "/theme_addons/cookie_policy/cookie_policy_settings.php";
+}
+
 
 add_action('admin_init', 'AJDWP_Theme_settings_init');
 
 function AJDWP_Theme_settings_init()
 {
+    // Register the option + validator
     register_setting(
         'AJDWP_theme_options_group',
         'AJDWP_theme_options',
-        'AJDWP_theme_options_validate' // ← wire the sanitizer
+        'AJDWP_theme_options_validate'
+    );
+
+    // ---------------------------------------------------------------------
+    // Sections (1 per tab)
+    // ---------------------------------------------------------------------
+    add_settings_section(
+        'AJDWP_general_section',
+        'General Settings',
+        null,
+        'AJDWP_Theme_Options_general'
     );
 
     add_settings_section(
-        'AJDWP_theme_settings_section',
-        'Manage Theme Functions',
+        'AJDWP_uploads_section',
+        'Upload Restrictions',
         null,
-        'AJDWP_Theme_Options'
+        'AJDWP_Theme_Options_uploads'
     );
 
-    $functions = [
-        'show_page_title' => 'Show Page or Post Title',
-        'like_follow_system' => 'Add Like & Follow to Theme',
-        'post_views' => 'Post and Page View Counter',
-        'post_publish_date' => 'Post Publish Date',
-        'page_publish_date' => 'Page Publish Date',
-        'secure_login' => 'Cookie Secure Login',
-        'theme_sidebars' => 'AJDWP Theme Sidebars',
-        'disable_yoast_metabox' => 'Disable Yoast SEO Metabox',
-        'remove_yoast_seo_columns' => 'Remove Yoast SEO Columns',
-        'custom_menu_link' => 'Custom Menu Link URL',
-        'custom_avatar_url' => 'Custom Avatar URL',
-        'enqueue_frontend_media_scripts' => 'Load Media Library on Frontend',
-        'hide_all_admin_notices' => 'Hide All Admin Notices',
-        'restrict_wp_admin_access' => 'Restrict Admin Access',
-        'remove_admin_bar' => 'Hide Admin Bar',
-        'set_author_archive_limit' => 'Set Author Archive Limit',
-        'stop_image_sizes' => 'Stop Extra Image Sizes',
-        'limit_post_access' => 'Users see only their own posts',
-        'limit_media_library_access' => 'Users see only their own uploaded medias',
-        'limit_author_comments' => 'Users see only their own Comments',
-        'contributor_can_upload' => 'Contributor Upload Capability',
-        'contributor_can_post' => 'Contributor Post Capability',
-        'subscriber_can_upload' => 'Subscriber Upload Capability',
-        'subscriber_can_post' => 'Subscriber Post Capability',
-        'woocommerce_theme_support' => 'Woocommerce Theme Support',
-        'woocommerce_mini_cart_on_navbar' => 'Woocommerce mini cart on Navbar',
-        'add_meta_keywords' => 'Add Meta Keywords Field',
-        'add_meta_descriptions' => 'Add Meta Descriptions Field',
-    ];
+    add_settings_section(
+        'AJDWP_seo_section',
+        'SEO Settings',
+        null,
+        'AJDWP_Theme_Options_seo'
+    );
 
-    foreach ($functions as $key => $label) {
+    add_settings_section(
+        'AJDWP_roles_section',
+        'Role Settings',
+        null,
+        'AJDWP_Theme_Options_roles'
+    );
+
+    // ---------------------------------------------------------------------
+    // Fields: GENERAL tab
+    // ---------------------------------------------------------------------
+    $general = [
+        'show_page_title'                => 'Show Page or Post Title',
+        'like_follow_system'             => 'Add Like & Follow to Theme',
+        'post_views'                     => 'Post and Page View Counter',
+        'post_publish_date'              => 'Post Publish Date',
+        'page_publish_date'              => 'Page Publish Date',
+        'secure_login'                   => 'Cookie Secure Login',
+        'theme_sidebars'                 => 'AJDWP Theme Sidebars',
+        'hide_all_admin_notices'         => 'Hide All Admin Notices',
+        'restrict_wp_admin_access'       => 'Restrict Admin Access',
+        'remove_admin_bar'               => 'Hide Admin Bar',
+        'set_author_archive_limit'       => 'Set Author Archive Limit',
+        'stop_image_sizes'               => 'Stop Extra Image Sizes',
+        'enqueue_frontend_media_scripts' => 'Load Media Library on Frontend',
+        'custom_menu_link'               => 'Custom Menu Link URL',
+        'custom_avatar_url'              => 'Custom Avatar URL',
+        'limit_post_access'              => 'Users see only their own posts',
+        'limit_media_library_access'     => 'Users see only their own uploaded medias',
+        'limit_author_comments'          => 'Users see only their own Comments',
+        'woocommerce_theme_support'      => 'Woocommerce Theme Support',
+        'woocommerce_mini_cart_on_navbar' => 'Woocommerce mini cart on Navbar',
+    ];
+    foreach ($general as $key => $label) {
         add_settings_field(
             $key,
             $label,
             'AJDWP_Theme_function_checkbox',
-            'AJDWP_Theme_Options',
-            'AJDWP_theme_settings_section',
+            'AJDWP_Theme_Options_general',
+            'AJDWP_general_section',
             ['label_for' => $key]
         );
     }
 
-    //--------------------------- setting fields for excerpts ---------------------------//
+    // Fields with extra sub-fields (keep in GENERAL tab)
     add_settings_field(
         'custom_excerpt_length',
         'Custom Excerpt Length',
         'AJDWP_Theme_function_checkbox',
-        'AJDWP_Theme_Options',
-        'AJDWP_theme_settings_section',
+        'AJDWP_Theme_Options_general',
+        'AJDWP_general_section',
         ['label_for' => 'custom_excerpt_length']
     );
 
-    //--------------------------- setting field for login link ---------------------------//
     add_settings_field(
         'redirect_login_page',
         'Redirect Login/logout Page',
         'AJDWP_Theme_function_checkbox',
-        'AJDWP_Theme_Options',
-        'AJDWP_theme_settings_section',
+        'AJDWP_Theme_Options_general',
+        'AJDWP_general_section',
         ['label_for' => 'redirect_login_page']
     );
 
-    //--------------------------- setting field for uploads limit  ---------------------------//
+    // ---------------------------------------------------------------------
+    // Fields: UPLOADS tab
+    // ---------------------------------------------------------------------
     add_settings_field(
         'limit_uploads',
         'Media Upload Settings',
         'AJDWP_Theme_function_checkbox',
-        'AJDWP_Theme_Options',
-        'AJDWP_theme_settings_section',
+        'AJDWP_Theme_Options_uploads',
+        'AJDWP_uploads_section',
         ['label_for' => 'limit_uploads']
     );
 
-    //--------------------------- setting field for uploads limit  ---------------------------//
+    // ---------------------------------------------------------------------
+    // Fields: SEO tab
+    // ---------------------------------------------------------------------
+    $seo = [
+        'add_meta_keywords'     => 'Add Meta Keywords Field',
+        'add_meta_descriptions' => 'Add Meta Descriptions Field',
+    ];
+    foreach ($seo as $key => $label) {
+        add_settings_field(
+            $key,
+            $label,
+            'AJDWP_Theme_function_checkbox',
+            'AJDWP_Theme_Options_seo',
+            'AJDWP_seo_section',
+            ['label_for' => $key]
+        );
+    }
+
     add_settings_field(
         'google_tag_manager',
         'Google Tag Manager',
         'AJDWP_Theme_function_checkbox',
-        'AJDWP_Theme_Options',
-        'AJDWP_theme_settings_section',
+        'AJDWP_Theme_Options_seo',
+        'AJDWP_seo_section',
         ['label_for' => 'google_tag_manager']
     );
 
-    //--------------------------- setting field for uploads limit  ---------------------------//
+    // ---------------------------------------------------------------------
+    // Fields: ROLES tab
+    // ---------------------------------------------------------------------
+    $roles = [
+        'contributor_can_upload' => 'Contributor Upload Capability',
+        'contributor_can_post'   => 'Contributor Post Capability',
+        'subscriber_can_upload'  => 'Subscriber Upload Capability',
+        'subscriber_can_post'    => 'Subscriber Post Capability',
+    ];
+    foreach ($roles as $key => $label) {
+        add_settings_field(
+            $key,
+            $label,
+            'AJDWP_Theme_function_checkbox',
+            'AJDWP_Theme_Options_roles',
+            'AJDWP_roles_section',
+            ['label_for' => $key]
+        );
+    }
 
-
-    // Set default options if not set
+    // ---------------------------------------------------------------------
+    // Defaults (unchanged from your original)
+    // ---------------------------------------------------------------------
     $options = get_option('AJDWP_theme_options');
     if ($options === false) {
         $default_options = [
@@ -165,7 +334,6 @@ function AJDWP_Theme_settings_init()
 }
 
 
-
 function AJDWP_Theme_function_checkbox($args)
 {
     $options = get_option('AJDWP_theme_options');
@@ -208,10 +376,6 @@ function AJDWP_Theme_function_checkbox($args)
     if ($args['label_for'] === 'limit_uploads') {
     ?>
         <div id="user_upload_settings">
-            <br>
-            <h6 id="roleDifference" style="color: #0073aa;cursor: pointer;">What is the difference between roles?</h6>
-
-            <hr style="width:50%;text-align:left;margin-left:0">
 
             <div id="disk_usage_limit_field" style="display: <?php echo $checked ? 'block' : 'none'; ?>">
                 <label for="editor_disk_usage_limit"><i><b>Editors</b> Allocated Disk Space <strong>(MB)</strong>:</i></label>
@@ -332,7 +496,6 @@ function enqueue_admin_scripts()
     ));
 }
 add_action('admin_enqueue_scripts', 'enqueue_admin_scripts');
-
 
 
 function AJDWP_theme_options_validate($input)
