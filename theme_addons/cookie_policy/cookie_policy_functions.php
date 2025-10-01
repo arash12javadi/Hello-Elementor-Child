@@ -134,7 +134,7 @@ function display_cookie_popup()
                         </a>.
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="acceptCookies">ACCEPT &nbsp; <i class="fas fa-cookie-bite"></i></button>
+                        <button type="button" class="btn btn-primary" id="acceptCookies"><?php esc_html_e('ACCEPT', 'hello-elementor-child'); ?> &nbsp; <i class="fas fa-cookie-bite"></i></button>
                     </div>
                 </div>
             </div>
@@ -196,7 +196,6 @@ function get_cookie_popup_setting()
 
     wp_send_json_success(array('enabled' => $status === 'yes'));
 }
-
 
 
 function ajdwp_register_theme_settings()
