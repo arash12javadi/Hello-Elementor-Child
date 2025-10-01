@@ -64,7 +64,7 @@ function AJDWP_search_modal_func()
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header text-center">
-                    <div class="modal-title h4">Search</div>
+                    <div class="modal-title h4"><?php esc_html_e('Search', 'hello-elementor-child'); ?></div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body my-3 d-flex justify-content-center align-items-center text-center">

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Hello-Elementor-Child-Theme\n"
-"POT-Creation-Date: 2025-10-01 12:19+0100\n"
-"PO-Revision-Date: 2025-10-01 12:19+0100\n"
+"POT-Creation-Date: 2025-10-01 14:32+0100\n"
+"PO-Revision-Date: 2025-10-01 14:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -222,6 +222,10 @@ msgstr "ذخیره لینک"
 msgid "Logout"
 msgstr "خروج"
 
+#: theme_addons/navbar/navbar.php:67
+msgid "Search"
+msgstr "جستجو در سایت"
+
 #: theme_addons/user_profile/author_page_profile_edit.php:71
 msgid "Edit"
 msgstr "ویرایش حساب کاربری"
@@ -282,9 +286,97 @@ msgstr "بروز رسانی"
 msgid "Set New Password"
 msgstr "انتخاب پسورد جدید"
 
+#: theme_addons/user_profile/change_password.php:41
+msgid "Current Password:"
+msgstr "پسورد فعلی:"
+
+#: theme_addons/user_profile/change_password.php:44
+msgid "New Password:"
+msgstr "پسورد جدید:"
+
+#: theme_addons/user_profile/change_password.php:48
+#: theme_addons/user_profile/user_register_ajax.php:36
+msgid "Password must contain the following:"
+msgstr "پسورد باید انگلیسی و دارای ویژگی های زیر باشد:"
+
+#: theme_addons/user_profile/change_password.php:49
+#: theme_addons/user_profile/user_register_ajax.php:38
+msgid "A Special Character"
+msgstr "یک از کاراکتر های خاص"
+
+#: theme_addons/user_profile/change_password.php:50
+msgid "A Captal Letter"
+msgstr "یک حرف بزرگ انگلیسی"
+
+#: theme_addons/user_profile/change_password.php:51
+#: theme_addons/user_profile/user_register_ajax.php:45
+msgid "A Number"
+msgstr "یک عدد"
+
+#: theme_addons/user_profile/change_password.php:52
+#: theme_addons/user_profile/user_register_ajax.php:48
+msgid "Minimum 8 Characters"
+msgstr "حداقل 8 کاراکتر"
+
+#: theme_addons/user_profile/change_password.php:55
+msgid "Confirm Password: "
+msgstr "تکرار پسورد: "
+
+#: theme_addons/user_profile/change_password.php:64
+#: theme_addons/user_profile/user_profile.php:94
+msgid "Change Password"
+msgstr "تغییر پسورد"
+
+#: theme_addons/user_profile/change_password.php:76
+msgid "You must be logged in to change your password."
+msgstr "برای تغییر پسورد باید ابتدا لاگین کنید."
+
 #: theme_addons/user_profile/delete_account_ajax.php:9
 msgid "Delete Your Account"
 msgstr "حذف کاربر از سایت"
+
+#: theme_addons/user_profile/delete_account_ajax.php:16
+msgid ""
+"Are you sure you want to delete your account? This action is irreversible."
+msgstr ""
+"آیا مطمئن هستید که می‌خواهید حساب کاربری خود را حذف کنید؟ این عملیات غیرقابل "
+"بازگشت است."
+
+#: theme_addons/user_profile/delete_account_ajax.php:27
+msgid "Yes, Delete My Account"
+msgstr "بله حساب کاربری من را حذف کن"
+
+#: theme_addons/user_profile/delete_account_ajax.php:40
+#, php-format
+msgid ""
+"By deleting your account, all your %s on this website will be permanently "
+"erased."
+msgstr ""
+"با حذف حساب کاربری شما، تمام %s شما در این وب‌سایت برای همیشه پاک خواهند شد."
+
+#: theme_addons/user_profile/delete_account_ajax.php:43
+msgid "posts, comments, media, likes, followers, etc."
+msgstr "پست ها، کامنت ها، مدیا، لایک ها، فالور ها و غیره."
+
+#: theme_addons/user_profile/delete_account_ajax.php:50
+msgid ""
+"If you agree to these conditions, please check the checkbox below and click "
+"on \"Continue.\""
+msgstr ""
+"اگر با این شرایط موافق هستیدلطفا مربع زیر را علامت بزنید و بر روی \"ادامه\" "
+"کلیک کنید."
+
+#: theme_addons/user_profile/delete_account_ajax.php:57
+msgid "Check and continue to DELETE"
+msgstr "تیک بزنید و برای حذف ادامه دهید"
+
+#: theme_addons/user_profile/delete_account_ajax.php:62
+msgid "Continue"
+msgstr "ادامه"
+
+#: theme_addons/user_profile/delete_account_ajax.php:66
+msgid "Cancel"
+msgstr "لغو"
 
 #: theme_addons/user_profile/forgot_password_ajax.php:6
 msgid "Recover Your Password"
@@ -317,6 +409,10 @@ msgstr "ثبت نام در سایت"
 #: theme_addons/user_profile/user_profile.php:53
 msgid "Forgot Password"
 msgstr "بازنشانی پسورد"
+
+#: theme_addons/user_profile/user_profile.php:97
+msgid "Delete Account"
+msgstr "حذف حساب کاربری"
 
 #: theme_addons/user_profile/user_profile_functions.php:40
 msgid "Username already taken"
@@ -391,25 +487,9 @@ msgstr "نام خانوادگی"
 msgid "Password"
 msgstr "پسورد"
 
-#: theme_addons/user_profile/user_register_ajax.php:36
-msgid "Password must contain the following:"
-msgstr "پسورد باید انگلیسی و دارای ویژگی های زیر باشد:"
-
-#: theme_addons/user_profile/user_register_ajax.php:38
-msgid "A Special Character"
-msgstr "یک از کاراکتر های خاص"
-
 #: theme_addons/user_profile/user_register_ajax.php:42
 msgid "A Capital Letter"
 msgstr "یک حرف بزرگ انگلیسی"
-
-#: theme_addons/user_profile/user_register_ajax.php:45
-msgid "A Number"
-msgstr "یک عدد"
-
-#: theme_addons/user_profile/user_register_ajax.php:48
-msgid "Minimum 8 Characters"
-msgstr "حداقل 8 کاراکتر"
 
 #: theme_addons/user_profile/user_register_ajax.php:53
 msgid "Password Again"

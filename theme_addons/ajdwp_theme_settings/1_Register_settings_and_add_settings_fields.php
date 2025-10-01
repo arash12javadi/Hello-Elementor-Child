@@ -309,14 +309,6 @@ function enqueue_admin_scripts()
         null
     );
 
-    // Enqueue Bootstrap CSS from a CDN // Extra bootstrap unneeded for this task removed on 17.02.2025
-    // wp_enqueue_style(
-    //     'bootstrap-css',
-    //     'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
-    //     array(),
-    //     '4.5.2'
-    // );
-
     // Localize script to add Role Comparison Table
     wp_localize_script('ajdwp-admin-scripts', 'RoleComparisonTable', array(
         'htmlFilePath' => get_stylesheet_directory_uri() . '/theme_addons/ajdwp_theme_settings/roles-comparison-table.html'

@@ -91,10 +91,10 @@ function AJDWP_registration_form()
         <!-- ----------Tab headers---------- -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="change_pass-tab" data-bs-toggle="tab" data-bs-target="#change_pass" type="button" role="tab" aria-controls="change_pass" aria-selected="true">Change Password</button>
+                <button class="nav-link active" id="change_pass-tab" data-bs-toggle="tab" data-bs-target="#change_pass" type="button" role="tab" aria-controls="change_pass" aria-selected="true"><?php esc_html_e('Change Password', 'hello-elementor-child'); ?></button>
             </li>
             <li class="nav-item " role="presentation">
-                <button class="nav-link" id="delete_account-tab" data-bs-toggle="tab" data-bs-target="#delete_account" type="button" role="tab" aria-controls="delete_account" aria-selected="false">Delete Account</button>
+                <button class="nav-link" id="delete_account-tab" data-bs-toggle="tab" data-bs-target="#delete_account" type="button" role="tab" aria-controls="delete_account" aria-selected="false"><?php esc_html_e('Delete Account', 'hello-elementor-child'); ?></button>
             </li>
         </ul>
 
