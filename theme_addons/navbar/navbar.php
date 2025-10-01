@@ -41,7 +41,7 @@ function AJDWP_avatar_func($size = 'normal')
             <?php echo $avatar_img; ?>
         </a>
         <br><?php echo esc_html($user->display_name); ?><br>
-        <a href="<?php echo esc_url(wp_logout_url()); ?>" title="Logout">Logout</a>
+        <a href="<?php echo esc_url(wp_logout_url()); ?>" title="Logout"><?php esc_html_e('Logout', 'hello-elementor-child'); ?></a>
     </div>
 <?php
 }

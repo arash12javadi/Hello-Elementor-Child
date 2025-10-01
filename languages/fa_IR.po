@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Hello-Elementor-Child-Theme\n"
-"POT-Creation-Date: 2025-10-01 00:42+0100\n"
-"PO-Revision-Date: 2025-10-01 01:34+0100\n"
+"POT-Creation-Date: 2025-10-01 12:19+0100\n"
+"PO-Revision-Date: 2025-10-01 12:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -27,11 +27,11 @@ msgstr ""
 
 #: 404.php:28
 msgid "Looks like you're lost"
-msgstr "به نظر میرسد که راه را گم کرده اید."
+msgstr "به نظر میرسد که راه را گم کرده اید"
 
 #: 404.php:31
 msgid "The page you are looking for is not available!"
-msgstr "این لینک صحیح نیست و به صفحه مشخصی در این سایت نمیرسد."
+msgstr "این لینک صحیح نیست و به صفحه مشخصی در این سایت نمیرسد!"
 
 #: 404.php:33
 msgid "Link to Homepage"
@@ -40,6 +40,82 @@ msgstr "لینک به صفحه اصلی"
 #: 404.php:36
 msgid "Go to Home"
 msgstr "رفتن به خانه"
+
+#: author.php:119
+#, php-format
+msgid "Total Posts: (%s)"
+msgstr "تعداد پست ها:  (%s)"
+
+#: author.php:191
+#, php-format
+msgid "Total Followers: %s"
+msgstr "تعداد دنبال کنندگان:%s"
+
+#: author.php:199
+#, php-format
+msgid "Like Score: %s"
+msgstr "مجموع لایک ها: %s"
+
+#: author.php:217
+#, php-format
+msgid "Profile visit: %s"
+msgstr "تعداد بازدید: %s"
+
+#: author.php:234
+msgid "Followers: "
+msgstr "دنبال کنندگان: "
+
+#: author.php:267
+msgid "No followers yet."
+msgstr "این حساب هنوز دنبال کننده ای ندارد."
+
+#: author.php:288 theme_addons/content/content-page.php:191
+msgid "Post Date:"
+msgstr "تاریخ :"
+
+#: theme_addons/User_Social_Media/User_Social_Media.php:19
+msgid "Add Your Social Media Links"
+msgstr "افزودن شبکه های اجتماعی"
+
+#: theme_addons/User_Social_Media/User_Social_Media.php:34
+msgid "Facebook"
+msgstr "فیسبوک"
+
+#: theme_addons/User_Social_Media/User_Social_Media.php:40
+msgid "Instagram"
+msgstr "اینستاگرام"
+
+#: theme_addons/User_Social_Media/User_Social_Media.php:46
+msgid "Twitter"
+msgstr "توییتر"
+
+#: theme_addons/User_Social_Media/User_Social_Media.php:52
+msgid "Linkedin"
+msgstr "لینکدین"
+
+#: theme_addons/User_Social_Media/User_Social_Media.php:58
+msgid "Google"
+msgstr "گوگل"
+
+#: theme_addons/User_Social_Media/User_Social_Media.php:64
+msgid "Youtube"
+msgstr "یوتیوب"
+
+#: theme_addons/User_Social_Media/User_Social_Media.php:70
+msgid "Github"
+msgstr "گیت هاب"
+
+#: theme_addons/User_Social_Media/User_Social_Media.php:76
+msgid "Stack Overflow"
+msgstr "استک آورفلو"
+
+#: theme_addons/User_Social_Media/User_Social_Media.php:82
+msgid "WhatsApp"
+msgstr "واتساپ"
+
+#: theme_addons/User_Social_Media/User_Social_Media.php:90
+msgid "Other Links"
+msgstr "لینک های دیگر"
 
 #: theme_addons/ajdwp_theme_settings/Theme_sidebars.php:15
 msgid "AJDWP Page Sidebar"
@@ -64,6 +140,13 @@ msgstr ""
 #: theme_addons/ajdwp_theme_settings/Theme_sidebars.php:80
 msgid "AJDWP Footer widget 1"
 msgstr ""
+
+#: theme_addons/ajdwp_theme_settings/View_counter.php:25
+#, php-format
+msgid "%s View"
+msgid_plural "%s Views"
+msgstr[0] "%s بازدید"
+msgstr[1] "%s بازدید"
 
 #: theme_addons/content/content-none.php:19
 #, php-format
@@ -115,10 +198,6 @@ msgstr "تاریخ:"
 msgid "Link to the same released date posts"
 msgstr "لینک به پست های این تاریخ مشخص"
 
-#: theme_addons/content/content-page.php:191
-msgid "Post Date:"
-msgstr "تاریخ ارسال:"
-
 #: theme_addons/content/content-page.php:200
 msgid "Written By:"
 msgstr "نویسنده:"
@@ -126,6 +205,10 @@ msgstr "نویسنده:"
 #: theme_addons/cookie_policy/cookie_policy_functions.php:133
 msgid "Read more"
 msgstr "بیشتر بخوانید"
+
+#: theme_addons/cookie_policy/cookie_policy_functions.php:137
+msgid "ACCEPT"
+msgstr "میپذیرم"
 
 #: theme_addons/cookie_policy/cookie_policy_settings.php:31
 msgid "Save Text"
@@ -135,9 +218,65 @@ msgstr "ذخیره متن"
 msgid "Save Link"
 msgstr "ذخیره لینک"
 
-#: theme_addons/user_profile/author_page_profile_edit.php:109
+#: theme_addons/navbar/navbar.php:44
+msgid "Logout"
+msgstr "خروج"
+
+#: theme_addons/user_profile/author_page_profile_edit.php:71
+msgid "Edit"
+msgstr "ویرایش حساب کاربری"
+
+#: theme_addons/user_profile/author_page_profile_edit.php:71
+msgid "Profile ?"
+msgstr "؟"
+
+#: theme_addons/user_profile/author_page_profile_edit.php:91
+msgid "Show Email:"
+msgstr "نمایش ایمیل:"
+
+#: theme_addons/user_profile/author_page_profile_edit.php:97
+msgid "Show Phone Number: "
+msgstr "نمایش شماره تماس: "
+
+#: theme_addons/user_profile/author_page_profile_edit.php:108
 msgid "Change Your Profile Image"
 msgstr "تغییر عکس کاربری"
+
+#: theme_addons/user_profile/author_page_profile_edit.php:113
+msgid "My Gallery"
+msgstr "گالری"
+
+#: theme_addons/user_profile/author_page_profile_edit.php:135
+msgid "Delete Avatar"
+msgstr "حذف آواتار"
+
+#: theme_addons/user_profile/author_page_profile_edit.php:149
+msgid "Update Your Profile Details: "
+msgstr "بروز رسانی عکس کاربری: "
+
+#: theme_addons/user_profile/author_page_profile_edit.php:157
+msgid "First Name: "
+msgstr "نام: "
+
+#: theme_addons/user_profile/author_page_profile_edit.php:160
+msgid "Last Name: "
+msgstr "نام خانوادگی: "
+
+#: theme_addons/user_profile/author_page_profile_edit.php:163
+msgid "Display Name: "
+msgstr "نام نمایشی: "
+
+#: theme_addons/user_profile/author_page_profile_edit.php:166
+msgid "Phone Number: "
+msgstr "شماره تماس: "
+
+#: theme_addons/user_profile/author_page_profile_edit.php:169
+msgid "Bio: "
+msgstr "بیوگرافی: "
+
+#: theme_addons/user_profile/author_page_profile_edit.php:192
+msgid "Update"
+msgstr "بروز رسانی"
 
 #: theme_addons/user_profile/change_password.php:10
 msgid "Set New Password"
@@ -298,7 +437,7 @@ msgstr "سبد خرید"
 
 #: theme_addons/woo/woo.php:52
 msgid "Your cart is empty."
-msgstr "سبد خرید شما خالی است"
+msgstr "سبد خرید شما خالی است."
 
 #: theme_addons/woo/woo.php:54
 msgid "Start Shopping"

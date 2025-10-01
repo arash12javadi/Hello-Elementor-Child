@@ -114,8 +114,14 @@ ob_end_clean();
                             if (!in_array('subscriber', (array) $user_data->roles)) {
                             ?>
                                 <div class="d-flex align-items-center justify-content-center font-weight-bold h6">
-                                    <?php echo "Total Posts: (" . $post_count . ")"; ?>
+                                    <?php
+                                    printf(
+                                        esc_html__('Total Posts: (%s)', 'hello-elementor-child'),
+                                        number_format_i18n($post_count)
+                                    );
+                                    ?>
                                 </div>
+
                             <?php } ?>
 
                             <?php
@@ -172,29 +178,46 @@ ob_end_clean();
                                 <!-- Social Media -->
                                 <?php do_action("User_Social_Media"); ?>
                             <?php } ?>
+
                             <!-- Total Follow, Likes, and Profile Views -->
                             <?php if (!is_page()) { ?>
                                 <div class="like_follow_social border-top mt-4 py-4 d-flex justify-content-center align-items-center">
                                     <?php
                                     $options = get_option('AJDWP_theme_options');
-                                    if (!empty($options['like_follow_system'])) {
-                                    ?>
-                                        <?php echo "Total Followers: &nbsp" . esc_html($totalfollow); ?>
-                                        <div class="vr mx-4"></div>
-                                        Like Score: <?php echo esc_html($author_posts_total_likes); ?>
 
-                                    <?php } //end if(!empty($options['like_follow_system'])){ 
+                                    if (! empty($options['like_follow_system'])) {
+                                        // Total Followers
+                                        printf(
+                                            esc_html__('Total Followers: %s', 'hello-elementor-child'),
+                                            esc_html($totalfollow)
+                                        );
                                     ?>
+                                        <div class="vr mx-4"></div>
                                     <?php
-                                    $options = get_option('AJDWP_theme_options');
-                                    if (!empty($options['post_views'])) {
+                                        // Like Score
+                                        printf(
+                                            esc_html__('Like Score: %s', 'hello-elementor-child'),
+                                            esc_html($author_posts_total_likes)
+                                        );
+                                    }
+
+                                    if (! empty($options['post_views'])) {
                                     ?>
-                                        <div class="vr mx-4" <?php $options = get_option('AJDWP_theme_options');
-                                                                if (empty($options['like_follow_system'])) {
-                                                                    echo 'style="display:none;"';
-                                                                } ?>></div>
-                                        Profile visit: <?php echo esc_html(get_author_views(get_queried_object_id())); ?>
-                                    <?php } //end if (!empty($options['post_views'])) {  
+                                        <div class="vr mx-4"
+                                            <?php
+                                            // Hide divider if like/follow system is disabled
+                                            if (empty($options['like_follow_system'])) {
+                                                echo 'style="display:none;"';
+                                            }
+                                            ?>>
+                                        </div>
+                                    <?php
+                                        // Profile visit
+                                        printf(
+                                            esc_html__('Profile visit: %s', 'hello-elementor-child'),
+                                            esc_html(get_author_views(get_queried_object_id()))
+                                        );
+                                    }
                                     ?>
                                 </div>
 
@@ -208,7 +231,7 @@ ob_end_clean();
 
                                 <!-- Followers -->
                                 <div class="d-block border-top pt-4">
-                                    <p>Followers:</p>
+                                    <p><?php esc_html_e('Followers: ', 'hello-elementor-child'); ?></p>
                                 </div>
 
                                 <div class="authors_followers">
@@ -241,7 +264,7 @@ ob_end_clean();
                                             }
                                         }
                                     } else {
-                                        echo "No followers yet.";
+                                        esc_html_e('No followers yet.', 'hello-elementor-child');
                                     }
                                     ?>
                                 </div>
@@ -262,7 +285,7 @@ ob_end_clean();
                                             <div class="row mb-4 mt-4">
                                                 <div class="post-date-author col-lg-4">
                                                     <div class="d-flex align-items-center justify-content-start">
-                                                        <span class="span-postdate">Post Date: &nbsp;</span>
+                                                        <span class="span-postdate"><?php esc_html_e('Post Date:', 'hello-elementor-child'); ?> &nbsp;</span>
                                                         <span class="post-date">
                                                             <a href="<?php echo esc_url(get_month_link(get_post_time('Y'), get_post_time('m'))); ?>">
                                                                 <span><?php echo esc_html(get_the_date('j')); ?></span><?php echo esc_html(get_the_date('M, Y')); ?>
