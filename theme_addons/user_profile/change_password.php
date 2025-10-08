@@ -12,28 +12,51 @@ if (is_user_logged_in()) {
         <?php
 
         if (isset($_POST['chg_psw_submit'])) {
-            $nonce_cp = $_POST['my_form_nonce_cp'];
+
+            // Verify nonce first for CSRF protection
+            $nonce_cp = isset($_POST['my_form_nonce_cp']) ? $_POST['my_form_nonce_cp'] : '';
             if (wp_verify_nonce($nonce_cp, 'my_form_action_cp')) {
-                $current_password   = sanitize_text_field(trim($_POST['current_password']));
-                $new_password_cp    = sanitize_text_field(trim($_POST['new_password_cp']));
-                $confirm_password   = sanitize_text_field(trim($_POST['confirm_password']));
+
+                $current_password = sanitize_text_field(trim($_POST['current_password'] ?? ''));
+                $new_password_cp  = sanitize_text_field(trim($_POST['new_password_cp'] ?? ''));
+                $confirm_password = sanitize_text_field(trim($_POST['confirm_password'] ?? ''));
 
                 $user = wp_get_current_user();
 
-                // Check if the current password is correct
+                if (!$user || 0 === $user->ID) {
+                    echo '<div class="alert alert-danger error_msg_3">'
+                        . esc_html__('Error! User not logged in.', 'hello-elementor-child')
+                        . '</div>';
+                    return;
+                }
+
+                // ✅ Check if the current password is correct
                 if (wp_check_password($current_password, $user->user_pass, $user->ID)) {
-                    // Check if new password and confirm password match
+
+                    // ✅ Ensure new password fields match
                     if ($new_password_cp === $confirm_password) {
+
                         wp_set_password($new_password_cp, $user->ID);
-                        echo '<div class="alert alert-success success_msg"><strong>Success! </strong>Password successfully changed!</div>';
+
+                        echo '<div class="alert alert-success success_msg">'
+                            . '<strong>' . esc_html__('Success!', 'hello-elementor-child') . '</strong> '
+                            . esc_html__('Password successfully changed.', 'hello-elementor-child')
+                            . '</div>';
                     } else {
-                        echo '<div class="alert alert-danger error_msg"><strong>Error! </strong>New password and confirm password do not match.</div>';
+                        echo '<div class="alert alert-danger error_msg">'
+                            . '<strong>' . esc_html__('Error!', 'hello-elementor-child') . '</strong> '
+                            . esc_html__('New password and confirm password do not match.', 'hello-elementor-child')
+                            . '</div>';
                     }
                 } else {
-                    echo '<div class="alert alert-danger error_msg_2"><strong>Error! </strong>Incorrect current password.</div>';
+                    echo '<div class="alert alert-danger error_msg_2">'
+                        . '<strong>' . esc_html__('Error!', 'hello-elementor-child') . '</strong> '
+                        . esc_html__('Incorrect current password.', 'hello-elementor-child')
+                        . '</div>';
                 }
             }
         }
+
 
         ?>
         <fieldset>

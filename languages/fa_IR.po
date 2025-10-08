@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Hello-Elementor-Child-Theme\n"
-"POT-Creation-Date: 2025-10-08 22:45+0100\n"
-"PO-Revision-Date: 2025-10-08 22:47+0100\n"
+"POT-Creation-Date: 2025-10-08 22:57+0100\n"
+"PO-Revision-Date: 2025-10-08 22:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -45,6 +45,10 @@ msgstr "رفتن به خانه"
 #, php-format
 msgid "Total Posts: (%s)"
 msgstr "تعداد پست ها:  (%s)"
+
+#: author.php:134
+msgid "About me:"
+msgstr "بیوگرافی:"
 
 #: author.php:150
 msgid "Email me:"
@@ -331,54 +335,79 @@ msgstr "بروز رسانی"
 msgid "Set New Password"
 msgstr "انتخاب پسورد جدید"
 
-#: theme_addons/user_profile/change_password.php:41
+#: theme_addons/user_profile/change_password.php:28
+msgid "Error! User not logged in."
+msgstr "خطا! کاربر مجاز نمیباشد."
+
+#: theme_addons/user_profile/change_password.php:42
+msgid "Success!"
+msgstr "موفقیت آمیز بود!"
+
+#: theme_addons/user_profile/change_password.php:43
+msgid "Password successfully changed."
+msgstr "پسورد با موفقیت جایگزین شد."
+
+#: theme_addons/user_profile/change_password.php:47
+#: theme_addons/user_profile/change_password.php:53
+msgid "Error!"
+msgstr "خطا!"
+
+#: theme_addons/user_profile/change_password.php:48
+msgid "New password and confirm password do not match."
+msgstr "پسوردهای وارد شده یکسان نیستند."
+
+#: theme_addons/user_profile/change_password.php:54
+msgid "Incorrect current password."
+msgstr "پسورد فعلی ناصحیح است."
+
+#: theme_addons/user_profile/change_password.php:64
 msgid "Current Password:"
 msgstr "پسورد فعلی:"
 
-#: theme_addons/user_profile/change_password.php:44
+#: theme_addons/user_profile/change_password.php:67
 #: theme_addons/user_profile/user_profile_functions.php:263
 msgid "New Password:"
 msgstr "پسورد جدید:"
 
-#: theme_addons/user_profile/change_password.php:48
+#: theme_addons/user_profile/change_password.php:71
 #: theme_addons/user_profile/user_profile_functions.php:268
 #: theme_addons/user_profile/user_register_ajax.php:36
 msgid "Password must contain the following:"
 msgstr "پسورد باید انگلیسی و دارای ویژگی های زیر باشد:"
 
-#: theme_addons/user_profile/change_password.php:49
+#: theme_addons/user_profile/change_password.php:72
 #: theme_addons/user_profile/user_profile_functions.php:269
 #: theme_addons/user_profile/user_register_ajax.php:38
 msgid "A Special Character"
 msgstr "یک از کاراکتر های خاص"
 
-#: theme_addons/user_profile/change_password.php:50
+#: theme_addons/user_profile/change_password.php:73
 #: theme_addons/user_profile/user_profile_functions.php:270
 msgid "A Captal Letter"
 msgstr "یک حرف بزرگ انگلیسی"
 
-#: theme_addons/user_profile/change_password.php:51
+#: theme_addons/user_profile/change_password.php:74
 #: theme_addons/user_profile/user_profile_functions.php:271
 #: theme_addons/user_profile/user_register_ajax.php:45
 msgid "A Number"
 msgstr "یک عدد"
 
-#: theme_addons/user_profile/change_password.php:52
+#: theme_addons/user_profile/change_password.php:75
 #: theme_addons/user_profile/user_profile_functions.php:272
 #: theme_addons/user_profile/user_register_ajax.php:48
 msgid "Minimum 8 Characters"
 msgstr "حداقل 8 کاراکتر"
 
-#: theme_addons/user_profile/change_password.php:55
+#: theme_addons/user_profile/change_password.php:78
 msgid "Confirm Password: "
 msgstr "تکرار پسورد: "
 
-#: theme_addons/user_profile/change_password.php:64
+#: theme_addons/user_profile/change_password.php:87
 #: theme_addons/user_profile/user_profile.php:94
 msgid "Change Password"
 msgstr "تغییر پسورد"
 
-#: theme_addons/user_profile/change_password.php:76
+#: theme_addons/user_profile/change_password.php:99
 msgid "You must be logged in to change your password."
 msgstr "برای تغییر پسورد باید ابتدا لاگین کنید."
 

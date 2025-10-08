@@ -131,7 +131,7 @@ ob_end_clean();
                             // Check if the description is not empty
                             if (!empty($user_description)) : ?>
                                 <div class="d-flex align-items-center justify-content-start mt-4 pt-4 border-top border-light font-weight-bold h5 aaaaa">
-                                    <?php echo "About me: "; ?>
+                                    <?php esc_html_e('About me:', 'hello-elementor-child'); ?>
                                 </div>
                                 <div class="text-left justify-content-start">
                                     <?php echo esc_html($user_description); ?>
