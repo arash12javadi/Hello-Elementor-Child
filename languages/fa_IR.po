@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Hello-Elementor-Child-Theme\n"
-"POT-Creation-Date: 2025-10-08 15:23+0100\n"
-"PO-Revision-Date: 2025-10-08 15:24+0100\n"
+"POT-Creation-Date: 2025-10-08 22:45+0100\n"
+"PO-Revision-Date: 2025-10-08 22:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -45,6 +45,14 @@ msgstr "رفتن به خانه"
 #, php-format
 msgid "Total Posts: (%s)"
 msgstr "تعداد پست ها:  (%s)"
+
+#: author.php:150
+msgid "Email me:"
+msgstr "آدرس ایمیل:"
+
+#: author.php:166
+msgid "Call me:"
+msgstr "شماره تماس:"
 
 #: author.php:191
 #, php-format
@@ -117,36 +125,56 @@ msgstr "واتساپ"
 msgid "Other Links"
 msgstr "لینک های دیگر"
 
-#: theme_addons/ajdwp_theme_settings/Theme_sidebars.php:15
-msgid "AJDWP Page Sidebar"
-msgstr ""
-
-#: theme_addons/ajdwp_theme_settings/Theme_sidebars.php:28
-msgid "AJDWP Blog Sidebar"
-msgstr ""
-
-#: theme_addons/ajdwp_theme_settings/Theme_sidebars.php:41
-msgid "AJDWP Search Sidebar"
-msgstr ""
-
-#: theme_addons/ajdwp_theme_settings/Theme_sidebars.php:54
-msgid "AJDWP Shop Sidebar"
-msgstr ""
-
-#: theme_addons/ajdwp_theme_settings/Theme_sidebars.php:67
-msgid "AJDWP Header Sidebar"
-msgstr ""
-
-#: theme_addons/ajdwp_theme_settings/Theme_sidebars.php:80
-msgid "AJDWP Footer widget 1"
-msgstr ""
-
 #: theme_addons/ajdwp_theme_settings/View_counter.php:25
 #, php-format
 msgid "%s View"
 msgid_plural "%s Views"
 msgstr[0] "%s بازدید"
 msgstr[1] "%s بازدید"
+
+#: theme_addons/ajdwp_theme_settings/nav_link_name_for_not_logged_in_users.php:24
+msgid "Visibility & Label (Logged-out Users)"
+msgstr ""
+
+#: theme_addons/ajdwp_theme_settings/nav_link_name_for_not_logged_in_users.php:32
+msgid "Hide this item for users who are not logged in"
+msgstr ""
+
+#: theme_addons/ajdwp_theme_settings/nav_link_name_for_not_logged_in_users.php:38
+msgid "Alternative label for logged-out users (optional)"
+msgstr ""
+
+#: theme_addons/ajdwp_theme_settings/nav_link_name_for_not_logged_in_users.php:44
+msgid "e.g. Login / Register"
+msgstr ""
+
+#: theme_addons/ajdwp_theme_settings/nav_link_name_for_not_logged_in_users.php:50
+msgid "Alternative URL for logged-out users (optional)"
+msgstr ""
+
+#: theme_addons/ajdwp_theme_settings/theme_sidebars.php:15
+msgid "AJDWP Page Sidebar"
+msgstr ""
+
+#: theme_addons/ajdwp_theme_settings/theme_sidebars.php:28
+msgid "AJDWP Blog Sidebar"
+msgstr ""
+
+#: theme_addons/ajdwp_theme_settings/theme_sidebars.php:41
+msgid "AJDWP Search Sidebar"
+msgstr ""
+
+#: theme_addons/ajdwp_theme_settings/theme_sidebars.php:54
+msgid "AJDWP Shop Sidebar"
+msgstr ""
+
+#: theme_addons/ajdwp_theme_settings/theme_sidebars.php:67
+msgid "AJDWP Header Sidebar"
+msgstr ""
+
+#: theme_addons/ajdwp_theme_settings/theme_sidebars.php:80
+msgid "AJDWP Footer widget 1"
+msgstr ""
 
 #: theme_addons/content/content-none.php:19
 #, php-format
@@ -472,7 +500,7 @@ msgstr "لطفا از کاراکترهای نامجاز استفاده نکنی�
 
 #: theme_addons/user_profile/user_profile_functions.php:197
 msgid "Please enter a valid username or email."
-msgstr "لطفا نام کاربری صحیح را وارد کنید"
+msgstr "لطفا نام کاربری صحیح را وارد کنید."
 
 #: theme_addons/user_profile/user_profile_functions.php:204
 msgid "User not found. Please enter a valid username or email."
@@ -488,7 +516,7 @@ msgstr "شخصی درخواست بازنشانی ایمیل برای حساب ک
 
 #: theme_addons/user_profile/user_profile_functions.php:216
 msgid "Username:"
-msgstr "نام کاربری"
+msgstr "نام کاربری:"
 
 #: theme_addons/user_profile/user_profile_functions.php:217
 msgid "If this was a mistake, just ignore this email and nothing will happen."
@@ -496,7 +524,7 @@ msgstr "اگر اشتباه است لطفا این ایمیل را نادیده 
 
 #: theme_addons/user_profile/user_profile_functions.php:218
 msgid "To reset your password, visit the following link:"
-msgstr "برای بازنشانی گذرواژه، لینک زیر را دنبال کنید: "
+msgstr "برای بازنشانی گذرواژه، لینک زیر را دنبال کنید:"
 
 #: theme_addons/user_profile/user_profile_functions.php:223
 msgid "Password reset link sent. Check your email."
@@ -512,11 +540,11 @@ msgstr "برای اکانت خود پسورد جدید وارد کنید"
 
 #: theme_addons/user_profile/user_profile_functions.php:249
 msgid "Password set successfully!"
-msgstr "پسورد با موفقیت جایگزین شد."
+msgstr "پسورد با موفقیت جایگزین شد!"
 
 #: theme_addons/user_profile/user_profile_functions.php:254
 msgid "This form is specifically designed for the exclusive use of this user:"
-msgstr "این فرم درخواست صرفا برای این کاربر طراحی شده است: "
+msgstr "این فرم درخواست صرفا برای این کاربر طراحی شده است:"
 
 #: theme_addons/user_profile/user_profile_functions.php:258
 msgid ""
@@ -532,7 +560,7 @@ msgstr "رفتن به خانه"
 
 #: theme_addons/user_profile/user_profile_functions.php:276
 msgid "Repeat Password: "
-msgstr "پسورد جدید:"
+msgstr "تکرار پسورد: "
 
 #: theme_addons/user_profile/user_profile_functions.php:307
 msgid "Fields can’t be empty."

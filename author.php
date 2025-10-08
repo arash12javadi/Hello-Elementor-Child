@@ -147,7 +147,7 @@ ob_end_clean();
                                 <div class="user_profile_email_div">
                                     <?php if ($showEmail === 'yes') { ?>
                                         <div class="font-weight-bold h5">
-                                            <?php echo "Email me: "; ?>
+                                            <?php esc_html_e('Email me:', 'hello-elementor-child'); ?>
                                         </div>
                                         <div class="text-left justify-content-start">
                                             <p>
@@ -163,7 +163,7 @@ ob_end_clean();
                                 <div class="user_profile_number_div">
                                     <?php if ($showPhone === 'yes') { ?>
                                         <div class="font-weight-bold h5">
-                                            <?php echo "Call me: "; ?>
+                                            <?php esc_html_e('Call me:', 'hello-elementor-child'); ?>
                                         </div>
                                         <div>
                                             <a href="tel:<?php echo esc_attr(get_the_author_meta('phone_number')); ?>">
