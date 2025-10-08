@@ -126,8 +126,8 @@ include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/post_per_page_on
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/redirect_login_logout_page.php";
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/restrict_user_access_to_admin_side.php";
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/stop_wordpress_to_make_diffrent_size_of_photos.php";
-include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/Theme_sidebars.php";
-include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/Theme_updates_from_the_GitHub_repo.php";
+include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/theme_sidebars.php";
+include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/theme_updates_from_the_github_repo.php";
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/user_avatar.php";
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/View_counter.php";
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/Yoast_seo_settings.php";
