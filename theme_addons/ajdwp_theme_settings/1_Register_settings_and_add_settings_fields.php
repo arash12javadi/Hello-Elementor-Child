@@ -41,6 +41,7 @@ function AJDWP_render_theme_options_page()
             <a href="#seo" class="nav-tab">SEO</a>
             <a href="#roles" class="nav-tab">Roles</a>
             <a href="#pages" class="nav-tab">Pages</a>
+            <a href="#theme-info" class="nav-tab">Theme Info</a>
         </h2>
 
         <?php settings_errors(); ?>
@@ -74,6 +75,10 @@ function AJDWP_render_theme_options_page()
             <?php AJDWP_render_pages_tab(); ?>
         </div>
 
+        <div id="theme-info" class="tab-content">
+            <?php AJDWP_render_theme_info_tab(); ?>
+        </div>
+
     </div>
 <?php }
 
@@ -83,7 +88,7 @@ function AJDWP_render_pages_tab()
     echo '<h3>Create Necessary Pages</h3><br>';
 
     // --- User Profile Pages ---
-    $user_profile_page = get_page_by_path('user-profile');
+    $user_profile_page = get_page_by_path('user-account');
     $pass_reset_page   = get_page_by_path('password-reset-page');
 
     if ($user_profile_page && $pass_reset_page) {
@@ -169,7 +174,8 @@ function AJDWP_Theme_settings_init()
     $general = [
         'show_page_title'                => 'Show Page or Post Title',
         'like_follow_system'             => 'Add Like & Follow to Theme',
-        'post_views'                     => 'Post and Page View Counter',
+        'post_views'                     => 'Post View Counter',
+        'page_views'                     => 'Page View Counter',
         'post_publish_date'              => 'Post Publish Date',
         'page_publish_date'              => 'Page Publish Date',
         'secure_login'                   => 'Cookie Secure Login',
@@ -277,6 +283,7 @@ function AJDWP_Theme_settings_init()
         );
     }
 
+
     // ---------------------------------------------------------------------
     // Defaults (unchanged from your original)
     // ---------------------------------------------------------------------
@@ -298,6 +305,7 @@ function AJDWP_Theme_settings_init()
             'custom_excerpt_length' => 1,
             'set_author_archive_limit' => 1,
             'post_views' => 1,
+            'page_views' => 1,
             'stop_image_sizes' => 1,
             'limit_post_access' => 1,
             'limit_media_library_access' => 1,
@@ -470,7 +478,6 @@ function AJDWP_Theme_function_checkbox($args)
 }
 
 
-
 function enqueue_admin_scripts()
 {
     // Enqueue JavaScript
@@ -505,6 +512,7 @@ function AJDWP_theme_options_validate($input)
         'show_page_title',
         'like_follow_system',
         'post_views',
+        'page_views',
         'post_publish_date',
         'page_publish_date',
         'secure_login',
@@ -554,8 +562,10 @@ function AJDWP_theme_options_validate($input)
     foreach (['gtm_header_script', 'gtm_body_script'] as $k) {
         if (isset($input[$k])) $input[$k] = wp_kses_post($input[$k]);
     }
+
     return $input;
 }
+
 
 function display_saved_disk_usage_limits()
 {
@@ -577,5 +587,22 @@ function display_saved_disk_usage_limits()
     return $output;
 }
 add_shortcode('show_disk_usage_limits', 'display_saved_disk_usage_limits');
+
+
+function AJDWP_render_theme_info_tab()
+{
+    // Look in child theme first, then parent
+    $relative = 'theme_addons/ajdwp_theme_settings/theme-info.html';
+    $path = locate_template($relative, false, false);
+
+    if ($path && file_exists($path)) {
+        include $path; // outputs the HTML directly
+        return;
+    }
+
+    // Fallback in case file is missing
+    echo '<div class="notice notice-error"><p>Theme Info file not found: ' . esc_html($relative) . '</p></div>';
+}
+
 
 ?>

@@ -63,25 +63,38 @@ function quick_login_right_bottom_func()
 {
 
 ?>
-	<button class="open-button" onclick="openForm()">LOGIN 🔐</button>
+	<button class="open-button" onclick="openForm()">
+		<?php esc_html_e('Login 🔐', 'hello-elementor-child'); ?>
+	</button>
+
 	<div class="form-popup" id="myForm">
 		<div class="form-container" id="form-container">
-			<p class="fw-bold fs-1 text-center"> LOGIN <span class="fs-2">🔒</span></p>
-			<div class="" id="ql_err_msg"></div>
+			<p class="fw-bold fs-1 text-center">
+				<?php esc_html_e('Login', 'hello-elementor-child'); ?>
+				<span class="fs-2">🔒</span>
+			</p>
+
+			<div id="ql_err_msg"></div>
+
 			<?php
 			wp_nonce_field('custom_user_login_nonce', 'user_quick_login_field');
-			// Display the login form
+
+			// Display localized login form
 			echo wp_login_form(array(
-				'id_username' => 'ql_username',
-				'id_password' => 'ql_password',
-				'label_log_in' => 'SIGN IN 🔑',
-				'id_submit' => 'ql_form_submit',
-				'remember' => false,
+				'id_username'  => 'ql_username',
+				'id_password'  => 'ql_password',
+				'label_log_in' => __('Sign in 🔑', 'hello-elementor-child'),
+				'id_submit'    => 'ql_form_submit',
+				'remember'     => false,
 			));
 			?>
-			<button type="button" class="btn cancel" onclick="closeForm()"> CLOSE &nbsp ❎ </button>
+
+			<button type="button" class="btn cancel" onclick="closeForm()">
+				<?php esc_html_e('Close ❎', 'hello-elementor-child'); ?>
+			</button>
 		</div>
 	</div>
+
 
 <?php }
 

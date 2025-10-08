@@ -12,7 +12,7 @@ if (!function_exists('AJDWP_primary_navigation_func')) :
         wp_nav_menu([
             'theme_location' => 'AJDWPMenu1',
             'container'      => '',
-            'menu_class'     => 'menu-wrap navbar-nav me-auto',
+            'menu_class'     => 'menu-wrap navbar-nav',
             'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
             'walker'         => new WP_Bootstrap_Navwalker(),
             // Add this line:

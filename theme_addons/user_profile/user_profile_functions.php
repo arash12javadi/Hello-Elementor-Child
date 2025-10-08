@@ -13,7 +13,7 @@ if (! defined('ABSPATH')) {
 
 function AJDWP_add_new_user()
 {
-    check_ajax_referer('ajax_user_register_nonce', 'AJDWP_csrf_nounce');
+    check_ajax_referer('ajax_user_register_nonce', 'AJDWP_csrf_nonce');
 
     $user_login = $_POST["AJDWP_user_login"];
     $cleaned_input_user_login = sanitize_user($user_login);
@@ -37,25 +37,25 @@ function AJDWP_add_new_user()
     // require_once(ABSPATH . WPINC . '/registration.php');
 
     if (username_exists($cleaned_input_user_login)) {
-        AJDWP_errors()->add('username_unavailable', __('Username already taken'));
+        AJDWP_errors()->add('username_unavailable', __('Username already taken', 'hello-elementor-child'));
     }
     if (!validate_username($cleaned_input_user_login)) {
-        AJDWP_errors()->add('username_invalid', __('Invalid username'));
+        AJDWP_errors()->add('username_invalid', __('Invalid username', 'hello-elementor-child'));
     }
     if ($cleaned_input_user_login == '') {
-        AJDWP_errors()->add('username_empty', __('Please enter a username'));
+        AJDWP_errors()->add('username_empty', __('Please enter a username', 'hello-elementor-child'));
     }
     if (!is_email($cleanedEmail)) {
-        AJDWP_errors()->add('email_invalid', __('Invalid email'));
+        AJDWP_errors()->add('email_invalid', __('Invalid email', 'hello-elementor-child'));
     }
     if (email_exists($cleanedEmail)) {
-        AJDWP_errors()->add('email_used', __('Email already registered'));
+        AJDWP_errors()->add('email_used', __('Email already registered', 'hello-elementor-child'));
     }
     if ($cleaned_psw == '') {
-        AJDWP_errors()->add('password_empty', __('Please enter a password'));
+        AJDWP_errors()->add('password_empty', __('Please enter a password', 'hello-elementor-child'));
     }
     if ($user_pass != $pass_confirm) {
-        AJDWP_errors()->add('password_mismatch', __('Passwords do not match'));
+        AJDWP_errors()->add('password_mismatch', __('Passwords do not match', 'hello-elementor-child'));
     }
 
     $errors = AJDWP_errors()->get_error_messages();
@@ -75,7 +75,8 @@ function AJDWP_add_new_user()
 
         if ($new_user_id) {
             // Send an email to the admin
-            wp_new_user_notification($new_user_id);
+            // wp_new_user_notification($new_user_id);
+            wp_new_user_notification($new_user_id, null, 'user');
 
             // Authenticate and log the new user in
             wp_set_auth_cookie($new_user_id, true);
@@ -83,7 +84,9 @@ function AJDWP_add_new_user()
             do_action('wp_login', $cleaned_input_user_login, get_userdata($new_user_id));
 
             // Redirect to the home page after logging in
-            wp_redirect(home_url());
+            // wp_redirect(home_url());
+            wp_send_json_success(['redirect' => home_url()]);
+
             exit;
         }
     }
@@ -171,7 +174,7 @@ function sanitize_and_validate_email($email)
         return $email;
     } else {
         // Handle invalid email (you may choose to return an error or handle it as needed)
-        AJDWP_errors()->add('email_invalid_naughty', __('Naughty characters not allowed in your email field.'));
+        AJDWP_errors()->add('email_invalid_naughty', __('Naughty characters not allowed in your email field.'), 'hello-elementor-child');
         return false;
     }
 }
@@ -189,40 +192,42 @@ function custom_reset_password()
 
     $user_login = isset($_POST['user_login']) ? sanitize_text_field($_POST['user_login']) : '';
 
+    // ---- Validation ----
     if (empty($user_login)) {
-        echo '<div class="alert alert-danger">Please enter a valid username or email.</div>';
-        die();
+        echo '<div class="alert alert-danger">' . __('Please enter a valid username or email.', 'hello-elementor-child') . '</div>';
+        wp_die();
     }
 
     $user_data = get_user_by('login', $user_login) ?: get_user_by('email', $user_login);
 
     if (!$user_data) {
-        echo '<div class="alert alert-danger">User not found. Please enter a valid username or email.</div>';
-        die();
+        echo '<div class="alert alert-danger">' . __('User not found. Please enter a valid username or email.', 'hello-elementor-child') . '</div>';
+        wp_die();
     }
 
+    // ---- Prepare reset link ----
     $user_email = $user_data->user_email;
-    $reset_key = get_password_reset_key($user_data);
-    $reset_url = esc_url(site_url('/password-reset-page/')) . '?key=' . rawurlencode($reset_key) . '&login=' . rawurlencode($user_data->user_login);
+    $reset_key  = get_password_reset_key($user_data);
+    $reset_url  = esc_url(site_url('/password-reset-page/')) . '?key=' . rawurlencode($reset_key) . '&login=' . rawurlencode($user_data->user_login);
 
+    // ---- Email message ----
+    $subject = __('Password Reset Request', 'hello-elementor-child');
+    $message  = __("Someone has requested a password reset for the following account:", 'hello-elementor-child') . "\r\n\r\n";
+    $message .= __("Username:", 'hello-elementor-child') . ' ' . $user_data->user_login . "\r\n\r\n";
+    $message .= __("If this was a mistake, just ignore this email and nothing will happen.", 'hello-elementor-child') . "\r\n\r\n";
+    $message .= __("To reset your password, visit the following link:", 'hello-elementor-child') . "\r\n\r\n";
+    $message .= $reset_url . "\r\n";
 
-
-    $message = "Someone has requested a password reset for the following account:\r\n\r\n";
-    $message .= "Username: $user_data->user_login\r\n\r\n";
-    $message .= "If this was a mistake, just ignore this email and nothing will happen.\r\n\r\n";
-    $message .= "To reset your password, visit the following link:\r\n\r\n";
-    $message .= "$reset_url\r\n";
-
-    wp_mail($user_email, 'Password Reset Request', $message);
-
-    if (wp_mail($user_email, 'Password Reset Request', $message)) {
-        echo '<div class="alert alert-success">Password reset link sent. Check your email.</div>';
+    // ---- Send email ----
+    if (wp_mail($user_email, $subject, $message)) {
+        echo '<div class="alert alert-success">' . __('Password reset link sent. Check your email.', 'hello-elementor-child') . '</div>';
     } else {
-        echo '<div class="alert alert-danger">Something went wrong...!!!</div>';
-        // echo json_encode(array('success' => true));
+        echo '<div class="alert alert-danger">' . __('Something went wrong. Please try again later.', 'hello-elementor-child') . '</div>';
     }
-    die();
+
+    wp_die();
 }
+
 
 add_action('wp_ajax_custom_reset_password', 'custom_reset_password');
 add_action('wp_ajax_nopriv_custom_reset_password', 'custom_reset_password');
@@ -235,40 +240,40 @@ function custom_password_reset_form()
 {
     if (isset($_GET['key']) && isset($_GET['login'])) { ?>
 
-        <h5 class="AJDWP_up_header mt-4 m-2 fw-bold"><?php _e('Set a new Password For Your Account'); ?></h5>
+        <h5 class="AJDWP_up_header mt-4 m-2 fw-bold"><?php _e('Set a new Password For Your Account', 'hello-elementor-child'); ?></h5>
 
         <?php
         // show any error messages after form submission
         AJDWP_register_messages();
         ?>
-        <div class="alert alert-success" role="alert" id="seccessfully_password_set" style="display: none;"> Password Set Successfully...!!!</div>
+        <div class="alert alert-success" role="alert" id="seccessfully_password_set" style="display: none;"> <?php _e('Password set successfully!', 'hello-elementor-child'); ?></div>
         <fieldset id="fieldset_mprf" style="display: block;">
 
             <form id="member-password-reset-form" class="AJDWP_form" method="post" action="" autocomplete="off">
 
-                <p>This form is specifically designed for the exclusive use of this user:
-                    <span class="text-danger font-weight-bold"><?php echo (!empty($_GET['login'])) ? $_GET['login'] : ''; ?></span>
+                <p><?php _e('This form is specifically designed for the exclusive use of this user:', 'hello-elementor-child'); ?>
+                    <span class="text-danger font-weight-bold"><?php echo (!empty($_GET['login'])) ? esc_html($_GET['login']) : ''; ?></span>
                 </p>
 
-                <p>If the provided information does not match your username or email address, kindly exit the page.
-                    <a href="<?php echo home_url(); ?>">&#8592; Go Home</a>
+                <p><?php _e('If the provided information does not match your username or email address, kindly exit the page.', 'hello-elementor-child'); ?>
+                    <a href="<?php echo home_url(); ?>">&#8592; <?php _e('Go Home', 'hello-elementor-child'); ?></a>
                 </p>
 
                 <p>
-                    <label for="new_password_reset">New Password:</label>
+                    <label for="new_password_reset"><?php _e('New Password:', 'hello-elementor-child'); ?></label>
                     <input type="password" name="new_password_reset" id="new_password_reset" autocomplete="off" required />
                 </p>
 
                 <div id="rpf_psw_message">
-                    <h3>Password must contain the following:</h3>
-                    <p id="Special_char_rpf" class="reg_psw_invalid">A special character<b> [!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]</b> character</p>
-                    <p id="capital_rpf" class="reg_psw_invalid">A <b>capital (uppercase)</b> letter</p>
-                    <p id="number_rpf" class="reg_psw_invalid">A <b>number</b></p>
-                    <p id="length_rpf" class="reg_psw_invalid">Minimum <b>8 characters</b></p>
+                    <h3><?php _e('Password must contain the following:', 'hello-elementor-child'); ?></h3>
+                    <p id="Special_char_rpf" class="reg_psw_invalid"><?php esc_html_e('A Special Character', 'hello-elementor-child'); ?> [!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]</p>
+                    <p id="capital_rpf" class="reg_psw_invalid"><?php esc_html_e('A Captal Letter', 'hello-elementor-child'); ?></p>
+                    <p id="number_rpf" class="reg_psw_invalid"><?php esc_html_e('A Number', 'hello-elementor-child'); ?></p>
+                    <p id="length_rpf" class="reg_psw_invalid"><?php esc_html_e('Minimum 8 Characters', 'hello-elementor-child'); ?></p>
                 </div>
 
                 <p>
-                    <label for="repeat_new_password_reset">New Password:</label>
+                    <label for="repeat_new_password_reset"><?php _e('Repeat Password: ', 'hello-elementor-child'); ?></label>
                     <input type="password" name="repeat_new_password_reset" id="repeat_new_password_reset" autocomplete="off" required />
                 </p>
 
@@ -299,11 +304,11 @@ function handle_password_reset()
             $repeat_new_password_reset = sanitize_text_field($_POST['repeat_new_password_reset']);
             if ($new_password_reset == '' || $repeat_new_password_reset == '') {
                 // empty Fields
-                AJDWP_errors()->add('prf_empty', __('Fields cann\'t be empty'));
+                AJDWP_errors()->add('prf_empty', __('Fields can’t be empty.', 'hello-elementor-child'));
             }
             if ($new_password_reset != $repeat_new_password_reset) {
                 // passwords do not match
-                AJDWP_errors()->add('prf_password_mismatch', __('Passwords do not match'));
+                AJDWP_errors()->add('prf_password_mismatch', __('Passwords do not match', 'hello-elementor-child'));
             }
 
             $prf_errors = AJDWP_errors()->get_error_messages();
@@ -335,7 +340,7 @@ function handle_password_reset()
 <?php
 
                 } else {
-                    AJDWP_errors()->add('prf_invalidLink', __('Invalid reset link or expired key'));
+                    AJDWP_errors()->add('prf_invalidLink', __('Invalid reset link or expired key', 'hello-elementor-child'));
                 }
             }
         }
@@ -350,9 +355,11 @@ add_action('template_redirect', 'handle_password_reset');
 
 function create_custom_pages_once()
 {
+    if (!current_user_can('manage_options')) return;
+
     $page_definitions = array(
-        'user-profile' => array(
-            'title' => 'User Profile',
+        'user-account' => array(
+            'title' => 'User Account',
             'content' => '[AJDWP_register_form]'
         ),
         'password-reset-page' => array(

@@ -132,6 +132,8 @@ include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/user_avatar.php"
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/View_counter.php";
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/Yoast_seo_settings.php";
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/google_tag_manager.php";
+include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/nav_link_to_user_profile.php";
+include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/nav_link_name_for_not_logged_in_users.php";
 
 //--------------------------- 
 //--------- Load translations 

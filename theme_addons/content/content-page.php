@@ -84,7 +84,7 @@ $options = get_option('AJDWP_theme_options');
                  *    - If not single, show excerpt.
                  */
                 ?>
-                <div class="post-content-excerpt <?php echo (is_single() || is_page()) ? 'col-lg-12' : (has_post_thumbnail() ? 'col-lg-9' : 'col-lg-12'); ?>">
+                <div class="post-content-excerpt my-4 <?php echo (is_single() || is_page()) ? 'col-lg-12' : (has_post_thumbnail() ? 'col-lg-9' : 'col-lg-12'); ?>">
                     <?php if (is_single() || is_page()) : ?>
                         <div class="post-content text-justify px-lg-4">
                             <?php the_content(); ?>
@@ -169,12 +169,18 @@ $options = get_option('AJDWP_theme_options');
 
                 </div>
 
-                <!-- Post Views (if enabled) -->
-                <?php if (!empty($options['post_views'])) : ?>
+                <!-- Post or Page Views (if enabled) -->
+                <?php
+                $show_counter =
+                    (is_singular('post') && !empty($options['post_views'])) ||
+                    (is_page()          && !empty($options['page_views']));
+
+                if ($show_counter) : ?>
                     <div class="col-sm-4 p-4 text-end AJDWP-theme-view-counter">
                         <?php echo esc_html(getPostViews(get_the_ID())); ?>
                     </div>
                 <?php endif; ?>
+
             </div>
         </div>
         <?php

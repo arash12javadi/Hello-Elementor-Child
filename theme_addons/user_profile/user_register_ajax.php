@@ -66,7 +66,7 @@ if (! defined('ABSPATH')) {
             </br>
         </p>
         <p>
-            <input type="hidden" name="AJDWP_csrf" id="AJDWP_csrf_nounce" value="<?php echo wp_create_nonce('AJDWP-csrf'); ?>" />
+            <input type="hidden" name="AJDWP_csrf" id="AJDWP_csrf_nonce" value="<?php echo wp_create_nonce('AJDWP-csrf'); ?>" />
             <input type="submit" id="reg_user_submit" class="reg_user_submit" value="<?php esc_html_e('Register', 'hello-elementor-child'); ?>" disabled />
         </p>
         <?php wp_nonce_field('ajax_user_register_nonce', 'user_register_security'); ?>
@@ -86,7 +86,7 @@ if (! defined('ABSPATH')) {
                     AJDWP_user_pass: $('#register_psw').val(),
                     AJDWP_user_pass_confirm: $('#password_again').val(),
                     AJDWP_user_role: $('input[name="user_role"]:checked').val(),
-                    AJDWP_csrf_nounce: $('#user_register_security').val()
+                    AJDWP_csrf_nonce: $('#user_register_security').val()
                 };
 
                 $.ajax({

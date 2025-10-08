@@ -3,8 +3,8 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-// Quick login shortcode display for non-logged-in users and non-user-profile pages
-if (!is_user_logged_in() && !is_page('user-profile')) {
+// Quick login shortcode display for non-logged-in users and non-user-account pages
+if (!is_user_logged_in() && !is_page('user-account')) {
     echo do_shortcode('[quick_login_right_bottom]');
 }
 
