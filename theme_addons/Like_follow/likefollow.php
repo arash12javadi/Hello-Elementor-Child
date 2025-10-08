@@ -33,7 +33,7 @@ if (!empty($options['like_follow_system'])) {
                         name="like_button"
                         style="<?php echo $like_exsists ? 'display:none;' : ''; ?>">
                         <i class="fa fa-thumbs-up p-2 rounded-circle border border-1" style="font-size: 30px; cursor:pointer; color:lightgrey;"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary" id="total_likes_<?php echo $post_id; ?>">
+                        <span class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-secondary" id="total_likes_<?php echo $post_id; ?>">
                             <?php echo $totalLikes; ?>
                         </span>
                     </button>
@@ -44,7 +44,7 @@ if (!empty($options['like_follow_system'])) {
                         name="unlike_button"
                         style="<?php echo !$like_exsists ? 'display:none;' : ''; ?>">
                         <i class="fa fa-thumbs-up p-2 rounded-circle border border-1 border-primary text-primary" style="font-size: 30px; cursor:pointer;"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" id="total_likes2_<?php echo $post_id; ?>">
+                        <span class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-primary" id="total_likes2_<?php echo $post_id; ?>">
                             <?php echo $totalLikes; ?>
                         </span>
                     </button>
@@ -56,8 +56,8 @@ if (!empty($options['like_follow_system'])) {
                         id="follow_button_<?php echo $author_id; ?>"
                         name="follow_button"
                         style="<?php echo $follow_exsists ? 'display:none;' : ''; ?>">
-                        <i class="fa fa-user-plus p-2 rounded-circle border border-1" style="font-size: 30px; cursor:pointer; color:lightgrey; width: 48px;"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary" id="total_follow_<?php echo $author_id; ?>">
+                        <i class="fa fa-user-plus p-2 rounded-circle border border-1" style="font-size: 30px; cursor:pointer; color:lightgrey; width:50px; height:50px;"></i>
+                        <span class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-secondary" id="total_follow_<?php echo $author_id; ?>">
                             <?php echo $totalfollow; ?>
                         </span>
                     </button>
@@ -67,8 +67,8 @@ if (!empty($options['like_follow_system'])) {
                         id="unfollow_button_<?php echo $author_id; ?>"
                         name="unfollow_button"
                         style="<?php echo !$follow_exsists ? 'display:none;' : ''; ?>">
-                        <i class="fa fa-users p-2 rounded-circle border border-1 border-primary text-primary" style="font-size: 30px; cursor:pointer; width: 48px;"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" id="total_follow2_<?php echo $author_id; ?>">
+                        <i class="fa fa-users p-2 rounded-circle border border-1 border-primary text-primary" style="font-size: 30px; cursor:pointer; width:50px; height:50px;"></i>
+                        <span class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-primary" id="total_follow2_<?php echo $author_id; ?>">
                             <?php echo $totalfollow; ?>
                         </span>
                     </button>
