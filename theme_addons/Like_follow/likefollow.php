@@ -51,27 +51,32 @@ if (!empty($options['like_follow_system'])) {
                 <?php endif; ?>
 
                 <?php if (is_author()) : ?>
-                    <button class="btn follow_btn position-relative border-0"
-                        type="button"
-                        id="follow_button_<?php echo $author_id; ?>"
-                        name="follow_button"
-                        style="<?php echo $follow_exsists ? 'display:none;' : ''; ?>">
-                        <i class="fa fa-user-plus p-2 rounded-circle border border-1" style="font-size: 30px; cursor:pointer; color:lightgrey; width:50px; height:50px;"></i>
-                        <span class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-secondary" id="total_follow_<?php echo $author_id; ?>">
-                            <?php echo $totalfollow; ?>
-                        </span>
-                    </button>
+                    <?php
+                    $author = get_queried_object();
+                    $current_user_id = get_current_user_id();
+                    if ($current_user_id !== (int) $author->ID): ?>
+                        <button class="btn follow_btn position-relative border-0"
+                            type="button"
+                            id="follow_button_<?php echo $author_id; ?>"
+                            name="follow_button"
+                            style="<?php echo $follow_exsists ? 'display:none;' : ''; ?>">
+                            <i class="fa fa-user-plus p-2 rounded-circle border border-1" style="font-size: 30px; cursor:pointer; color:lightgrey; width:50px; height:50px;"></i>
+                            <span class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-secondary" id="total_follow_<?php echo $author_id; ?>">
+                                <?php echo $totalfollow; ?>
+                            </span>
+                        </button>
 
-                    <button class="btn unfollow_btn position-relative border-0"
-                        type="button"
-                        id="unfollow_button_<?php echo $author_id; ?>"
-                        name="unfollow_button"
-                        style="<?php echo !$follow_exsists ? 'display:none;' : ''; ?>">
-                        <i class="fa fa-users p-2 rounded-circle border border-1 border-primary text-primary" style="font-size: 30px; cursor:pointer; width:50px; height:50px;"></i>
-                        <span class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-primary" id="total_follow2_<?php echo $author_id; ?>">
-                            <?php echo $totalfollow; ?>
-                        </span>
-                    </button>
+                        <button class="btn unfollow_btn position-relative border-0"
+                            type="button"
+                            id="unfollow_button_<?php echo $author_id; ?>"
+                            name="unfollow_button"
+                            style="<?php echo !$follow_exsists ? 'display:none;' : ''; ?>">
+                            <i class="fa fa-users p-2 rounded-circle border border-1 border-primary text-primary" style="font-size: 30px; cursor:pointer; width:50px; height:50px;"></i>
+                            <span class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-primary" id="total_follow2_<?php echo $author_id; ?>">
+                                <?php echo $totalfollow; ?>
+                            </span>
+                        </button>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>

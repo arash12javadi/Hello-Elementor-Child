@@ -1,238 +1,301 @@
 <?php
+//_____________________________________ user_profile_functions.php _____________________________________//
 
 if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-//__________________________________________________________________________//
-//__________________________________________________________________________//
-//                          register a new user
-//__________________________________________________________________________//
-//__________________________________________________________________________//
+//--------------------------- Helper Functions(Error handlers & input sanitizers) ---------------------------//
+//--------------------------- Helper Functions(Error handlers & input sanitizers) ---------------------------//
+//--------------------------- Helper Functions(Error handlers & input sanitizers) ---------------------------//
 
+// ---------------- Helper: collect errors ----------------
+function AJDWP_errors()
+{
+    static $wp_error;
+    return isset($wp_error) ? $wp_error : ($wp_error = new WP_Error());
+}
+
+// ---------------- Helper: echo errors (translated + escaped) ----------------
+function AJDWP_register_messages()
+{
+    $codes = AJDWP_errors()->get_error_codes();
+    if (empty($codes)) {
+        return;
+    }
+    echo '<div class="alert alert-danger">';
+    foreach ($codes as $code) {
+        $message = AJDWP_errors()->get_error_message($code);
+        printf(
+            '<span class="error"><strong>%s</strong>: %s</span><br/>',
+            esc_html__('Error', 'hello-elementor-child'),
+            esc_html($message)
+        );
+    }
+    echo '</div>';
+}
+
+// ---------------- Sanitizers (store-safe, not output-escaping) ----------------
+
+// Plain text (names, simple fields)
+function AJDWP_clean_text($value)
+{
+    return sanitize_text_field(wp_unslash($value));
+}
+
+// Username (strict)
+function AJDWP_clean_username($value)
+{
+    return sanitize_user(wp_unslash($value), true); // strict
+}
+
+// Email
+function AJDWP_clean_email($value)
+{
+    $email = sanitize_email(wp_unslash($value));
+    if ($email && is_email($email)) {
+        return $email;
+    }
+    AJDWP_errors()->add(
+        'email_invalid_naughty',
+        __('Naughty characters not allowed in your email field.', 'hello-elementor-child')
+    );
+    return false;
+}
+
+// Password: DO NOT sanitize beyond unslashing + trim (keep all characters)
+function AJDWP_clean_password($value)
+{
+    return trim(wp_unslash((string) $value));
+}
+
+// ================== LOGIN REDIRECT/ERROR HANDLERS (CLASSIC FORM ONLY) ==================
+
+// Failure → back to referer with ?login=failed (DON'T run for AJAX/REST)
+add_action('wp_login_failed', function ($username) {
+    if (wp_doing_ajax() || (function_exists('wp_doing_rest') && wp_doing_rest())) {
+        return;
+    }
+
+    $target = !empty($_POST['redirect_to']) ? $_POST['redirect_to'] : wp_get_referer();
+    if (!$target || strpos($target, 'wp-login.php') !== false) {
+        $target = home_url('/');
+    }
+    wp_safe_redirect(add_query_arg('login', 'failed', $target));
+    exit;
+});
+
+// Empty creds → back with ?login=empty (classic wp-login.php form only; NOT AJAX)
+add_filter('authenticate', function ($user, $username, $password) {
+    if (wp_doing_ajax() || (function_exists('wp_doing_rest') && wp_doing_rest())) {
+        return $user;
+    }
+
+    // Only act when default wp-login.php fields are used
+    if (isset($_POST['log'], $_POST['pwd']) && ('' === $username || '' === $password)) {
+        $target = !empty($_POST['redirect_to']) ? $_POST['redirect_to'] : wp_get_referer();
+        if (!$target || strpos($target, 'wp-login.php') !== false) {
+            $target = home_url('/');
+        }
+        wp_safe_redirect(add_query_arg('login', 'empty', $target));
+        exit;
+    }
+    return $user;
+}, 30, 3);
+
+// Success → author archive (safe for both classic & AJAX)
+add_filter('login_redirect', function ($redirect_to, $requested, $user) {
+    if ($user instanceof WP_User) {
+        return get_author_posts_url($user->ID);
+    }
+    return $redirect_to;
+}, 10, 3);
+
+// Render notices where your classic form lives (optional)
+function ajdwp_render_login_notices(): void
+{
+    if (empty($_GET['login'])) return;
+
+    $code = sanitize_text_field(wp_unslash($_GET['login']));
+    $messages = [
+        'failed' => __('Invalid username or password.', 'hello-elementor-child'),
+        'empty'  => __('Please enter both username and password.', 'hello-elementor-child'),
+    ];
+    if (isset($messages[$code])) {
+        printf('<div class="alert alert-danger" role="alert" aria-live="polite">%s</div>', esc_html($messages[$code]));
+    }
+}
+add_action('init', function () {
+    add_shortcode('ajdwp_login_notices', function () {
+        ob_start();
+        ajdwp_render_login_notices();
+        return ob_get_clean();
+    });
+});
+
+
+//--------------------------- Register New User ---------------------------//
+//--------------------------- Register New User ---------------------------//
+//--------------------------- Register New User ---------------------------//
 
 function AJDWP_add_new_user()
 {
+    // Nonce check
     check_ajax_referer('ajax_user_register_nonce', 'AJDWP_csrf_nonce');
 
-    $user_login = $_POST["AJDWP_user_login"];
-    $cleaned_input_user_login = sanitize_user($user_login);
+    // Optional: honor current language posted by front-end so errors are localized
+    if (isset($_POST['lang']) && $_POST['lang'] !== '') {
+        $lang   = sanitize_text_field(wp_unslash($_POST['lang']));
+        $locale = (strpos($lang, 'fa') === 0) ? 'fa_IR' : $lang;
+        switch_to_locale($locale);
+    }
+    // Make sure translations are loaded in AJAX context
+    load_child_theme_textdomain('hello-elementor-child', get_stylesheet_directory() . '/languages');
 
-    $user_email = $_POST["AJDWP_user_email"];
-    $cleanedEmail = sanitize_email($user_email);
+    // ---------- Gather & clean inputs ----------
+    $user_login    = isset($_POST['AJDWP_user_login'])        ? AJDWP_clean_username($_POST['AJDWP_user_login']) : '';
+    $user_email    = isset($_POST['AJDWP_user_email'])        ? AJDWP_clean_email($_POST['AJDWP_user_email'])     : '';
+    $user_first    = isset($_POST['AJDWP_user_first'])        ? AJDWP_clean_text($_POST['AJDWP_user_first'])      : '';
+    $user_last     = isset($_POST['AJDWP_user_last'])         ? AJDWP_clean_text($_POST['AJDWP_user_last'])       : '';
+    $user_pass     = isset($_POST['AJDWP_user_pass'])         ? AJDWP_clean_password($_POST['AJDWP_user_pass'])   : '';
+    $pass_confirm  = isset($_POST['AJDWP_user_pass_confirm']) ? AJDWP_clean_password($_POST['AJDWP_user_pass_confirm']) : '';
 
-    $user_first = $_POST["AJDWP_user_first"];
-    $cleaned_input_user_first = sanitize_text_field($user_first);
+    // Role (never trust raw role from client)
+    $requested_role = isset($_POST['AJDWP_user_role']) ? AJDWP_clean_text($_POST['AJDWP_user_role']) : '';
+    $allowed_roles  = apply_filters('ajdwp_allowed_registration_roles', ['subscriber', 'customer']);
+    $user_role      = in_array($requested_role, $allowed_roles, true) ? $requested_role : 'subscriber';
 
-    $user_last = $_POST["AJDWP_user_last"];
-    $cleaned_input_user_last = sanitize_text_field($user_last);
-
-    $user_pass = $_POST["AJDWP_user_pass"];
-    $cleaned_psw = stripslashes($user_pass);
-    $pass_confirm = $_POST["AJDWP_user_pass_confirm"];
-
-    $user_role = sanitize_text_field($_POST["AJDWP_user_role"]);
-
-    // No need to include registration.php, remove this line
-    // require_once(ABSPATH . WPINC . '/registration.php');
-
-    if (username_exists($cleaned_input_user_login)) {
+    // ---------- Validate ----------
+    if ($user_login === '') {
+        AJDWP_errors()->add('username_empty', __('Please enter a username', 'hello-elementor-child'));
+    } elseif (!validate_username($user_login)) {
+        AJDWP_errors()->add('username_invalid', __('Invalid username', 'hello-elementor-child'));
+    } elseif (username_exists($user_login)) {
         AJDWP_errors()->add('username_unavailable', __('Username already taken', 'hello-elementor-child'));
     }
-    if (!validate_username($cleaned_input_user_login)) {
-        AJDWP_errors()->add('username_invalid', __('Invalid username', 'hello-elementor-child'));
-    }
-    if ($cleaned_input_user_login == '') {
-        AJDWP_errors()->add('username_empty', __('Please enter a username', 'hello-elementor-child'));
-    }
-    if (!is_email($cleanedEmail)) {
+
+    if (!$user_email) {
         AJDWP_errors()->add('email_invalid', __('Invalid email', 'hello-elementor-child'));
-    }
-    if (email_exists($cleanedEmail)) {
+    } elseif (email_exists($user_email)) {
         AJDWP_errors()->add('email_used', __('Email already registered', 'hello-elementor-child'));
     }
-    if ($cleaned_psw == '') {
+
+    if ($user_pass === '') {
         AJDWP_errors()->add('password_empty', __('Please enter a password', 'hello-elementor-child'));
-    }
-    if ($user_pass != $pass_confirm) {
+    } elseif ($user_pass !== $pass_confirm) {
         AJDWP_errors()->add('password_mismatch', __('Passwords do not match', 'hello-elementor-child'));
-    }
-
-    $errors = AJDWP_errors()->get_error_messages();
-
-    if (!empty($errors)) {
-        wp_send_json_error(array('errors' => $errors));
     } else {
-        $new_user_id = wp_insert_user(array(
-            'user_login'        => $cleaned_input_user_login,
-            'user_pass'         => $cleaned_psw,
-            'user_email'        => $cleanedEmail,
-            'first_name'        => $cleaned_input_user_first,
-            'last_name'         => $cleaned_input_user_last,
-            'user_registered'   => date('Y-m-d H:i:s'),
-            'role'              => $user_role
-        ));
+        // Optional minimal strength check (matches your change password logic)
+        $has_upper   = (bool) preg_match('/[A-Z]/', $user_pass);
+        $has_number  = (bool) preg_match('/\d/',    $user_pass);
+        $has_special = (bool) preg_match('/[^A-Za-z0-9]/', $user_pass);
+        $len_ok      = strlen($user_pass) >= 8;
 
-        if ($new_user_id) {
-            // Send an email to the admin
-            // wp_new_user_notification($new_user_id);
-            wp_new_user_notification($new_user_id, null, 'user');
-
-            // Authenticate and log the new user in
-            wp_set_auth_cookie($new_user_id, true);
-            wp_set_current_user($new_user_id, $cleaned_input_user_login);
-            do_action('wp_login', $cleaned_input_user_login, get_userdata($new_user_id));
-
-            // Redirect to the home page after logging in
-            // wp_redirect(home_url());
-            wp_send_json_success(['redirect' => home_url()]);
-
-            exit;
+        if (!$has_upper || !$has_number || !$has_special || !$len_ok) {
+            AJDWP_errors()->add('password_weak', __('Password does not meet the required strength.', 'hello-elementor-child'));
         }
     }
-}
 
+    // ---------- Bail on errors ----------
+    $errors = AJDWP_errors()->get_error_messages();
+    if (!empty($errors)) {
+        wp_send_json_error([
+            'errors' => $errors
+        ]);
+    }
+
+    // ---------- Create user ----------
+    $new_user_id = wp_insert_user([
+        'user_login'      => $user_login,
+        'user_pass'       => $user_pass,
+        'user_email'      => $user_email,
+        'first_name'      => $user_first,
+        'last_name'       => $user_last,
+        'user_registered' => current_time('mysql'),
+        'role'            => $user_role,
+    ]);
+
+    if (is_wp_error($new_user_id)) {
+        AJDWP_errors()->add('register_failed', $new_user_id->get_error_message());
+        wp_send_json_error([
+            'errors' => AJDWP_errors()->get_error_messages()
+        ], 500);
+    }
+
+    // Notify (to user only; adjust to 'both' if you want admin too)
+    if (function_exists('wp_new_user_notification')) {
+        // WP 4.9+ signature: wp_new_user_notification( int $user_id, null, string $notify = 'both|user|admin' )
+        wp_new_user_notification($new_user_id, null, 'user');
+    }
+
+    // Auto-login newly registered user
+    wp_set_current_user($new_user_id);
+    wp_set_auth_cookie($new_user_id, true);
+    do_action('wp_login', $user_login, get_userdata($new_user_id));
+
+    wp_send_json_success([
+        'message'  => __('Registration successful.', 'hello-elementor-child'),
+        'redirect' => home_url('/'),
+    ]);
+}
 add_action('wp_ajax_user_register_ajax', 'AJDWP_add_new_user');
 add_action('wp_ajax_nopriv_user_register_ajax', 'AJDWP_add_new_user');
 
 
-// used for tracking error messages
-function AJDWP_errors()
-{
-    static $wp_error; // global variable handle
-    return isset($wp_error) ? $wp_error : ($wp_error = new WP_Error(null, null, null));
-}
-
-// displays error messages from form submissions
-function AJDWP_register_messages()
-{
-    if ($codes = AJDWP_errors()->get_error_codes()) {
-        echo '<div class="alert alert-danger">';
-        // Loop error codes and display errors
-        foreach ($codes as $code) {
-            $message = AJDWP_errors()->get_error_message($code);
-            echo '<span class="error"><strong>' . __('Error') . '</strong>: ' . $message . '</span><br/>';
-        }
-        echo '</div>';
-    }
-}
+//--------------------------- Forgot Password ---------------------------//
+//--------------------------- Forgot Password ---------------------------//
+//--------------------------- Forgot Password ---------------------------//
 
 
-function sanitize_and_validate_input($input)
-{
-    // Ensure magic quotes are off (if applicable)
-    $input = stripslashes($input);
+add_action('wp_ajax_nopriv_custom_reset_password', 'AJDWP_custom_reset_password');
+add_action('wp_ajax_custom_reset_password',        'AJDWP_custom_reset_password');
 
-    // Remove HTML tags, strip whitespace, and ensure it's safe for storage/display
-    $input = sanitize_text_field($input);
-
-    // Escape HTML entities
-    $input = esc_html($input);
-
-    // Escape text for use in HTML attributes
-    $input = esc_attr($input);
-
-    // Define allowed HTML tags and attributes for wp_kses
-    $allowed_html = array(
-        'a' => array(
-            'href' => array(),
-            'title' => array()
-        ),
-        'br' => array(),
-        'em' => array(),
-    );
-
-    // Sanitize and validate HTML content using wp_kses
-    $input = wp_kses($input, $allowed_html);
-
-    // Remove all HTML tags
-    $input = wp_strip_all_tags($input);
-
-    // Return the sanitized and validated input
-    return $input;
-}
-
-
-
-function sanitize_and_validate_email($email)
-{
-    // Ensure magic quotes are off (if applicable)
-    $email = stripslashes($email);
-
-    // Remove HTML tags, strip whitespace, and ensure it's safe for storage/display
-    $email = sanitize_text_field($email);
-
-    // Escape HTML entities
-    $email = esc_html($email);
-
-    // Escape text for use in HTML attributes
-    $email = esc_attr($email);
-
-    // Validate email format
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // Return the sanitized and validated email
-        return $email;
-    } else {
-        // Handle invalid email (you may choose to return an error or handle it as needed)
-        AJDWP_errors()->add('email_invalid_naughty', __('Naughty characters not allowed in your email field.'), 'hello-elementor-child');
-        return false;
-    }
-}
-
-
-//__________________________________________________________________________//
-//__________________________________________________________________________//
-//                          Forgot Password
-//__________________________________________________________________________//
-//__________________________________________________________________________//
-
-function custom_reset_password()
+function AJDWP_custom_reset_password()
 {
     check_ajax_referer('ajax-forgot-nonce', 'security');
 
-    $user_login = isset($_POST['user_login']) ? sanitize_text_field($_POST['user_login']) : '';
-
-    // ---- Validation ----
-    if (empty($user_login)) {
-        echo '<div class="alert alert-danger">' . __('Please enter a valid username or email.', 'hello-elementor-child') . '</div>';
-        wp_die();
+    // Optional: switch locale for translated messages
+    if (isset($_POST['lang']) && $_POST['lang'] !== '') {
+        $lang   = sanitize_text_field(wp_unslash($_POST['lang']));
+        $locale = (strpos($lang, 'fa') === 0) ? 'fa_IR' : $lang;
+        switch_to_locale($locale);
+        load_child_theme_textdomain('hello-elementor-child', get_stylesheet_directory() . '/languages');
     }
 
-    $user_data = get_user_by('login', $user_login) ?: get_user_by('email', $user_login);
+    $login = isset($_POST['user_login']) ? sanitize_text_field(wp_unslash($_POST['user_login'])) : '';
 
-    if (!$user_data) {
-        echo '<div class="alert alert-danger">' . __('User not found. Please enter a valid username or email.', 'hello-elementor-child') . '</div>';
-        wp_die();
+    if ($login === '') {
+        wp_send_json_error(['errors' => [__('Please enter your username or email.', 'hello-elementor-child')]]);
     }
 
-    // ---- Prepare reset link ----
-    $user_email = $user_data->user_email;
-    $reset_key  = get_password_reset_key($user_data);
-    $reset_url  = esc_url(site_url('/password-reset-page/')) . '?key=' . rawurlencode($reset_key) . '&login=' . rawurlencode($user_data->user_login);
+    // Core lost-password
+    $_POST['user_login'] = $login;
+    $result = retrieve_password();
 
-    // ---- Email message ----
-    $subject = __('Password Reset Request', 'hello-elementor-child');
-    $message  = __("Someone has requested a password reset for the following account:", 'hello-elementor-child') . "\r\n\r\n";
-    $message .= __("Username:", 'hello-elementor-child') . ' ' . $user_data->user_login . "\r\n\r\n";
-    $message .= __("If this was a mistake, just ignore this email and nothing will happen.", 'hello-elementor-child') . "\r\n\r\n";
-    $message .= __("To reset your password, visit the following link:", 'hello-elementor-child') . "\r\n\r\n";
-    $message .= $reset_url . "\r\n";
-
-    // ---- Send email ----
-    if (wp_mail($user_email, $subject, $message)) {
-        echo '<div class="alert alert-success">' . __('Password reset link sent. Check your email.', 'hello-elementor-child') . '</div>';
-    } else {
-        echo '<div class="alert alert-danger">' . __('Something went wrong. Please try again later.', 'hello-elementor-child') . '</div>';
+    if (true === $result) {
+        wp_send_json_success([
+            'message' => __('Password reset link sent. Check your email.', 'hello-elementor-child'),
+        ]);
     }
 
-    wp_die();
+    $errors = [];
+    if (is_wp_error($result)) {
+        foreach ((array) $result->errors as $messages) {
+            foreach ($messages as $m) {
+                $errors[] = $m;
+            }
+        }
+    }
+    if (empty($errors)) {
+        $errors[] = __('Something went wrong. Please try again.', 'hello-elementor-child');
+    }
+
+    wp_send_json_error(['errors' => $errors]);
 }
 
 
-add_action('wp_ajax_custom_reset_password', 'custom_reset_password');
-add_action('wp_ajax_nopriv_custom_reset_password', 'custom_reset_password');
-
-
+//------------------------------------- set new password by emailed reset link shortcode ------------------------------------//
+//------------------------------------- set new password by emailed reset link shortcode ------------------------------------//
 //------------------------------------- set new password by emailed reset link shortcode ------------------------------------//
 
 
@@ -352,6 +415,8 @@ add_action('template_redirect', 'handle_password_reset');
 
 
 //------------------------------------- Admin Button to make needed pages ------------------------------------//
+//------------------------------------- Admin Button to make needed pages ------------------------------------//
+//------------------------------------- Admin Button to make needed pages ------------------------------------//
 
 function create_custom_pages_once()
 {
@@ -402,4 +467,62 @@ function custom_page_creation_trigger()
 
 
 
-?>
+//--------------------------- DELETE ACCOUNT ---------------------------//
+//--------------------------- DELETE ACCOUNT ---------------------------//
+//--------------------------- DELETE ACCOUNT ---------------------------//
+
+add_action('wp_ajax_delete_user_account', 'ajdwp_delete_user_account');
+
+function ajdwp_delete_user_account()
+{
+    check_ajax_referer('delete_user_nonce', 'nonce');
+
+    if (!is_user_logged_in()) {
+        wp_send_json_error(['message' => __('You must be logged in.', 'hello-elementor-child')], 401);
+    }
+
+    $current_id = get_current_user_id();
+    $user       = get_userdata($current_id);
+
+    // Optional locale switch
+    if (!empty($_POST['lang'])) {
+        $lang   = sanitize_text_field(wp_unslash($_POST['lang']));
+        $locale = (strpos($lang, 'fa') === 0) ? 'fa_IR' : $lang;
+        switch_to_locale($locale);
+        load_child_theme_textdomain('hello-elementor-child', get_stylesheet_directory() . '/languages');
+    }
+
+    if (user_can($user, 'administrator')) {
+        wp_send_json_error(['message' => __('Admins cannot delete their account from the front-end.', 'hello-elementor-child')], 403);
+    }
+
+    if (empty($_POST['confirmed']) || $_POST['confirmed'] !== '1') {
+        wp_send_json_error(['message' => __('Please confirm you understand the consequences.', 'hello-elementor-child')]);
+    }
+
+    // Allow self-delete without delete_users cap
+    $allow_self_delete = function ($caps, $cap, $user_id, $args) use ($current_id) {
+        if ($cap === 'delete_user' && !empty($args[0]) && intval($args[0]) === $current_id && $user_id === $current_id) {
+            return ['exist'];
+        }
+        return $caps;
+    };
+    add_filter('map_meta_cap', $allow_self_delete, 10, 4);
+
+    require_once ABSPATH . 'wp-admin/includes/user.php';
+
+    $reassign_to = null; // set to a user ID to keep content, or null to delete all content
+
+    $deleted = wp_delete_user($current_id, $reassign_to);
+
+    remove_filter('map_meta_cap', $allow_self_delete, 10);
+
+    if (!$deleted) {
+        wp_send_json_error(['message' => __('Could not delete account.', 'hello-elementor-child')], 500);
+    }
+
+    wp_send_json_success([
+        'message'  => __('Your account has been deleted.', 'hello-elementor-child'),
+        'redirect' => home_url('/'),
+    ]);
+}

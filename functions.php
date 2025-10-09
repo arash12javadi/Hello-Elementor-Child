@@ -1,4 +1,5 @@
 <?php
+//_____________________________________ functions.php _____________________________________//
 
 if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly.
@@ -30,41 +31,124 @@ add_action('wp_enqueue_scripts', 'your_theme_enqueue_styles');
 
 function load_css_js()
 {
-    // Sidebar CSS and JS
+    // -------------- Core CSS and JS --------------
+    wp_enqueue_style('AJDWP_bootstrap_css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css');
+    wp_enqueue_script('AJDWP_bootstrap_js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js', array('jquery'), null, true);
+    wp_enqueue_script('jquery');
+    wp_enqueue_script('jquery-form');
+
+    // -------------- Detect current language --------------
+    // (Polylang/WPML aware, falls back to WP locale)
+    $current_lang = function_exists('pll_current_language')
+        ? pll_current_language('slug')
+        : (defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : determine_locale());
+
+    wp_localize_script('AJDWP-user-profile-js', 'AJDWP', [
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'home_url' => home_url('/'),
+        'lang'     => $current_lang,
+        'is_admin' => current_user_can('administrator'), // <—— add this
+
+        'assets'   => [
+            'success_gif' => get_stylesheet_directory_uri() . '/camel-gif-animation-success-message.gif',
+        ],
+        'i18n'     => [
+            // Registration
+            'enter_username' => __('Please enter a username', 'hello-elementor-child'),
+            'enter_email'    => __('Please enter an email address', 'hello-elementor-child'),
+            'invalid_email'  => __('Invalid email', 'hello-elementor-child'),
+            'enter_password' => __('Please enter a password', 'hello-elementor-child'),
+            'mismatch'       => __('Passwords do not match', 'hello-elementor-child'),
+            'reg_success'    => __('Registration successful.', 'hello-elementor-child'),
+            'reg_failed'     => __('Registration failed.', 'hello-elementor-child'),
+
+            // Forgot password
+            'reset_sent'     => __('Password reset link sent. Check your email.', 'hello-elementor-child'),
+            'reset_generic'  => __('Something went wrong. Please try again.', 'hello-elementor-child'),
+
+            // Delete account (new)
+            'admin_blocked'  => __('Admins cannot delete their account from the front-end.', 'hello-elementor-child'),
+            'tick_checkbox'  => __('Please tick the checkbox to continue.', 'hello-elementor-child'),
+            'generic_error'  => __('Error', 'hello-elementor-child'),
+
+            // Common
+            'server_error'   => __('Server error. Please try again.', 'hello-elementor-child'),
+            'go_home'        => __('Go to Home', 'hello-elementor-child'),
+
+            // Media
+            'media_title'    => __('Select or Upload Media', 'hello-elementor-child'),
+            'media_button'   => __('Use this media', 'hello-elementor-child'),
+        ],
+    ]);
+
+
+    // -------------- Sidebar CSS and JS --------------
     wp_enqueue_style('AJDWP-sidebar-css', get_stylesheet_directory_uri() . '/theme_addons/sidebar/sidebar.css', [], '1.0', 'all');
     wp_enqueue_script('AJDWP-sidebar-js', get_stylesheet_directory_uri() . '/theme_addons/sidebar/sidebar.js', array('jquery'), '1.0', true);
 
-    // Woo Styles and Scripts
+    // -------------- Woo Styles and Scripts --------------
     $options = get_option('AJDWP_theme_options');
     if (!empty($options['woocommerce_theme_support'])) {
         wp_enqueue_style('AJDWP_woo_css', get_stylesheet_directory_uri() . '/theme_addons/woo/woo.css', [], '1.0', 'all');
         wp_enqueue_script('AJDWP-woo-js', get_stylesheet_directory_uri() . '/theme_addons/woo/woo.js', array('jquery'), '1.0', true);
     }
 
-    // Core CSS and JS
-    wp_enqueue_style('AJDWP_bootstrap_css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css');
-    wp_enqueue_script('AJDWP_bootstrap_js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js', array('jquery'), null, true);
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('jquery-form');
-
-    // Quick Login Scripts
+    // -------------- Quick Login Scripts --------------
     wp_enqueue_style('quick-login-css', get_stylesheet_directory_uri() . '/theme_addons/quick_login_right_bottom/quick-login.css', array(), '1.0', 'all');
-    wp_enqueue_script('quick-login-js', get_stylesheet_directory_uri() . '/theme_addons/quick_login_right_bottom/quick-login.js', array('jquery'), '1.0', true);
-    wp_localize_script('quick-login-js', 'quick_login_ajax', array('ajax_url' => admin_url('admin-ajax.php')));
 
-    // Like & Follow Scripts
+    // Enqueue the quick login script with cache-busting
+    $handle   = 'quick-login-js';
+    $src      = get_stylesheet_directory_uri() . '/theme_addons/quick_login_right_bottom/quick-login.js';
+    $path     = get_stylesheet_directory() . '/theme_addons/quick_login_right_bottom/quick-login.js';
+    $version  = file_exists($path) ? filemtime($path) : '1.0.0';
+
+    wp_enqueue_script($handle, $src, ['jquery'], $version, true);
+
+    // Detect current language (Polylang/WPML aware; fallback to WP locale)
+    $current_lang = function_exists('pll_current_language')
+        ? pll_current_language('slug')
+        : (defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : determine_locale());
+
+    // Localize
+    wp_localize_script($handle, 'quick_login_ajax', [
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce'    => wp_create_nonce('custom_user_login_nonce'),
+        'lang'     => $current_lang,
+        'strings'  => [
+            'empty'       => __('Please enter both username and password.', 'hello-elementor-child'),
+            'unexpected'  => __('An unexpected error occurred.', 'hello-elementor-child'),
+            'server_error' => __('Server error. Please try again.', 'hello-elementor-child'),
+            'success'     => __('Login successful', 'hello-elementor-child'),
+        ],
+    ]);
+
+    // -------------- Like & Follow Scripts --------------
     wp_enqueue_script('AJDWP_like_follow_ajax_js', get_stylesheet_directory_uri() . '/theme_addons/Like_follow/Like_Follow_Ajax.js', array('jquery'), '1.0', true);
     wp_localize_script('AJDWP_like_follow_ajax_js', 'like_follow_ajax', array('ajax_url' => admin_url('admin-ajax.php')));
 
-    // Navbar Sryles and Scripts
+    // -------------- Navbar Sryles and Scripts --------------
     wp_enqueue_style('AJDWP-navbar-css', get_stylesheet_directory_uri() . '/theme_addons/navbar/navbar.css', [], '1.0', 'all');
     wp_enqueue_script('AJDWP-navbar-js', get_stylesheet_directory_uri() . '/theme_addons/navbar/navbar.js');
 
-    // User Profile Styles and Scripts
+    // -------------- User Profile Styles and Scripts --------------
     wp_enqueue_style('AJDWP-user-profile-css', get_stylesheet_directory_uri() . '/theme_addons/user_profile/user_profile.css', [], '1.0', 'all');
-    wp_enqueue_script('AJDWP-user-profile-js', get_stylesheet_directory_uri() . '/theme_addons/user_profile/user_profile.js', array('jquery'), '', true);
 
-    //fontawsome
+    // Make sure wp.media exists for the avatar uploader, etc.
+    wp_enqueue_media();
+
+    // Cache-busting version based on file mtime
+    $ajdwp_user_profile_js_path = get_stylesheet_directory() . '/theme_addons/user_profile/user_profile.js';
+    $ajdwp_user_profile_js_ver  = file_exists($ajdwp_user_profile_js_path) ? filemtime($ajdwp_user_profile_js_path) : '1.0.0';
+
+    wp_enqueue_script(
+        'AJDWP-user-profile-js',
+        get_stylesheet_directory_uri() . '/theme_addons/user_profile/user_profile.js',
+        ['jquery'],
+        $ajdwp_user_profile_js_ver,
+        true
+    );
+
+    //-------------- Fontawsome --------------
     wp_enqueue_script('AJDWP_fontawsome-arash11javadi', 'https://kit.fontawesome.com/162c2377c3.js');
 }
 add_action('wp_enqueue_scripts', 'load_css_js');
@@ -89,7 +173,6 @@ include dirname(__FILE__) . "/theme_addons/Like_follow/Like_Follow_Ajax.php";
 //------------------  User Registration ------------------
 include dirname(__FILE__) . "/theme_addons/user_profile/user_profile.php";
 include dirname(__FILE__) . "/theme_addons/user_profile/user_profile_functions.php";
-// include dirname(__FILE__)."/theme_addons/user_profile/author_page_profile_edit.php";
 
 //------------------  User Dashboard Frontend ------------------
 include dirname(__FILE__) . "/theme_addons/user_dashboard_frontend/user_dashboard_create_pages.php";
@@ -101,8 +184,9 @@ include dirname(__FILE__) . "/theme_addons/quick_login_right_bottom/quick_login_
 //------------------  Cookie & Policy ------------------
 include dirname(__FILE__) . "/theme_addons/cookie_policy/cookie_policy_functions.php";
 
-//--------------------------- Woocoomerce ---------------------------//
-if (!empty($options['woocommerce_theme_support'])) {
+//--------------------------- WooCommerce ---------------------------//
+$ajdwp_options = get_option('AJDWP_theme_options');
+if (!empty($ajdwp_options['woocommerce_theme_support'])) {
     include dirname(__FILE__) . "/theme_addons/woo/woo.php";
 }
 
@@ -136,14 +220,12 @@ include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/nav_link_to_user
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/nav_link_name_for_not_logged_in_users.php";
 
 //--------------------------- 
-//--------- Load translations 
+//--------- Load translations text domain 
 //---------------------------  
 
-add_action('after_setup_theme', 'AJDWP_load_theme_textdomain');
-function AJDWP_load_theme_textdomain()
-{
-    load_theme_textdomain(
+add_action('after_setup_theme', function () {
+    load_child_theme_textdomain(
         'hello-elementor-child',
         get_stylesheet_directory() . '/languages'
     );
-}
+});

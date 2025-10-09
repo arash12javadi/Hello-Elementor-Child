@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Hello-Elementor-Child-Theme\n"
-"POT-Creation-Date: 2025-10-08 22:57+0100\n"
-"PO-Revision-Date: 2025-10-08 22:59+0100\n"
+"POT-Creation-Date: 2025-10-09 17:54+0100\n"
+"PO-Revision-Date: 2025-10-09 18:06+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -37,7 +37,7 @@ msgstr "این لینک صحیح نیست و به صفحه مشخصی در ای�
 msgid "Link to Homepage"
 msgstr "لینک به صفحه اصلی"
 
-#: 404.php:36
+#: 404.php:36 functions.php:76
 msgid "Go to Home"
 msgstr "رفتن به خانه"
 
@@ -84,6 +84,84 @@ msgstr "این حساب هنوز دنبال کننده ای ندارد."
 #: author.php:288 theme_addons/content/content-page.php:197
 msgid "Post Date:"
 msgstr "تاریخ :"
+
+#: functions.php:57 theme_addons/user_profile/user_profile_functions.php:170
+msgid "Please enter a username"
+msgstr "لطفا نام کاربری خود را وارد کنید"
+
+#: functions.php:58
+msgid "Please enter an email address"
+msgstr "لطفا آدرس ایمیل خود را وارد کنید"
+
+#: functions.php:59 theme_addons/user_profile/user_profile_functions.php:178
+msgid "Invalid email"
+msgstr "آدرس ایمیل اشتباه است"
+
+#: functions.php:60 theme_addons/user_profile/user_profile_functions.php:184
+msgid "Please enter a password"
+msgstr "لطفا پسورد خود را وارد کنید"
+
+#: functions.php:61 theme_addons/user_profile/user_profile_functions.php:186
+#: theme_addons/user_profile/user_profile_functions.php:374
+msgid "Passwords do not match"
+msgstr "پسوردهای وارد شده یکسان نیست"
+
+#: functions.php:62 theme_addons/user_profile/user_profile_functions.php:237
+msgid "Registration successful."
+msgstr "ثبت نام موفقیت آمیز بود."
+
+#: functions.php:63
+msgid "Registration failed."
+msgstr "متاسفانه ثبت نام انجام نشد."
+
+#: functions.php:66 theme_addons/user_profile/user_profile_functions.php:277
+msgid "Password reset link sent. Check your email."
+msgstr "گذرواژه ارسال شد. لطفا ایمیل خود را بررسی کنید."
+
+#: functions.php:67 theme_addons/user_profile/user_profile_functions.php:290
+msgid "Something went wrong. Please try again."
+msgstr "مشکی پیش آمده است. لطفا مجدد تلاش کنید."
+
+#: functions.php:70 theme_addons/user_profile/delete_account_ajax.php:29
+#: theme_addons/user_profile/user_profile_functions.php:496
+msgid "Admins cannot delete their account from the front-end."
+msgstr "ادمین نمیتواند از فرانتاند اکانت خود را حذف کند."
+
+#: functions.php:71
+msgid "Please tick the checkbox to continue."
+msgstr "لطفا کادر زیر را علامت بزنید."
+
+#: functions.php:72 theme_addons/user_profile/user_profile_functions.php:31
+msgid "Error"
+msgstr "خطا"
+
+#: functions.php:75 functions.php:120
+msgid "Server error. Please try again."
+msgstr "مشکی پیش آمده است. لطفا مجدد تلاش کنید."
+
+#: functions.php:79
+msgid "Select or Upload Media"
+msgstr "انتخاب یا بارگذاری مدیا"
+
+#: functions.php:80
+msgid "Use this media"
+msgstr "از این مدیا استفاده کنید"
+
+#: functions.php:118
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:51
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:106
+#: theme_addons/user_profile/user_profile_functions.php:122
+msgid "Please enter both username and password."
+msgstr "لطفا ایمیل یا نام کاربری خود را به همراه پسورد وارد نمایید."
+
+#: functions.php:119
+msgid "An unexpected error occurred."
+msgstr "خطای غیر منتظره."
+
+#: functions.php:121
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:133
+msgid "Login successful"
+msgstr "ورود موفقیت آمیز"
 
 #: theme_addons/User_Social_Media/User_Social_Media.php:19
 msgid "Add Your Social Media Links"
@@ -258,175 +336,215 @@ msgstr "خروج"
 msgid "Search"
 msgstr "جستجو در سایت"
 
-#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:67
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:37
+#: theme_addons/user_profile/change_password.php:17
+msgid "Security check failed."
+msgstr "بررسی امنیتی مردود شد."
+
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:74
+msgid "We couldn’t find an account with that username or email."
+msgstr "هیچ کاربری یافت نشد. لطفا نام کاربری صحیح یا یک ایمیل معتبر وارد کنید."
+
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:78
+msgid "Create an account"
+msgstr "ساخت حساب"
+
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:79
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:99
+msgid "Try password reset"
+msgstr "تلاش برای بازنشانی گذرواژه"
+
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:85
+msgid "Wrong password."
+msgstr "پسورد نامعتبر"
+
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:89
+msgid "Forgot your password?"
+msgstr "آیا گذرواژه خود را فراموش کرده اید؟"
+
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:95
+msgid "Invalid email address."
+msgstr "آدرس ایمیل اشتباه است."
+
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:147
 msgid "Login 🔐"
 msgstr "ورود به سایت 🔐"
 
-#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:73
-#: theme_addons/user_profile/user_profile.php:47
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:153
+#: theme_addons/user_profile/user_profile.php:48
 msgid "Login"
 msgstr "ورود به سایت"
 
-#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:86
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:166
 msgid "Sign in 🔑"
 msgstr "ورود 🔑"
 
-#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:93
+#: theme_addons/quick_login_right_bottom/quick_login_right_bottom.php:173
 msgid "Close ❎"
-msgstr "خروج ❎"
+msgstr "بستن ❎"
 
-#: theme_addons/user_profile/author_page_profile_edit.php:71
+#: theme_addons/user_profile/author_page_profile_edit.php:72
 msgid "Edit"
 msgstr "ویرایش حساب کاربری"
 
-#: theme_addons/user_profile/author_page_profile_edit.php:71
+#: theme_addons/user_profile/author_page_profile_edit.php:72
 msgid "Profile ?"
 msgstr "؟"
 
-#: theme_addons/user_profile/author_page_profile_edit.php:91
+#: theme_addons/user_profile/author_page_profile_edit.php:92
 msgid "Show Email:"
 msgstr "نمایش ایمیل:"
 
-#: theme_addons/user_profile/author_page_profile_edit.php:97
+#: theme_addons/user_profile/author_page_profile_edit.php:98
 msgid "Show Phone Number: "
 msgstr "نمایش شماره تماس: "
 
-#: theme_addons/user_profile/author_page_profile_edit.php:108
+#: theme_addons/user_profile/author_page_profile_edit.php:109
 msgid "Change Your Profile Image"
 msgstr "تغییر عکس کاربری"
 
-#: theme_addons/user_profile/author_page_profile_edit.php:113
+#: theme_addons/user_profile/author_page_profile_edit.php:114
 msgid "My Gallery"
 msgstr "گالری"
 
-#: theme_addons/user_profile/author_page_profile_edit.php:135
+#: theme_addons/user_profile/author_page_profile_edit.php:136
 msgid "Delete Avatar"
 msgstr "حذف آواتار"
 
-#: theme_addons/user_profile/author_page_profile_edit.php:149
+#: theme_addons/user_profile/author_page_profile_edit.php:150
 msgid "Update Your Profile Details: "
 msgstr "بروز رسانی عکس کاربری: "
 
-#: theme_addons/user_profile/author_page_profile_edit.php:157
+#: theme_addons/user_profile/author_page_profile_edit.php:158
 msgid "First Name: "
 msgstr "نام: "
 
-#: theme_addons/user_profile/author_page_profile_edit.php:160
+#: theme_addons/user_profile/author_page_profile_edit.php:161
 msgid "Last Name: "
 msgstr "نام خانوادگی: "
 
-#: theme_addons/user_profile/author_page_profile_edit.php:163
+#: theme_addons/user_profile/author_page_profile_edit.php:164
 msgid "Display Name: "
 msgstr "نام نمایشی: "
 
-#: theme_addons/user_profile/author_page_profile_edit.php:166
+#: theme_addons/user_profile/author_page_profile_edit.php:167
 msgid "Phone Number: "
 msgstr "شماره تماس: "
 
-#: theme_addons/user_profile/author_page_profile_edit.php:169
+#: theme_addons/user_profile/author_page_profile_edit.php:170
 msgid "Bio: "
 msgstr "بیوگرافی: "
 
-#: theme_addons/user_profile/author_page_profile_edit.php:192
+#: theme_addons/user_profile/author_page_profile_edit.php:193
 msgid "Update"
 msgstr "بروز رسانی"
 
-#: theme_addons/user_profile/change_password.php:10
+#: theme_addons/user_profile/change_password.php:9
 msgid "Set New Password"
 msgstr "انتخاب پسورد جدید"
 
-#: theme_addons/user_profile/change_password.php:28
+#: theme_addons/user_profile/change_password.php:29
 msgid "Error! User not logged in."
 msgstr "خطا! کاربر مجاز نمیباشد."
 
-#: theme_addons/user_profile/change_password.php:42
-msgid "Success!"
-msgstr "موفقیت آمیز بود!"
-
-#: theme_addons/user_profile/change_password.php:43
-msgid "Password successfully changed."
-msgstr "پسورد با موفقیت جایگزین شد."
-
-#: theme_addons/user_profile/change_password.php:47
-#: theme_addons/user_profile/change_password.php:53
+#: theme_addons/user_profile/change_password.php:33
+#: theme_addons/user_profile/change_password.php:38
+#: theme_addons/user_profile/change_password.php:50
 msgid "Error!"
 msgstr "خطا!"
 
-#: theme_addons/user_profile/change_password.php:48
-msgid "New password and confirm password do not match."
-msgstr "پسوردهای وارد شده یکسان نیستند."
-
-#: theme_addons/user_profile/change_password.php:54
+#: theme_addons/user_profile/change_password.php:34
 msgid "Incorrect current password."
 msgstr "پسورد فعلی ناصحیح است."
 
-#: theme_addons/user_profile/change_password.php:64
+#: theme_addons/user_profile/change_password.php:39
+msgid "New password and confirm password do not match."
+msgstr "پسوردهای وارد شده یکسان نیستند."
+
+#: theme_addons/user_profile/change_password.php:51
+#: theme_addons/user_profile/user_profile_functions.php:195
+msgid "Password does not meet the required strength."
+msgstr "پسورد وارد شده از امنیت بالایی برخوردار نیست."
+
+#: theme_addons/user_profile/change_password.php:57
+msgid "Success!"
+msgstr "موفقیت آمیز بود!"
+
+#: theme_addons/user_profile/change_password.php:58
+msgid "Password successfully changed. Please log in again."
+msgstr "پسورد با موفقیت جایگزین شد. لطفا مجددا وارد شوید."
+
+#: theme_addons/user_profile/change_password.php:70
 msgid "Current Password:"
 msgstr "پسورد فعلی:"
 
-#: theme_addons/user_profile/change_password.php:67
-#: theme_addons/user_profile/user_profile_functions.php:263
+#: theme_addons/user_profile/change_password.php:73
+#: theme_addons/user_profile/user_profile_functions.php:326
 msgid "New Password:"
 msgstr "پسورد جدید:"
 
-#: theme_addons/user_profile/change_password.php:71
-#: theme_addons/user_profile/user_profile_functions.php:268
-#: theme_addons/user_profile/user_register_ajax.php:36
+#: theme_addons/user_profile/change_password.php:77
+#: theme_addons/user_profile/user_profile_functions.php:331
+#: theme_addons/user_profile/user_register_ajax.php:44
 msgid "Password must contain the following:"
 msgstr "پسورد باید انگلیسی و دارای ویژگی های زیر باشد:"
 
-#: theme_addons/user_profile/change_password.php:72
-#: theme_addons/user_profile/user_profile_functions.php:269
-#: theme_addons/user_profile/user_register_ajax.php:38
+#: theme_addons/user_profile/change_password.php:78
+#: theme_addons/user_profile/user_profile_functions.php:332
+#: theme_addons/user_profile/user_register_ajax.php:46
 msgid "A Special Character"
 msgstr "یک از کاراکتر های خاص"
 
-#: theme_addons/user_profile/change_password.php:73
-#: theme_addons/user_profile/user_profile_functions.php:270
-msgid "A Captal Letter"
+#: theme_addons/user_profile/change_password.php:79
+#: theme_addons/user_profile/user_register_ajax.php:49
+msgid "A Capital Letter"
 msgstr "یک حرف بزرگ انگلیسی"
 
-#: theme_addons/user_profile/change_password.php:74
-#: theme_addons/user_profile/user_profile_functions.php:271
-#: theme_addons/user_profile/user_register_ajax.php:45
+#: theme_addons/user_profile/change_password.php:80
+#: theme_addons/user_profile/user_profile_functions.php:334
+#: theme_addons/user_profile/user_register_ajax.php:50
 msgid "A Number"
 msgstr "یک عدد"
 
-#: theme_addons/user_profile/change_password.php:75
-#: theme_addons/user_profile/user_profile_functions.php:272
-#: theme_addons/user_profile/user_register_ajax.php:48
+#: theme_addons/user_profile/change_password.php:81
+#: theme_addons/user_profile/user_profile_functions.php:335
+#: theme_addons/user_profile/user_register_ajax.php:51
 msgid "Minimum 8 Characters"
 msgstr "حداقل 8 کاراکتر"
 
-#: theme_addons/user_profile/change_password.php:78
-msgid "Confirm Password: "
-msgstr "تکرار پسورد: "
+#: theme_addons/user_profile/change_password.php:84
+msgid "Confirm Password:"
+msgstr "تکرار پسورد:"
 
-#: theme_addons/user_profile/change_password.php:87
-#: theme_addons/user_profile/user_profile.php:94
+#: theme_addons/user_profile/change_password.php:93
+#: theme_addons/user_profile/user_profile.php:95
 msgid "Change Password"
 msgstr "تغییر پسورد"
 
-#: theme_addons/user_profile/change_password.php:99
+#: theme_addons/user_profile/change_password.php:101
 msgid "You must be logged in to change your password."
 msgstr "برای تغییر پسورد باید ابتدا لاگین کنید."
 
-#: theme_addons/user_profile/delete_account_ajax.php:9
+#: theme_addons/user_profile/delete_account_ajax.php:13
 msgid "Delete Your Account"
 msgstr "حذف کاربر از سایت"
 
-#: theme_addons/user_profile/delete_account_ajax.php:16
+#: theme_addons/user_profile/delete_account_ajax.php:19
 msgid ""
 "Are you sure you want to delete your account? This action is irreversible."
 msgstr ""
 "آیا مطمئن هستید که می‌خواهید حساب کاربری خود را حذف کنید؟ این عملیات غیرقابل "
 "بازگشت است."
 
-#: theme_addons/user_profile/delete_account_ajax.php:27
+#: theme_addons/user_profile/delete_account_ajax.php:24
 msgid "Yes, Delete My Account"
 msgstr "بله حساب کاربری من را حذف کن"
 
-#: theme_addons/user_profile/delete_account_ajax.php:40
+#: theme_addons/user_profile/delete_account_ajax.php:39
+msgid "Please confirm account deletion"
+msgstr "تایید حذف ایمیل"
+
+#: theme_addons/user_profile/delete_account_ajax.php:45
 #, php-format
 msgid ""
 "By deleting your account, all your %s on this website will be permanently "
@@ -434,11 +552,11 @@ msgid ""
 msgstr ""
 "با حذف حساب کاربری شما، تمام %s شما در این وب‌سایت برای همیشه پاک خواهند شد."
 
-#: theme_addons/user_profile/delete_account_ajax.php:43
+#: theme_addons/user_profile/delete_account_ajax.php:46
 msgid "posts, comments, media, likes, followers, etc."
 msgstr "پست ها، کامنت ها، مدیا، لایک ها، فالور ها و غیره."
 
-#: theme_addons/user_profile/delete_account_ajax.php:50
+#: theme_addons/user_profile/delete_account_ajax.php:51
 msgid ""
 "If you agree to these conditions, please check the checkbox below and click "
 "on \"Continue.\""
@@ -446,136 +564,87 @@ msgstr ""
 "اگر با این شرایط موافق هستیدلطفا مربع زیر را علامت بزنید و بر روی \"ادامه\" "
 "کلیک کنید."
 
-#: theme_addons/user_profile/delete_account_ajax.php:57
+#: theme_addons/user_profile/delete_account_ajax.php:55
 msgid "Check and continue to DELETE"
 msgstr "تیک بزنید و برای حذف ادامه دهید"
 
-#: theme_addons/user_profile/delete_account_ajax.php:62
+#: theme_addons/user_profile/delete_account_ajax.php:59
 msgid "Continue"
 msgstr "ادامه"
 
-#: theme_addons/user_profile/delete_account_ajax.php:66
+#: theme_addons/user_profile/delete_account_ajax.php:60
 msgid "Cancel"
 msgstr "لغو"
 
-#: theme_addons/user_profile/forgot_password_ajax.php:6
+#: theme_addons/user_profile/forgot_password_ajax.php:9
 msgid "Recover Your Password"
 msgstr "بازنشانی پسورد"
 
-#: theme_addons/user_profile/forgot_password_ajax.php:12
+#: theme_addons/user_profile/forgot_password_ajax.php:22
 msgid "Username or Email:"
 msgstr "نام کاربری یا آدرس ایمیل:"
 
-#: theme_addons/user_profile/forgot_password_ajax.php:16
+#: theme_addons/user_profile/forgot_password_ajax.php:26
 msgid "Reset Password"
 msgstr "انتخاب پسورد جدید"
 
-#: theme_addons/user_profile/user_login.php:9
+#: theme_addons/user_profile/user_login.php:10
 msgid "Access Your Account"
 msgstr "ورود به حساب کاربری"
 
-#: theme_addons/user_profile/user_login.php:20
+#: theme_addons/user_profile/user_login.php:30
 msgid "SIGN IN"
 msgstr "ورود"
 
-#: theme_addons/user_profile/user_profile.php:50
+#: theme_addons/user_profile/user_profile.php:51
 msgid "Site Register"
 msgstr "ثبت نام در سایت"
 
-#: theme_addons/user_profile/user_profile.php:53
+#: theme_addons/user_profile/user_profile.php:54
 msgid "Forgot Password"
 msgstr "بازنشانی پسورد"
 
-#: theme_addons/user_profile/user_profile.php:97
+#: theme_addons/user_profile/user_profile.php:98
 msgid "Delete Account"
 msgstr "حذف حساب کاربری"
 
-#: theme_addons/user_profile/user_profile_functions.php:40
-msgid "Username already taken"
-msgstr "نام کاربری در دسترس نیست"
-
-#: theme_addons/user_profile/user_profile_functions.php:43
-msgid "Invalid username"
-msgstr "نام کاربری اشتباه است"
-
-#: theme_addons/user_profile/user_profile_functions.php:46
-msgid "Please enter a username"
-msgstr "لطفا نام کاربری خود را وارد کنید"
-
-#: theme_addons/user_profile/user_profile_functions.php:49
-msgid "Invalid email"
-msgstr "آدرس ایمیل اشتباه است"
-
-#: theme_addons/user_profile/user_profile_functions.php:52
-msgid "Email already registered"
-msgstr "این ایمیل قبلا ثبت شده است"
-
-#: theme_addons/user_profile/user_profile_functions.php:55
-msgid "Please enter a password"
-msgstr "لطفا پسورد خود را وارد کنید"
-
-#: theme_addons/user_profile/user_profile_functions.php:58
-#: theme_addons/user_profile/user_profile_functions.php:311
-msgid "Passwords do not match"
-msgstr "پسوردهای وارد شده یکسان نیست"
-
-#: theme_addons/user_profile/user_profile_functions.php:114
-msgid "Error"
-msgstr "خطا"
-
-#: theme_addons/user_profile/user_profile_functions.php:177
+#: theme_addons/user_profile/user_profile_functions.php:61
 msgid "Naughty characters not allowed in your email field."
 msgstr "لطفا از کاراکترهای نامجاز استفاده نکنید."
 
-#: theme_addons/user_profile/user_profile_functions.php:197
-msgid "Please enter a valid username or email."
-msgstr "لطفا نام کاربری صحیح را وارد کنید."
+#: theme_addons/user_profile/user_profile_functions.php:121
+msgid "Invalid username or password."
+msgstr "نام کاربری یا پسورد اشتباه است."
 
-#: theme_addons/user_profile/user_profile_functions.php:204
-msgid "User not found. Please enter a valid username or email."
-msgstr "کاربر یافت نشد. لطفا نام کاربری صحیح یا یک ایمیل معتبر وارد کنید."
+#: theme_addons/user_profile/user_profile_functions.php:172
+msgid "Invalid username"
+msgstr "نام کاربری اشتباه است"
 
-#: theme_addons/user_profile/user_profile_functions.php:214
-msgid "Password Reset Request"
-msgstr "درخواست بازنشانی گذرواژه"
+#: theme_addons/user_profile/user_profile_functions.php:174
+msgid "Username already taken"
+msgstr "نام کاربری در دسترس نیست"
 
-#: theme_addons/user_profile/user_profile_functions.php:215
-msgid "Someone has requested a password reset for the following account:"
-msgstr "شخصی درخواست بازنشانی ایمیل برای حساب کاربری زیر نموده است:"
+#: theme_addons/user_profile/user_profile_functions.php:180
+msgid "Email already registered"
+msgstr "این ایمیل قبلا ثبت شده است"
 
-#: theme_addons/user_profile/user_profile_functions.php:216
-msgid "Username:"
-msgstr "نام کاربری:"
+#: theme_addons/user_profile/user_profile_functions.php:268
+msgid "Please enter your username or email."
+msgstr "لطفا نام کاربری یا ایمیل صحیح خود را وارد کنید."
 
-#: theme_addons/user_profile/user_profile_functions.php:217
-msgid "If this was a mistake, just ignore this email and nothing will happen."
-msgstr "اگر اشتباه است لطفا این ایمیل را نادیده بگیرید.."
-
-#: theme_addons/user_profile/user_profile_functions.php:218
-msgid "To reset your password, visit the following link:"
-msgstr "برای بازنشانی گذرواژه، لینک زیر را دنبال کنید:"
-
-#: theme_addons/user_profile/user_profile_functions.php:223
-msgid "Password reset link sent. Check your email."
-msgstr "گذرواژه ارسال شد. لطفا ایمیل خود را بررسی کنید."
-
-#: theme_addons/user_profile/user_profile_functions.php:225
-msgid "Something went wrong. Please try again later."
-msgstr "مشکی پیش آمده است. لطفا مجدد تلاش کنید."
-
-#: theme_addons/user_profile/user_profile_functions.php:243
+#: theme_addons/user_profile/user_profile_functions.php:306
 msgid "Set a new Password For Your Account"
 msgstr "برای اکانت خود پسورد جدید وارد کنید"
 
-#: theme_addons/user_profile/user_profile_functions.php:249
+#: theme_addons/user_profile/user_profile_functions.php:312
 msgid "Password set successfully!"
 msgstr "پسورد با موفقیت جایگزین شد!"
 
-#: theme_addons/user_profile/user_profile_functions.php:254
+#: theme_addons/user_profile/user_profile_functions.php:317
 msgid "This form is specifically designed for the exclusive use of this user:"
 msgstr "این فرم درخواست صرفا برای این کاربر طراحی شده است:"
 
-#: theme_addons/user_profile/user_profile_functions.php:258
+#: theme_addons/user_profile/user_profile_functions.php:321
 msgid ""
 "If the provided information does not match your username or email address, "
 "kindly exit the page."
@@ -583,67 +652,83 @@ msgstr ""
 "اگر اطلاعات نمایش داده شده با حساب کاربری و آدرس ایمیل شما مطابقت ندارد، "
 "خواهشمندیم از این صفحه خارج شوید."
 
-#: theme_addons/user_profile/user_profile_functions.php:259
+#: theme_addons/user_profile/user_profile_functions.php:322
 msgid "Go Home"
 msgstr "رفتن به خانه"
 
-#: theme_addons/user_profile/user_profile_functions.php:276
+#: theme_addons/user_profile/user_profile_functions.php:333
+msgid "A Captal Letter"
+msgstr "یک حرف بزرگ انگلیسی"
+
+#: theme_addons/user_profile/user_profile_functions.php:339
 msgid "Repeat Password: "
 msgstr "تکرار پسورد: "
 
-#: theme_addons/user_profile/user_profile_functions.php:307
+#: theme_addons/user_profile/user_profile_functions.php:370
 msgid "Fields can’t be empty."
 msgstr "این فیلدها نمیتوانند خالی بمانند."
 
-#: theme_addons/user_profile/user_profile_functions.php:343
+#: theme_addons/user_profile/user_profile_functions.php:406
 msgid "Invalid reset link or expired key"
 msgstr "لینک بازنشانی یا نامعتبر یا منقضی شده است"
 
-#: theme_addons/user_profile/user_register_ajax.php:7
+#: theme_addons/user_profile/user_profile_functions.php:481
+msgid "You must be logged in."
+msgstr "ابتدا لاگین کنید."
+
+#: theme_addons/user_profile/user_profile_functions.php:500
+msgid "Please confirm you understand the consequences."
+msgstr "لطفا تایید کنید که شرایط را پذیرفته اید."
+
+#: theme_addons/user_profile/user_profile_functions.php:521
+msgid "Could not delete account."
+msgstr "حذف حساب کاربری انجام نشد."
+
+#: theme_addons/user_profile/user_profile_functions.php:525
+msgid "Your account has been deleted."
+msgstr "حساب کاربری شما با موفقیت حذف گردید."
+
+#: theme_addons/user_profile/user_register_ajax.php:9
 msgid "Register New Account"
 msgstr "اکانت جدید ثبت کنید"
 
-#: theme_addons/user_profile/user_register_ajax.php:15
+#: theme_addons/user_profile/user_register_ajax.php:19
 msgid "Username"
 msgstr "نام کاربری"
 
-#: theme_addons/user_profile/user_register_ajax.php:19
+#: theme_addons/user_profile/user_register_ajax.php:24
 msgid "Email"
 msgstr "آدرس ایمیل"
 
-#: theme_addons/user_profile/user_register_ajax.php:23
+#: theme_addons/user_profile/user_register_ajax.php:29
 msgid "First Name"
 msgstr "نام"
 
-#: theme_addons/user_profile/user_register_ajax.php:27
+#: theme_addons/user_profile/user_register_ajax.php:34
 msgid "Last Name"
 msgstr "نام خانوادگی"
 
-#: theme_addons/user_profile/user_register_ajax.php:31
+#: theme_addons/user_profile/user_register_ajax.php:39
 msgid "Password"
 msgstr "پسورد"
 
-#: theme_addons/user_profile/user_register_ajax.php:42
-msgid "A Capital Letter"
-msgstr "یک حرف بزرگ انگلیسی"
-
-#: theme_addons/user_profile/user_register_ajax.php:53
+#: theme_addons/user_profile/user_register_ajax.php:56
 msgid "Password Again"
 msgstr "تکرار پسورد"
 
-#: theme_addons/user_profile/user_register_ajax.php:56
+#: theme_addons/user_profile/user_register_ajax.php:61
 msgid "Select Your Role:"
 msgstr "نوع کاربری:"
 
-#: theme_addons/user_profile/user_register_ajax.php:60
+#: theme_addons/user_profile/user_register_ajax.php:64
 msgid "Author"
 msgstr "نویسنده"
 
-#: theme_addons/user_profile/user_register_ajax.php:64
+#: theme_addons/user_profile/user_register_ajax.php:68
 msgid "Subscriber"
 msgstr "کاربر ساده"
 
-#: theme_addons/user_profile/user_register_ajax.php:70
+#: theme_addons/user_profile/user_register_ajax.php:75
 msgid "Register"
 msgstr "ثبت نام در سایت"
 
@@ -690,6 +775,19 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://arashjavadi.com"
 msgstr ""
+
+#~ msgid "Someone has requested a password reset for the following account:"
+#~ msgstr "شخصی درخواست بازنشانی ایمیل برای حساب کاربری زیر نموده است:"
+
+#~ msgid "Username:"
+#~ msgstr "نام کاربری:"
+
+#~ msgid ""
+#~ "If this was a mistake, just ignore this email and nothing will happen."
+#~ msgstr "اگر اشتباه است لطفا این ایمیل را نادیده بگیرید.."
+
+#~ msgid "To reset your password, visit the following link:"
+#~ msgstr "برای بازنشانی گذرواژه، لینک زیر را دنبال کنید:"
 
 #~ msgid "Register Your Account"
 #~ msgstr "ثبت حساب کاربری"

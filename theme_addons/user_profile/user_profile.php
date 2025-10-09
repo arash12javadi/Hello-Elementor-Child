@@ -1,4 +1,5 @@
 <?php
+//_____________________________________ user_profile.php _____________________________________//
 
 if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly.
