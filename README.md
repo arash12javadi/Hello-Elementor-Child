@@ -12,16 +12,15 @@
   </ol>
 
   <hr>
-  <h3>Navbar Custom Link to User Profile</h3>
-  <p>
-  You can add a Custom Link in your menu (via Appearance → Menus)
-  and set the URL or Label to one of:
-  </p>
-  <ul>
-    <li style="font-weight: bold;">#profile_name#</li><span>Shows only the user's username</span><br/><br>
-    <li style="font-weight: bold;">#profile_avatar#</li><span>Shows only the user's avatar</span><br/><br>
-    <li style="font-weight: bold;">#profile_both#</li><span>Shows the user's avatar and username</span>
-  </ul>
+  <h3>  Dynamic Profile Menu Items</h3>
+    <b> Placeholders supported in Appearance → Menus: </b><br>
+      1) URL:  https://User_Author_page <br>
+        - Logged in  → replaced with current user's author URL<br>
+        - Logged out → replaced with login URL (custom if set, else wp-login.php with redirect)<br>
+  <br><br>
+      <b>2) URL or Title: <br><br>#profile_name# <br>#profile_avatar# <br>#profile_both#</b><br><br>
+        - Logged in  → title replaced with user's name/avatar/both; URL replaced with author URL<br>
+        - Logged out → item removed<br><br>
 
   <hr>
   <h3>Navbar Links Names For Not Logged in Users</h3>
@@ -31,7 +30,7 @@
   <br>
   - Or set <b>“Alternative label/URL for logged-out users”</b> to change how it appears for logged-out visitors.
   <br>
-  Save the menu. That’s it.
+  Save the menu. That’s it.<br><br>
   <hr>
 
   <h3>Where Settings Live</h3>
@@ -176,4 +175,3 @@
   </ul>
 
   <p><em>Version:</em> 1.0 • <em>Option key:</em> <code>AJDWP_theme_options</code></p>
-
