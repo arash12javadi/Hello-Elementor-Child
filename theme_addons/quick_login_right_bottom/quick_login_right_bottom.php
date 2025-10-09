@@ -53,14 +53,11 @@ function ajdwp_custom_user_login()
 	}
 
 	// Sign on
-	$options       = get_option('AJDWP_theme_options');
-	$secure_cookie = !empty($options['secure_login']);
-
 	$user = wp_signon([
 		'user_login'    => $username,
 		'user_password' => $password,
 		'remember'      => true,
-	], $secure_cookie);
+	]);
 
 	if (is_wp_error($user)) {
 		$codes      = (array) $user->get_error_codes();

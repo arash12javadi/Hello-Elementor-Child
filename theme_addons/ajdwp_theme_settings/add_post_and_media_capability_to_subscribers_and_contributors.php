@@ -1,52 +1,48 @@
-<?php 
+<?php
+if (!defined('ABSPATH')) exit;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
-//--------------------------- Contributor and Subscribers Media and Post Access ---------------------------// 
-function allow_media_access_based_on_role() {
+/**
+ * Grant/revoke caps for Contributors/Subscribers based on your settings.
+ * - If "can upload" is on: grant upload_files + delete_posts (delete own attachments).
+ * - If "can post" is on: grant edit_posts + delete_posts.
+ * Never grant delete_others_posts.
+ */
+function ajdwp_apply_role_caps_from_options()
+{
     $options = get_option('AJDWP_theme_options');
-    $user_id = get_current_user_id();
-    $user = get_userdata($user_id);
+    $user    = wp_get_current_user();
+    if (!$user || empty($user->ID)) return;
 
-    if ($user) {
-        if (in_array('contributor', (array) $user->roles)) {
-            if (!empty($options['contributor_can_upload'])) {
-                $user->add_cap('upload_files');
-                $user->add_cap('delete_posts');
-            } else {
-                $user->remove_cap('upload_files');
-                $user->remove_cap('delete_posts');
-            }
+    $roles = (array) $user->roles;
 
-            if (!empty($options['contributor_can_post'])) {
-                $user->add_cap('edit_posts');
-                $user->add_cap('delete_posts');
-            } else {
-                $user->remove_cap('edit_posts');
-                $user->remove_cap('delete_posts');
-            }
-        }
+    // Helper to toggle a single cap
+    $toggle_cap = function (WP_User $u, $cap, $on) {
+        $on ? $u->add_cap($cap) : $u->remove_cap($cap);
+    };
 
-        if (in_array('subscriber', (array) $user->roles)) {
-            if (!empty($options['subscriber_can_upload'])) {
-                $user->add_cap('upload_files');
-                $user->add_cap('delete_posts');
-            } else {
-                $user->remove_cap('upload_files');
-                $user->remove_cap('delete_posts');
-            }
+    // We explicitly NEVER give this:
+    $user->remove_cap('delete_others_posts');
 
-            if (!empty($options['subscriber_can_post'])) {
-                $user->add_cap('edit_posts');
-                $user->add_cap('delete_posts');
-            } else {
-                $user->remove_cap('edit_posts');
-                $user->remove_cap('delete_posts');
-            }
-        }
+    // ----- Contributor -----
+    if (in_array('contributor', $roles, true)) {
+        // Upload => can delete own attachments (delete_posts)
+        $toggle_cap($user, 'upload_files',         !empty($options['contributor_can_upload']));
+        $toggle_cap($user, 'delete_posts',         !empty($options['contributor_can_upload']));
+
+        // Post => edit/delete own posts
+        $toggle_cap($user, 'edit_posts',           !empty($options['contributor_can_post']));
+        $toggle_cap($user, 'delete_posts',         !empty($options['contributor_can_post']) || !empty($options['contributor_can_upload']));
+    }
+
+    // ----- Subscriber -----
+    if (in_array('subscriber', $roles, true)) {
+        // Upload => can delete own attachments
+        $toggle_cap($user, 'upload_files',         !empty($options['subscriber_can_upload']));
+        $toggle_cap($user, 'delete_posts',         !empty($options['subscriber_can_upload']));
+
+        // Post => edit/delete own posts (optional)
+        $toggle_cap($user, 'edit_posts',           !empty($options['subscriber_can_post']));
+        $toggle_cap($user, 'delete_posts',         !empty($options['subscriber_can_post']) || !empty($options['subscriber_can_upload']));
     }
 }
-add_action('init', 'allow_media_access_based_on_role');
-
-?>
+add_action('init', 'ajdwp_apply_role_caps_from_options');

@@ -133,9 +133,6 @@ function load_css_js()
     // -------------- User Profile Styles and Scripts --------------
     wp_enqueue_style('AJDWP-user-profile-css', get_stylesheet_directory_uri() . '/theme_addons/user_profile/user_profile.css', [], '1.0', 'all');
 
-    // Make sure wp.media exists for the avatar uploader, etc.
-    wp_enqueue_media();
-
     // Cache-busting version based on file mtime
     $ajdwp_user_profile_js_path = get_stylesheet_directory() . '/theme_addons/user_profile/user_profile.js';
     $ajdwp_user_profile_js_ver  = file_exists($ajdwp_user_profile_js_path) ? filemtime($ajdwp_user_profile_js_path) : '1.0.0';
@@ -216,8 +213,8 @@ include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/user_avatar.php"
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/View_counter.php";
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/Yoast_seo_settings.php";
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/google_tag_manager.php";
-include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/nav_link_to_user_profile.php";
 include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/nav_link_name_for_not_logged_in_users.php";
+include dirname(__FILE__) . "/theme_addons/ajdwp_theme_settings/auth_ajax_cache_guard.php";
 
 //--------------------------- 
 //--------- Load translations text domain 
@@ -229,3 +226,25 @@ add_action('after_setup_theme', function () {
         get_stylesheet_directory() . '/languages'
     );
 });
+
+
+
+
+// Register shortcode [footag]
+add_shortcode('footag', 'wpdocs_footag_func');
+
+function wpdocs_footag_func()
+{
+    // Retrieve theme options
+    $options = get_option('AJDWP_theme_options');
+
+    // Use output buffering instead of direct echoing
+    ob_start();
+
+    echo '<pre>';
+    print_r(esc_html(print_r($options, true)));
+    echo '</pre>';
+
+    // Return buffered output
+    return ob_get_clean();
+}

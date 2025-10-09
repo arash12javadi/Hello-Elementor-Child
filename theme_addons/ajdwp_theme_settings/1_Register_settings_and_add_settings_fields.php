@@ -178,7 +178,6 @@ function AJDWP_Theme_settings_init()
         'page_views'                     => 'Page View Counter',
         'post_publish_date'              => 'Post Publish Date',
         'page_publish_date'              => 'Page Publish Date',
-        'secure_login'                   => 'Cookie Secure Login',
         'theme_sidebars'                 => 'AJDWP Theme Sidebars',
         'hide_all_admin_notices'         => 'Hide All Admin Notices',
         'restrict_wp_admin_access'       => 'Restrict Admin Access',
@@ -333,7 +332,6 @@ function AJDWP_Theme_settings_init()
             'google_tag_manager' => '',
             'gtm_header_script' => '',
             'gtm_body_script' => '',
-            'secure_login' => 1,
             'post_publish_date' => 1,
             'page_publish_date' => 1,
         ];
@@ -515,7 +513,6 @@ function AJDWP_theme_options_validate($input)
         'page_views',
         'post_publish_date',
         'page_publish_date',
-        'secure_login',
         'theme_sidebars',
         'disable_yoast_metabox',
         'remove_yoast_seo_columns',
