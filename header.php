@@ -10,11 +10,11 @@ if (! defined('ABSPATH')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php wp_head(); ?>
-    <?php do_action('Hide_menu_items'); ?>
 </head>
 
 <body <?php body_class(); ?>>
     <?php wp_body_open(); ?>
+    <?php do_action('Hide_menu_items'); ?>
     <?php do_action('ajdwp_theme_before_header'); ?>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

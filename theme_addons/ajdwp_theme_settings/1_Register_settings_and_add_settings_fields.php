@@ -555,9 +555,36 @@ function AJDWP_theme_options_validate($input)
     foreach (['editor_disk_usage_limit', 'author_disk_usage_limit', 'contributor_disk_usage_limit', 'subscriber_disk_usage_limit', 'max_upload_size', 'max_image_height', 'max_image_width', 'min_image_height', 'min_image_width'] as $k) {
         if (isset($input[$k])) $input[$k] = (int) $input[$k];
     }
-    // Scripts (GTM)
+    // Scripts (GTM) — allow the tags we actually need
+    $ajdwp_allowed_gtm_tags = [
+        'script' => [
+            'type'        => true,
+            'src'         => true,
+            'async'       => true,
+            'defer'       => true,
+            'nonce'       => true,
+            'crossorigin' => true,
+        ],
+        'noscript' => [],  // for GTM <noscript> fallback
+        'iframe' => [
+            'src'            => true,
+            'height'         => true,
+            'width'          => true,
+            'style'          => true,
+            'frameborder'    => true,
+            'scrolling'      => true,
+            'referrerpolicy' => true,
+            'allow'          => true,
+            'sandbox'        => true,
+        ],
+    ];
+
     foreach (['gtm_header_script', 'gtm_body_script'] as $k) {
-        if (isset($input[$k])) $input[$k] = wp_kses_post($input[$k]);
+        if (isset($input[$k]) && is_string($input[$k])) {
+            // Optional: strip HTML comments if you don’t want to store them
+            $clean = preg_replace('/<!--.*?-->/s', '', $input[$k]);
+            $input[$k] = wp_kses($clean, $ajdwp_allowed_gtm_tags);
+        }
     }
 
     return $input;
