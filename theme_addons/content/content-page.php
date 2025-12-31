@@ -193,6 +193,7 @@ $options = get_option('AJDWP_theme_options');
         <?php if (!is_page()) : ?>
             <div class="py-4 px-lg-4 border-bottom order-1">
                 <div class="post-date-author text-start text-uppercase">
+                    <?php do_action('post-date-author-start'); ?>
                     <?php if (!empty($options['post_publish_date'])) : ?>
                         <span class="span-postdate"><?php esc_html_e('Post Date:', 'hello-elementor-child'); ?></span>
                         <span class="post-date">
@@ -203,12 +204,15 @@ $options = get_option('AJDWP_theme_options');
                         &nbsp;&nbsp;||&nbsp;&nbsp;
                     <?php endif; ?>
 
+                    <?php if (!empty($options['post_author'])) : ?>
                     <span class="span-writtenby"><?php esc_html_e('Written By:', 'hello-elementor-child'); ?></span>
                     <span class="post-author">
                         <a aria-label="Link to this post authur page" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>">
                             <?php echo esc_html(get_the_author()); ?>
                         </a>
                     </span>
+                    <?php endif; ?>
+                    <?php do_action('post-date-author-end'); ?>
                 </div>
             </div>
         <?php endif; ?>

@@ -176,8 +176,9 @@ function AJDWP_Theme_settings_init()
         'like_follow_system'             => 'Add Like & Follow to Theme',
         'post_views'                     => 'Post View Counter',
         'page_views'                     => 'Page View Counter',
-        'post_publish_date'              => 'Post Publish Date',
-        'page_publish_date'              => 'Page Publish Date',
+        'post_publish_date'              => 'Show Post Publish Date',
+        'post_author'                    => 'Show Post Author',
+        'page_publish_date'              => 'Show Page Publish Date',
         'theme_sidebars'                 => 'AJDWP Theme Sidebars',
         'hide_all_admin_notices'         => 'Hide All Admin Notices',
         'restrict_wp_admin_access'       => 'Restrict Admin Access',
@@ -334,6 +335,7 @@ function AJDWP_Theme_settings_init()
             'gtm_body_script' => '',
             'post_publish_date' => 1,
             'page_publish_date' => 1,
+            'post_author' => 1,
         ];
         update_option('AJDWP_theme_options', $default_options);
     }
@@ -512,6 +514,7 @@ function AJDWP_theme_options_validate($input)
         'post_views',
         'page_views',
         'post_publish_date',
+        'post_author',
         'page_publish_date',
         'theme_sidebars',
         'disable_yoast_metabox',
